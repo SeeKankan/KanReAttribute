@@ -1,0 +1,23 @@
+title: "<rainbow><player_name></rainbow>的属性"
+type: "THREE_BY_NINE"
+border-item:
+  material: "GRAY_STAINED_GLASS_PANE"
+  name: " "
+  lore: []
+  slots: []
+placeholder-item:
+  material: "WHITE_STAINED_GLASS_PANE"
+  name: " "
+  lore: []
+  slots: []
+groups-start: 10
+groups-end: 16
+attribute-groups:
+  attack:
+    material: "DIAMOND_SWORD"
+    name: "<red>攻击属性: </red>"
+    show-attributes:
+      - "KanReAttribute:Damage"
+      - "KanReAttribute:Strength"
+      - "KanReAttribute:CritChance"
+      - "KanReAttribute:CritDamage"

@@ -1,0 +1,18 @@
+command:
+  no_command: "<red>您输入的命令不正确. 请查阅这个命令的相关使用方法.</red>"
+  must_be_player: "<red>只有玩家才能使用这个命令!</red>"
+  no_permission: "<red>您没有权限使用这个命令!</red>"
+  invalid_arguments: "<red>您输入的参数不正确. 请查阅这个命令的相关使用方法.</red>"
+  correct_usage: "<green>正确的用法: </green><white><usage></white>"
+
+  plugin_reload_start: "<aqua>插件开始重载!</aqua>"
+  plugin_reload_start_by_sb: "<aqua><sender>开始了KanReAttribute插件的重载!</aqua>"
+  plugin_reload_success: "<green>插件重新加载成功!</green>"
+  plugin_reload_fail: "<red>插件重新加载失败!</red>"
+
+  query_registered: "<white>注册的 <register_type>: [</white><green><register_list><green><white>]</white>"
+
+  invalid_item_amount: "<red>无效的物品数量: <amount></red>"
+  item_type_not_found: "<red>未找到物品类型: <item_type></red>"
+  item_instance_not_found: "<red>未找到属性实例化配置: <item_instance></red>"
+

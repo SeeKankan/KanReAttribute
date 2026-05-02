@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="80776a2c-3f2c-4ed0-9fed-e2174860b43a" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_C:/Users/ijust/bugs/KanReAttribute" value="3AFdW8NRiGHe2RNtfWVNMDPhhCl" />
+    </persistenceIdMap>
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="KanReAttribute" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="KanReAttribute" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="KanReAttribute" type="f1a62948:ProjectNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="KanReAttribute" type="f1a62948:ProjectNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+                <item name="compileClasspath" type="62daadca:ExternalSystemViewDefaultContributor$DependencyScopeExternalSystemNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Kotlin File" />
+        <option value="Kotlin Enum" />
+        <option value="Kotlin Data Class" />
+        <option value="Kotlin Interface" />
+        <option value="Kotlin Class" />
+        <option value="Kotlin Object" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="customMavenHome" value="C:\Users\ijust\.j\apache-maven-3.8.6" />
+        <option name="localRepository" value="C:\Users\ijust\maven-repo" />
+        <option name="mavenHomeTypeForPersistence" value="CUSTOM" />
+        <option name="userSettingsFile" value="C:\Users\ijust\.j\apache-maven-3.8.6\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="3AFdW8NRiGHe2RNtfWVNMDPhhCl" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Build KanReAttribute.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.KanReAttribute [build].executor": "Debug",
+    "Gradle.KanReAttribute [copyPlugin].executor": "Debug",
+    "Gradle.Load Gradle Dependencies.executor": "Run",
+    "JAR Application.TestServer.executor": "Debug",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ijust\bugs\KanReAttribute\src\main\resources" />
+    </key>
+    <key name="K2MoveDeclarationsDialog.RECENT_PACKAGE_KEY">
+      <recent name="io.seekankan.github.kanreattribute.attribute" />
+      <recent name="io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker" />
+      <recent name="io.seekankan.github.kanreattribute.item" />
+      <recent name="io.seekankan.github.kanreattribute.message" />
+      <recent name="io.seekankan.github.kanreattribute.attribute.data" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JAR Application.TestServer">
+    <configuration name="KanReAttribute [build]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="KanReAttribute [copyPlugin]" type="GradleRunConfiguration" factoryName="Gradle" nameIsGenerated="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="copyPlugin" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="TestServer" type="JarApplication">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/testserver/paper-1.16.5-794.jar" />
+      <option name="VM_PARAMETERS" value="-Xms4G -Xmx4G" />
+      <option name="PROGRAM_PARAMETERS" value="nogui" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\ijust\bugs\KanReAttribute\testserver" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="RunConfigurationTask" enabled="true" run_configuration_name="KanReAttribute [build]" run_configuration_type="GradleRunConfiguration" />
+        <option name="RunConfigurationTask" enabled="true" run_configuration_name="KanReAttribute [copyPlugin]" run_configuration_type="GradleRunConfiguration" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Gradle.KanReAttribute [build]" />
+      <item itemvalue="Gradle.KanReAttribute [copyPlugin]" />
+      <item itemvalue="JAR Application.TestServer" />
+    </list>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.32098.37" />
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-IU-253.32098.37" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="80776a2c-3f2c-4ed0-9fed-e2174860b43a" name="Changes" comment="" />
+      <created>1772192283755</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1772192283755</updated>
+      <workItem from="1772192284277" duration="3971000" />
+      <workItem from="1772242323926" duration="10903000" />
+      <workItem from="1772680331186" duration="14000" />
+      <workItem from="1773494992941" duration="579000" />
+      <workItem from="1773552103210" duration="10000" />
+      <workItem from="1774704129710" duration="4225000" />
+      <workItem from="1774742944905" duration="4887000" />
+      <workItem from="1774755259438" duration="5546000" />
+      <workItem from="1775011155385" duration="9000" />
+      <workItem from="1775280440167" duration="6468000" />
+      <workItem from="1775615624287" duration="7000" />
+      <workItem from="1775825859779" duration="5621000" />
+      <workItem from="1775862178387" duration="2523000" />
+      <workItem from="1775864735599" duration="6010000" />
+      <workItem from="1775875444865" duration="6397000" />
+      <workItem from="1775950804800" duration="7040000" />
+      <workItem from="1775962385503" duration="8445000" />
+      <workItem from="1776430129217" duration="9325000" />
+      <workItem from="1776478954536" duration="3121000" />
+      <workItem from="1776482149498" duration="1580000" />
+      <workItem from="1776490278620" duration="3000" />
+      <workItem from="1776557905624" duration="9572000" />
+      <workItem from="1776749536703" duration="5000" />
+      <workItem from="1777030652798" duration="1565000" />
+      <workItem from="1777034917689" duration="228000" />
+      <workItem from="1777035227931" duration="5686000" />
+      <workItem from="1777088872951" duration="8983000" />
+      <workItem from="1777101762953" duration="3790000" />
+      <workItem from="1777124863256" duration="2000" />
+      <workItem from="1777124887244" duration="6961000" />
+      <workItem from="1777160575069" duration="15009000" />
+      <workItem from="1777183091664" duration="1014000" />
+      <workItem from="1777515928600" duration="13000" />
+      <workItem from="1777605706171" duration="19342000" />
+      <workItem from="1777684822104" duration="8678000" />
+      <workItem from="1777720520621" duration="9979000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="dependencySupport" implementationName="executable:docker" />
+    <option featureType="dependencySupport" implementationName="java:org.spigotmc:spigot-api" />
+    <option featureType="dependencySupport" implementationName="java:net.kyori:adventure-api" />
+    <option featureType="dependencySupport" implementationName="executable:kubectl" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>

@@ -1,0 +1,6 @@
+formatter: '##.#'
+min-value: 0.0
+display-name: <red>基础伤害</red>
+base-value: 5.0
+priority: 0
+max-value: 1.7976931348623157E308

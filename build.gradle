@@ -1,0 +1,174 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import com.github.jengelman.gradle.plugins.shadow.transformers.PropertiesFileTransformer
+
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '2.2.20'
+    id("com.gradleup.shadow") version "8.3.0"
+}
+
+group 'io.seekankan.github'
+version '1.0-SNAPSHOT'
+
+def jvmVersion = "1.8"
+
+build {
+    dependsOn(shadowJar)
+}
+shadowJar {
+//    relocate("de.tr7zw.changeme.nbtapi", "io.seekankan.github.kansky.nbtapi")
+
+    dependencies {
+//        exclude(dependency('com.github.shynixn.kspigot:.*'))
+//        exclude(dependency('org.spigotmc:.*'))
+    }
+    exclude 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA'
+    entryCompression = ZipEntryCompression.STORED
+    zip64 = true
+
+    relocate 'kotlin.reflect', 'io.seekankan.github.kanreattribute.shaded.kotlin.reflect'
+//    reloacte 'kotlinx.coroutines', 'io.seekankan.github.kanreattribute.shaded.coroutines'
+    relocate 'org.jetbrains.kotlinx', 'io.seekankan.github.kanreattribute.shaded.kotlinx'
+
+    relocate 'io.seekankan.github.kanreattribute.compact', 'io.seekankan.github.kanreattribute.shaded.internal.compact'
+    relocate 'org.koin', 'io.seekankan.github.kanreattribute.shaded.koin'
+    relocate 'net.axay.kspigot', 'io.seekankan.github.kanreattribute.shaded.kspigot'
+
+//    relocate '_COROUTINE', 'io.seekankan.github.kanreattribute.shaded._COROUTINE'
+    relocate 'co.touchlab.stately', 'io.seekankan.github.kanreattribute.shaded.stately'
+    relocate 'net.wesjd', 'io.seekankan.github.kanreattribute.shaded.wesjd'
+    relocate 'org.intellij', 'io.seekankan.github.kanreattribute.shaded.intellij'
+    relocate 'org.jetbrains', 'io.seekankan.github.kanreattribute.shaded.jetbrains'
+    relocate 'com.fasterxml', 'io.seekankan.github.kanreattribute.shaded.com.fasterxml'
+
+
+    //Adventure api
+    relocate 'net.kyori', 'io.seekankan.github.kanreattribute.shaded.kyori'
+//    relocate 'net.kyori.adventure.text.minimessage', 'io.seekankan.github.kanreattribute.shaded.kyori.adventure.text.minimessage'
+//    relocate 'net.kyori.adventure.text.serializer.gson', 'io.seekankan.github.kanreattribute.shaded.kyori.adventure.text.serializer.gson'
+
+    relocate 'io.papermc.lib', 'io.seekankan.github.kanreattribute.shaded.paperlib'
+
+//    filesMatching('kotlin/**') {
+//        it.path = "io/seekankan/github/kanreattribute/shaded/kotlin/${it.name}"
+//    }
+//    transform(PropertiesFileTransformer) {
+//        paths = ['META-INF/*.kotlin_module']
+//
+//        mergeStrategy = {entries ->
+//            "META-INF/io.seekankan.github.kanreattribute.shaded.kotlin.kotlin_module"
+//        }
+//        keyTransformer = { key ->
+//            key.replaceAll('kotlin\\.', 'io.seekankan.github.kanreattribute.shaded.kotlin.')
+//        }
+//    }
+//    from {
+//        configurations.compileClasspath.
+//    }
+    def toShade = [
+            'org.yaml.snakeyaml'
+    ]
+    toShade.forEach {
+        relocate(it, "io.seekankan.github.kanreattribute.shaded.$it")
+    }
+    mergeServiceFiles()
+}
+task copyPlugin(type:Copy) {
+//    from file("${rootDir}/build/libs/kansky-1.0-SNAPSHOT-all.jar")
+    from file("${rootDir}/build/libs/kanreattribute-" + version + "-all.jar")
+    into file("${rootDir}/testserver/plugins")
+}
+
+
+repositories {
+    maven { url 'https://maven.aliyun.com/repository/public' }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url 'https://mvn.lumine.io/repository/maven-public/' }
+    maven { url 'https://repo.papermc.io/repository/maven-public/' }
+//    maven { url 'https://papermc.io/repo/repository/maven-public/'}
+    maven {
+        name = "CodeMC"
+        url = uri("https://repo.codemc.io/repository/maven-public/")
+    }
+    maven {
+        url = 'https://repo.extendedclip.com/releases/'
+    }
+    maven { //kspigot
+        url = 'https://jitpack.io'
+    }
+
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.jetbrains:annotations:20.1.0'
+//    implementation 'org.jetbrains.kotlin:kotlin-stdlib:2.2.20'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect:2.2.20'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0'
+    implementation 'io.insert-koin:koin-core:4.2.1'
+
+//    implementation project(':KanUtil')
+
+    compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+//    compileOnly 'io.papermc.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
+//    compileOnly 'com.github.PaperMC:Paper:1.16.5/1.16.5:paper-api:1.16.5-R0.1-SNAPSHOT'
+//    implementation("de.tr7zw:item-nbt-api:2.14.1")
+    compileOnly 'me.clip:placeholderapi:2.11.6'
+//    compileOnly 'io.lumine:Mythic-Dist:4.13.0'
+    implementation 'net.axay:kspigot:1.16.29'
+//    implementation 'com.github.shynixn.kspigot:kspigot-extensions:19.0.0'
+
+    //New Adventure API(MiniMessage)
+    def adventureVersion = "4.15.0"
+//    implementation("net.kyori:adventure-api:$adventureVersion")
+    implementation("net.kyori:adventure-text-minimessage:$adventureVersion")
+//    implementation("net.kyori:adventure-serializer-gson:$adventureVersion")
+    //AdventureAPI Platform
+    implementation("net.kyori:adventure-platform-bukkit:4.3.1") {
+//        exclude([group: "net.kyori", module: "adventure-api"])
+//        exclude([group: "net.kyori", module: "adventure-serializer-gson"])
+    }
+    implementation("io.papermc:paperlib:1.0.8")
+
+    compileOnly fileTree(dir: 'lib/compileOnly', includes: ['*.jar'])
+    implementation fileTree(dir: 'lib/implementation', includes: ['*.jar'])
+
+//    //json
+    implementation("com.fasterxml.jackson.core:jackson-core:2.18.3")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:2.18.3")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.18.3")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.3")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.3")
+
+    //yaml
+    implementation("org.yaml:snakeyaml:2.6")
+}
+//configurations.all {
+//    attributes {
+//        attribute(
+//                TargetJVM,
+//                8
+//        )
+//    }
+//}
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+kotlin {
+    jvmToolchain(17)
+}
+tasks.withType(KotlinCompile).configureEach {
+    kotlinOptions {
+        freeCompilerArgs += "-Xjvm-default=all"
+        jvmTarget = jvmVersion
+    }
+}
+tasks.withType(JavaCompile).configureEach() {
+    sourceCompatibility = jvmVersion
+    targetCompatibility = jvmVersion
+}

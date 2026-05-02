@@ -1,0 +1,12 @@
+name: KanReAttribute
+version: 1.1.0
+author: seekankan
+main: io.seekankan.github.kanreattribute.KanReAttribute
+
+api-version: 1.16
+#depend: [PlaceholderAPI]
+softdepend: [MythicMobs, PlaceholderAPI, Vault]
+
+commands:
+  kanreattribute:
+    aliases: [ ka, kanattr, kra ]

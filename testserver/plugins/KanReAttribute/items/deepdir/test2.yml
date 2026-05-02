@@ -1,0 +1,38 @@
+dragonsword:
+  ==: ConfigurationItemType
+  unique-name: "custom:dragonsword"
+  display-name: "<red>龙剑</red>"
+  priority: 1
+  material: DIAMOND_SWORD
+  slots:
+    - MAIN_HAND
+    - OFF_HAND
+  attributes:
+    KanReAttribute:Damage: 100
+    KanReAttribute:Strength: 100
+#    KanReAttribute:CritDamage: 10.0
+  introduction: "<yellow>这是一把龙剑！</yellow>"
+#  lore:
+#    - "<format_full_item_lore>"
+  custom-config:
+    foo: 114514
+    bar: "kankan"
+    is-happy: false
+
+#dragonsword1:
+#  ==: ConfigurationItemType
+#  unique-name: "custom:dragonsword1"
+#  display-name: "<gold>龙剑</gold>"
+#  priority: 1
+#  material: DIAMOND_SWORD
+#  slots:
+#    - MAIN_HAND
+#    - OFF_HAND
+#  attributes:
+#    KanReAttribute:Damage: 100
+#    KanReAttribute:Strength: 100
+#  introduction: "<blue>这是我的物品！</blue>"
+#  custom-config:
+#    foo: 114514
+#    bar: "kankan"
+#    is-happy: false
