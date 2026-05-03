@@ -3,6 +3,7 @@ package io.seekankan.github.kanreattribute.item.itemtype
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
 import io.seekankan.github.kanreattribute.common.ItemInstanceConfigKey
 import io.seekankan.github.kanreattribute.common.ItemTypeKey
+import io.seekankan.github.kanreattribute.item.data.ItemCategory
 import io.seekankan.github.kanreattribute.item.data.ItemSlot
 import io.seekankan.github.kanreattribute.item.itemcreate.ItemInstanceConfig
 import io.seekankan.github.kanreattribute.util.LifeCycle
@@ -15,6 +16,7 @@ abstract class ItemType : Named<ItemTypeKey>, Comparable<ItemType>, LifeCycle {
     abstract val displayName: String
     abstract val priority: Int
     abstract val material: Material
+    abstract val category: ItemCategory
     abstract val slots: List<ItemSlot>
     abstract val attrMap: AttributeMap
     abstract val introduction: String?

@@ -17,6 +17,7 @@ import io.seekankan.github.kanreattribute.item.itemtype.ConfigurationItemType
 import io.seekankan.github.kanreattribute.item.manager.ItemConditionManager
 import io.seekankan.github.kanreattribute.item.manager.ItemFinderManager
 import io.seekankan.github.kanreattribute.item.manager.ItemTypeManager
+import io.seekankan.github.kanreattribute.item.message.ItemDefinitions
 import org.bukkit.configuration.serialization.ConfigurationSerialization
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -38,12 +39,14 @@ class ItemModule(
     private val itemTypeManager: ItemTypeManager by inject()
     private val itemFinderManager: ItemFinderManager by inject()
     private val itemConditionManager: ItemConditionManager by inject()
+    private val itemDefinitions: ItemDefinitions by inject()
     private val itemFactory: ItemFactory by inject()
 
     override val koinModule: Module = module {
         singleOf(::ItemTypeManager)
         singleOf(::ItemFinderManager)
         singleOf(::ItemConditionManager)
+        singleOf(::ItemDefinitions)
         singleOf(::ItemMetaAssembler)
         singleOf(::ItemFactory)
 
@@ -83,5 +86,6 @@ class ItemModule(
     private fun loadReloadable() {
         itemTypeManager.itemTypeRegistry.clearTransient()
         itemTypeManager.loadAllYMLItemTypes()
+        itemDefinitions.loadConfig()
     }
 }

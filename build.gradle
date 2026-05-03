@@ -23,6 +23,8 @@ shadowJar {
 //        exclude(dependency('org.spigotmc:.*'))
     }
     exclude 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA'
+    exclude '**/module-info.class'
+    exclude 'META-INF/maven/**', 'META-INF/versions/**', 'META-INF/licenses/**'
     entryCompression = ZipEntryCompression.STORED
     zip64 = true
 
@@ -131,8 +133,8 @@ dependencies {
     }
     implementation("io.papermc:paperlib:1.0.8")
 
-    compileOnly fileTree(dir: 'lib/compileOnly', includes: ['*.jar'])
-    implementation fileTree(dir: 'lib/implementation', includes: ['*.jar'])
+//    compileOnly fileTree(dir: 'lib/compileOnly', includes: ['*.jar'])
+//    implementation fileTree(dir: 'lib/implementation', includes: ['*.jar'])
 
 //    //json
     implementation("com.fasterxml.jackson.core:jackson-core:2.18.3")
@@ -143,6 +145,9 @@ dependencies {
 
     //yaml
     implementation("org.yaml:snakeyaml:2.6")
+
+    //nbt api
+    compileOnly("de.tr7zw:item-nbt-api-plugin:2.15.7")
 }
 //configurations.all {
 //    attributes {
@@ -153,22 +158,24 @@ dependencies {
 //    }
 //}
 java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
-    }
+//    toolchain {
+//        languageVersion.set(JavaLanguageVersion.of(17))
+//    }
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 }
-kotlin {
-    jvmToolchain(17)
-}
+//kotlin {
+//    jvmToolchain(17)
+//}
 tasks.withType(KotlinCompile).configureEach {
     kotlinOptions {
         freeCompilerArgs += "-Xjvm-default=all"
         jvmTarget = jvmVersion
+        incremental = true
     }
 }
 tasks.withType(JavaCompile).configureEach() {
     sourceCompatibility = jvmVersion
     targetCompatibility = jvmVersion
+    options.encoding = "UTF-8"
 }

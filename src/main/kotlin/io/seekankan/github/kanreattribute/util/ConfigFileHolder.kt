@@ -2,8 +2,8 @@ package io.seekankan.github.kanreattribute.util
 
 import org.bukkit.plugin.Plugin
 
-class ConfigFileHolder<E>(
-    val plugin: Plugin,
+open class ConfigFileHolder<E>(
+    private val plugin: Plugin,
     val configClass: Class<E>,
     val resourcePath: String
 ) {

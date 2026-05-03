@@ -1,16 +1,12 @@
 package io.seekankan.github.kanreattribute.item.itemcreate.impl
 
-import io.seekankan.github.kanreattribute.attribute.AttributeManager
 import io.seekankan.github.kanreattribute.common.ItemCreateHandlerKey
 import io.seekankan.github.kanreattribute.common.itemCreateHandlerKey
 import io.seekankan.github.kanreattribute.item.itemcreate.ItemCreateContext
 import io.seekankan.github.kanreattribute.item.itemcreate.ItemCreateHandler
 import io.seekankan.github.kanreattribute.item.itemcreate.ItemMetaAssembler
-import io.seekankan.github.kanreattribute.item.manager.ItemTypeManager
-import io.seekankan.github.kanreattribute.message.ItemLoreParser
-import io.seekankan.github.kanreattribute.message.ItemStyleKey
-import io.seekankan.github.kanreattribute.message.MessageManager
-import io.seekankan.github.kanreattribute.message.wrapTag
+import io.seekankan.github.kanreattribute.util.gsonDisplayName
+import io.seekankan.github.kanreattribute.util.gsonLore
 import net.axay.kspigot.items.meta
 import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.Plugin
@@ -43,16 +39,18 @@ class SetItemMetaHandler(
 //            ItemStyleKey.ITEM_INTRODUCTION to itemTypeIntro,
 //            ItemStyleKey.ITEM_ATTRIBUTES to itemAttribute
 //        )
-//        val itemLore = itemLoreParser.parseLore(
+//        val itemLore = itemLoreParser.parseGsonLore(
 //            itemType.lore,
 //            *injectArgs
 //        )
-        val itemLore = itemMetaAssembler.assembleLegacyTextsLore(itemType)
-        val itemDisplayName = itemMetaAssembler.assembleLegacyTextDisplayName(itemType)
+        val itemDisplayName = itemMetaAssembler.assembleGsonDisplayName(itemType)
+        val itemLore = itemMetaAssembler.assembleGsonLore(itemType)
         itemStack.meta {
             setDisplayName(itemDisplayName)
             lore = itemLore
         }
+        itemStack.gsonDisplayName = itemDisplayName
+        itemStack.gsonLore = itemLore
     }
 
     override val uniqueName: ItemCreateHandlerKey = itemCreateHandlerKey(plugin, "ItemLoreHandler")

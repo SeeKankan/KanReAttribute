@@ -1,9 +1,10 @@
-myitem:
+my_iron_sword:
   ==: ConfigurationItemType
-  unique-name: "custom:myitem"
-  display-name: "<green>我的物品</green>"
+  unique-name: "custom:my_iron_sword"
+  display-name: "<green>我的铁剑</green>"
   priority: 1
   material: IRON_SWORD
+  category: GEAR
   slots:
     - MAIN_HAND
     - OFF_HAND
@@ -11,17 +12,25 @@ myitem:
     KanReAttribute:Damage: 100
     KanReAttribute:Strength: 100
     KanReAttribute:CritDamage: 10.0
-  introduction: "<blue>这是我的物品！</blue>"
+  introduction: "<blue>这是我的铁剑！</blue>"
   custom-config:
     foo: 114514
     bar: "kankan"
     is-happy: false
-mybase:
+super_gold_ingot:
+  ==: ConfigurationItemType
+  unique-name: "custom:super_gold_ingot"
+  display-name: "<yellow>超级金锭</yellow>"
+  priority: 1
+  material: GOLD_INGOT
+  category: MATERIAL
+  introduction: "<yellow>一个<bold>致密的</bold>超级金锭！</yellow>"
+mybase: #仅用于测试默认值
   ==: ConfigurationItemType
   unique-name: "custom:mybase"
   material: IRON_INGOT
-  lore:
-    - "<format_item_name>"
+#  lore:
+#    - "<format_item_name>"
 #error:
 #  ==: ConfigurationItemType
 #  unique-name: "asd"

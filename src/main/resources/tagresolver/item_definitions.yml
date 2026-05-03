@@ -1,0 +1,25 @@
+slots:
+  MAIN_HAND: "<green>主手</green>"
+  OFF_HAND: "<blue>副手</blue>"
+
+  HEAD: "<gold>头部</gold>"
+  CHEST: "<gold>胸甲</gold>"
+  LEGS: "<gold>护腿</gold>"
+  FEET: "<gold>靴子</gold>"
+
+  RPG_EQUIPMENT: "<light_purple>挂件</light_purple>"
+  RPG_ACCESSORY: "<aqua>饰品</aqua>"
+  RPG_PET: "<yellow>宠物</yellow>"
+
+  OTHERS: "<gray>其他</gray>"
+
+item-categories:
+  GEAR:
+    display-name: "<green>装备</green>"
+    lore-template: "<format_full_gear_lore>"
+  MATERIAL:
+    display-name: "<yellow>材料</yellow>"
+    lore-template: "<format_full_material_lore>"
+
+
+

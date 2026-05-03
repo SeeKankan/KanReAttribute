@@ -1,9 +1,10 @@
-dragonsword:
+dragon_sword:
   ==: ConfigurationItemType
-  unique-name: "custom:dragonsword"
+  unique-name: "custom:dragon_sword"
   display-name: "<red>龙剑</red>"
   priority: 1
   material: DIAMOND_SWORD
+  category: GEAR
   slots:
     - MAIN_HAND
     - OFF_HAND

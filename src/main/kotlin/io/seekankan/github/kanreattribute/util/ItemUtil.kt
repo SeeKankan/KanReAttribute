@@ -5,8 +5,6 @@ import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
-import kotlin.contracts.ExperimentalContracts
-import kotlin.contracts.contract
 
 inline fun <reified T, P>
         ItemStack.getItemData(key: NamespacedKey, pdcType: PersistentDataType<P,T>): T? {
@@ -28,3 +26,39 @@ fun ItemStack?.isValid(): Boolean {
 //    }
     return this != null && this.type != Material.AIR && this.amount > 0
 }
+
+var ItemStack.gsonDisplayName: String
+    get() {
+        return modifyNBT(this, ItemStackInterface::class.java) { proxy ->
+            return@modifyNBT proxy.displayInterface.gsonDisplayName
+        }
+    }
+    set(value) {
+        modifyNBT(this, ItemStackInterface::class.java) { proxy ->
+            proxy.displayInterface.gsonDisplayName = value
+        }
+    }
+var ItemStack.gsonLore: List<String>?
+    get() {
+        return modifyNBT(this) { nbt ->
+            val display = nbt.getCompound("display") ?: return@modifyNBT null
+            if(!display.hasTag("Lore")) return@modifyNBT null
+            val nbtLoreList = display.getStringList("Lore") ?: return@modifyNBT null
+            return@modifyNBT nbtLoreList.toList()
+        }
+    }
+    set(value) {
+        if(value == null) {
+            this.meta {
+                lore = null
+            }
+            return
+        }
+        modifyNBT(this) { nbt ->
+            val displayNBT = nbt.getOrCreateCompound("display")
+            val nbtLoreList = displayNBT.getStringList("Lore")
+            nbtLoreList.clear()
+
+            nbtLoreList.addAll(value)
+        }
+    }

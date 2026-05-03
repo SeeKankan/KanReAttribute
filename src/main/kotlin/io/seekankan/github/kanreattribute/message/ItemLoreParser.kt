@@ -1,14 +1,12 @@
 package io.seekankan.github.kanreattribute.message
 
 import com.fasterxml.jackson.core.type.TypeReference
-import io.seekankan.github.kanreattribute.util.ConfigFileHolder
-import io.seekankan.github.kanreattribute.util.JacksonUtil
+import io.seekankan.github.kanreattribute.common.ResourceLocation
 import io.seekankan.github.kanreattribute.util.saveFileAndReadYAML
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.JoinConfiguration
 import net.kyori.adventure.text.minimessage.tag.Tag
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.plugin.Plugin
 import java.io.File
 
@@ -16,7 +14,7 @@ class ItemLoreParser(
     private val plugin: Plugin,
     private val messageManager: MessageManager
 ) {
-    private val loreConfigDir = "tagresolver"
+    private val loreConfigDir = ResourceLocation.TAG_RESOLVER_FOLDER
     private val itemStyleConfigFile = File(loreConfigDir, "item_style.yml").path
 
     lateinit var itemStyleMap: Map<String, String>
@@ -52,7 +50,7 @@ class ItemLoreParser(
         return Component.join(JoinConfiguration.separator(separator), parsedLines)
     }
 
-    fun parseLore(textList: List<String>, vararg args: Pair<String, Any>): List<String> {
+    fun parseGsonLore(textList: List<String>, vararg args: Pair<String, Any>): List<String> {
         val itemResolver = TagResolver.builder()
             .resolver(rootResolver)
             .apply {
@@ -64,7 +62,7 @@ class ItemLoreParser(
                 }
             }.build()
 
-        return messageManager.toLegacyTextList(textList, itemResolver)
+        return messageManager.toGsonStringList(textList, itemResolver)
     }
 
 }
