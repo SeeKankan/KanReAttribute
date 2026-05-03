@@ -77,7 +77,7 @@ class MessageManager(
     }
     fun toGsonStringList(textList: List<String>, vararg tagResolvers: TagResolver): List<String> {
         return textList.flatMap {
-            val component = miniMessage.deserialize(it, *tagResolvers) //DEBUG TODO
+            val component = miniMessage.deserialize(it, *tagResolvers)
             val splitComponents = component.splitByNewLine()
             splitComponents
 //            val fullString = LegacyComponentSerializer.legacySection().serialize(component)
