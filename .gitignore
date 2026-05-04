@@ -48,3 +48,6 @@ bin/
 #ignore test server
 testserver/*
 !testserver/plugins
+
+# Java Agent(Hotswap)
+javaagent/*
