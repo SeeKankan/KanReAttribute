@@ -7,20 +7,16 @@ import io.seekankan.github.kanreattribute.attribute.ConfigurableSubAttribute
 import io.seekankan.github.kanreattribute.attribute.Displayable
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
+import io.seekankan.github.kanreattribute.attribute.util.attributeConfig
 import io.seekankan.github.kanreattribute.data.EventData
 
 class Damage(private val plugin: KanReAttribute) : ConfigurableSubAttribute(plugin,
     AttributeType(plugin.name, "Damage")) {
 
-    private val defaultsMap = AttributeKeys.run {
-        hashMapOf(
-            PRIORITY to 0,
-            MIN_VALUE to 0.0,
-            MAX_VALUE to Double.MAX_VALUE,
-            BASE_VALUE to 5.0,
-            DISPLAY_NAME to "<red>基础伤害</red>",
-            FORMATTER to Displayable.DEFAULT_NUMBER_FORMAT_CONFIG
-        )
+    private val defaultsMap = attributeConfig {
+        priority = 0
+        baseValue = 5.0
+        displayName = "<red>基础伤害</red>"
     }
 
     override fun getDefaults(): Map<String, Any> {

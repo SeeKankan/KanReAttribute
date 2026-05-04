@@ -3,6 +3,7 @@ package io.seekankan.github.kanreattribute.util
 import io.seekankan.github.kanreattribute.common.NamespacedKeyOf
 import io.seekankan.github.kanreattribute.common.key
 import io.seekankan.github.kanreattribute.common.namespace
+import kotlin.math.pow
 import kotlin.reflect.KClass
 
 object MathUtil {
@@ -29,5 +30,8 @@ object MathUtil {
             Double::class.java -> number.toDouble()
             else -> throw NumberFormatException("Invalid number type")
         } as T
+    }
+    fun Double.divAndPow(divisor: Double, exponent: Double): Double {
+        return (this / divisor).pow(exponent)
     }
 }

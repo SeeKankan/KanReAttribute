@@ -9,6 +9,7 @@ import io.seekankan.github.kanreattribute.attribute.Displayable
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
 import io.seekankan.github.kanreattribute.attribute.data.AttributeType
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
+import io.seekankan.github.kanreattribute.attribute.util.attributeConfig
 import io.seekankan.github.kanreattribute.data.EventData
 import kotlin.math.pow
 
@@ -27,17 +28,25 @@ class Strength(private val plugin: KanReAttribute) : ConfigurableSubAttribute(pl
     val exponent: Double
         get() = configuration.getDouble(EXPONENT, 1.0)
 
-    private val defaultsMap = AttributeKeys.run {
-        hashMapOf(
-            PRIORITY to 10,
-            MIN_VALUE to 0.0,
-            MAX_VALUE to Double.MAX_VALUE,
-            BASE_VALUE to 1.0,
-            DIVISOR to 100.0,
-            EXPONENT to 1.0,
-            DISPLAY_NAME to "<red>力量倍率</red>",
-            FORMATTER to Displayable.DEFAULT_NUMBER_FORMAT_CONFIG,
-        )
+//    private val defaultsMap = AttributeKeys.run {
+//        hashMapOf(
+//            PRIORITY to 10,
+//            MIN_VALUE to 0.0,
+//            MAX_VALUE to Double.MAX_VALUE,
+//            BASE_VALUE to 1.0,
+//            DIVISOR to 100.0,
+//            EXPONENT to 1.0,
+//            DISPLAY_NAME to "<red>力量倍率</red>",
+//            FORMATTER to Displayable.DEFAULT_NUMBER_FORMAT_CONFIG,
+//        )
+//    }
+
+    private val defaultsMap = attributeConfig {
+        priority = 10
+        baseValue = 0.0
+        divisor = 100.0
+        exponent = 1.0
+        displayName = "<red>力量倍率</red>"
     }
 
     override fun getDefaults(): Map<String, Any> {

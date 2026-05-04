@@ -30,12 +30,12 @@ abstract class ConfigurableSubAttribute(
     override val displayName: String
         get() = configuration.getString(AttributeKeys.DISPLAY_NAME, uniqueName.key) ?: uniqueName.key
     protected val formatterConfig: String
-        get() = configuration.getString(AttributeKeys.FORMATTER, uniqueName.key) ?: "##.#"
+        get() = configuration.getString(AttributeKeys.FORMATTER, uniqueName.key) ?: Displayable.DEFAULT_NUMBER_FORMAT_CONFIG
     protected lateinit var formatter: Lazy<DecimalFormat>
 
     abstract fun getDefaults(): Map<String, Any>
     @Throws(IOException::class)
-    protected fun initConfig() {
+    protected open fun initConfig() {
         val parentDir = configFile.parentFile
         if(parentDir != null && !parentDir.exists()) {
             val created = parentDir.mkdirs()

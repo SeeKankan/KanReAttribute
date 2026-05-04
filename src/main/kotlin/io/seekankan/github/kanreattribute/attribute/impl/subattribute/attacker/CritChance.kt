@@ -8,21 +8,30 @@ import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
 import io.seekankan.github.kanreattribute.attribute.data.AttributeType
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
 import io.seekankan.github.kanreattribute.attribute.data.KanFlag
+import io.seekankan.github.kanreattribute.attribute.util.attributeConfig
 import io.seekankan.github.kanreattribute.data.EventData
 import io.seekankan.github.kanreattribute.util.KanRandom
 
 class CritChance(private val plugin: KanReAttribute) : ConfigurableSubAttribute(plugin,
     AttributeType(plugin.name, "CritChance")) {
 
-    private val defaultsMap = AttributeKeys.run {
-        hashMapOf(
-            PRIORITY to 10,
-            MIN_VALUE to 0.0,
-            MAX_VALUE to 1.0,
-            BASE_VALUE to 0.3,
-            DISPLAY_NAME to "<blue>暴击概率</blue>",
-            FORMATTER to Displayable.DEFAULT_PERCENT_FORMAT_CONFIG
-        )
+//    private val defaultsMap = AttributeKeys.run {
+//        hashMapOf(
+//            PRIORITY to 20,
+//            MIN_VALUE to 0.0,
+//            MAX_VALUE to 1.0,
+//            BASE_VALUE to 0.3,
+//            DISPLAY_NAME to "<blue>暴击概率</blue>",
+//            FORMATTER to Displayable.DEFAULT_PERCENT_FORMAT_CONFIG
+//        )
+//    }
+
+    private val defaultsMap = attributeConfig {
+        priority = 20
+        maxValue = 1.0
+        baseValue = 0.3
+        displayName = "<red>基础伤害</red>"
+        formatter = Displayable.DEFAULT_PERCENT_FORMAT_CONFIG
     }
 
 

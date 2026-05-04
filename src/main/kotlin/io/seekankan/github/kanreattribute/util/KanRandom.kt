@@ -1,5 +1,6 @@
 package io.seekankan.github.kanreattribute.util
 
+import java.util.UUID
 import java.util.concurrent.ThreadLocalRandom
 import kotlin.random.Random
 
@@ -37,5 +38,12 @@ object KanRandom: Random(){
 
         if(fractional == 0.0) return integral
         return integral + if(chance(fractional)) 1 else 0
+    }
+
+    fun generateUUIDFromSeed(seed: ByteArray): UUID {
+        return UUID.nameUUIDFromBytes(seed)
+    }
+    fun generateUUIDFromSeed(seed: String): UUID {
+        return generateUUIDFromSeed(seed.toByteArray())
     }
 }

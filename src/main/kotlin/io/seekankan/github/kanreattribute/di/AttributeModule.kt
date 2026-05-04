@@ -8,9 +8,12 @@ import io.seekankan.github.kanreattribute.attribute.SubAttribute
 import io.seekankan.github.kanreattribute.attribute.impl.attributecalculator.BaseAttributeCalculator
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.Damage
 import io.seekankan.github.kanreattribute.attribute.impl.attributecalculator.ItemAttributeCalculator
+import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.AttackSpeed
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.CritChance
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.CritDamage
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.Strength
+import io.seekankan.github.kanreattribute.attribute.impl.subattribute.defence.Defense
+import io.seekankan.github.kanreattribute.attribute.impl.subattribute.defence.ExtraHealth
 import io.seekankan.github.kanreattribute.attribute.listener.EntityAttributeRefresher
 import org.bukkit.event.HandlerList
 import org.koin.core.component.KoinComponent
@@ -49,6 +52,10 @@ class AttributeModule(
         singleOf(::Strength) bind SubAttribute::class
         singleOf(::CritChance) bind SubAttribute::class
         singleOf(::CritDamage) bind SubAttribute::class
+        singleOf(::AttackSpeed) bind SubAttribute::class
+
+        singleOf(::ExtraHealth) bind SubAttribute::class
+        singleOf(::Defense) bind SubAttribute::class
     }
 
     override fun onEnable() {
