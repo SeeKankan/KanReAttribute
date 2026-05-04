@@ -1,5 +1,5 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import com.github.jengelman.gradle.plugins.shadow.transformers.PropertiesFileTransformer
 
 plugins {
     id 'java'
@@ -75,7 +75,7 @@ shadowJar {
     }
     mergeServiceFiles()
 }
-task copyPlugin(type:Copy) {
+tasks.register('copyPlugin', Copy) {
 //    from file("${rootDir}/build/libs/kansky-1.0-SNAPSHOT-all.jar")
     from file("${rootDir}/build/libs/kanreattribute-" + version + "-all.jar")
     into file("${rootDir}/testserver/plugins")
@@ -148,15 +148,93 @@ dependencies {
 
     //nbt api
     compileOnly("de.tr7zw:item-nbt-api-plugin:2.15.7")
+
+    //test dependencies
+    //junit
+    platform('org.junit:junit-bom:5.14.4')
+    implementation platform('org.junit:junit-bom:5.14.4')
+    testImplementation('org.junit.jupiter:junit-jupiter')
+    testRuntimeOnly('org.junit.platform:junit-platform-launcher')
+
+//    testRuntimeOnly('org.junit.jupiter:junit-jupiter:5.14.4')
+    //junit 5 core
+//    testImplementation 'org.junit.jupiter:junit-platform-launcher:5.14.4'
+    //junit 4
+//    testImplementation('junit:junit:4.13')
+    //mock bukkit
+    testImplementation("com.github.seeseemelk:MockBukkit-v1.16:1.5.2")
 }
-//configurations.all {
-//    attributes {
-//        attribute(
-//                TargetJVM,
-//                8
-//        )
+//test
+
+//tasks.register('shadowJarForTest', ShadowJar) {
+//    archiveClassifier.set('test')
+//    configurations = [project.configurations.testRuntimeClasspath]
+////    relocate 'org.yaml.snakeyaml', 'io.seekankan.github.kanreattribute.shaded.test.yaml.snakeyaml'
+//    def toShade = [
+//            'org.yaml.snakeyaml'
+//    ]
+//    toShade.forEach {
+//        relocate(it, "io.seekankan.github.kanreattribute.shaded.$it")
 //    }
+//    mergeServiceFiles()
 //}
+tasks.register('checkTestShadowJar') {
+    dependsOn tasks.named('shadowJarForTest')
+}
+//test {
+//    group = "verification"
+//    description = "Runs the unit tests with shaded."
+//
+//    dependsOn tasks.named('shadowJarForTest')
+//
+//    classpath = files()
+//    classpath += files(
+//            tasks.named('shadowJarForTest').get().archiveFile.get().asFile,
+//            sourceSets.main.output,
+//            sourceSets.test.java.classesDirectory,
+//    )
+//    testLogging {
+//        events "passed", "skipped", "failed"
+//        exceptionFormat "full"
+//        showStandardStreams = true
+//    }
+//    useJUnitPlatform()
+//}
+// Exclude unshaded snakeyaml during tests so relocated one is used.
+configurations {
+    testRuntimeClasspath {
+        exclude group: 'org.yaml', module: 'snakeyaml'
+    }
+}
+
+tasks.register('shadowJarForTest', ShadowJar) {
+    archiveClassifier.set('test')
+
+    // Shade only main runtime deps (don't package junit/mockbukkit into this jar).
+    configurations = [project.configurations.runtimeClasspath]
+    from sourceSets.main.output
+
+    relocate 'org.yaml.snakeyaml', 'io.seekankan.github.kanreattribute.shaded.org.yaml.snakeyaml'
+    mergeServiceFiles()
+}
+
+test {
+    group = "verification"
+    description = "Runs tests with shaded main classes."
+    dependsOn tasks.named('shadowJarForTest')
+    useJUnitPlatform()
+
+    // Keep only test-specific runtime libs/classes, then add shaded main jar.
+    def testOnlyRuntime = sourceSets.test.runtimeClasspath - sourceSets.main.runtimeClasspath
+    classpath = testOnlyRuntime + files(tasks.named('shadowJarForTest').flatMap { it.archiveFile })
+
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+        showStandardStreams = true
+    }
+}
+
 java {
 //    toolchain {
 //        languageVersion.set(JavaLanguageVersion.of(17))

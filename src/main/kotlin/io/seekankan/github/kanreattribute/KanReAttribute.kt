@@ -1,11 +1,10 @@
 package io.seekankan.github.kanreattribute
 
-import io.seekankan.github.kanreattribute.util.EntityDataCache
 import io.seekankan.github.kanreattribute.util.JacksonUtil
 import net.axay.kspigot.main.KSpigot
-import org.bukkit.entity.Entity
 
-class KanReAttribute: KSpigot() {
+
+open class KanReAttribute: KSpigot() {
 
     lateinit var pluginModuleManager: PluginModuleManager
 
@@ -82,5 +81,9 @@ class KanReAttribute: KSpigot() {
 
     }
 
+
+}
+
+class KanReAttributePlugin: KanReAttribute() {
 
 }
