@@ -35,17 +35,20 @@
 * Damage 基础伤害
 * Strength 力量,除以100(可以在配置文件中更改)后与伤害相乘(加1后)
 * CritDamage 暴击增幅,除以100(可以在配置文件中更改)后与伤害相乘(加1后)
-* CritChance 暴击几率
+* CritChance 暴击几率(0.0-1.0),机率越高,出发暴击的可能性越大
+* AttackSpeed (额外的)攻击速度,速度越高,玩家一秒钟就能挥出越多的剑
   <br>
-#### 防御属性(TODO)
+#### 防御属性
+* ExtraHealth 额外生命值,直接加在玩家的生命值上
 * Defense 防御,计算公式如下:
   $$
-  damage - damage \times \frac{defense}{100}
+  FinalDamage = damage \times \left ( divisor {\div} \left ( divisor +  PlayerDefense^{exponent}  \right )   \right )
   $$
+![a](images/defense-formula-calc.png)
 
 <a name="tips"></a>
 ## 提示
-* 该插件使用了千问AI大模型进行辅助开发，但是核心架构是我自己设计的，不必过度担心，代码我已经审查过了
+* 该插件使用了千问AI大模型和Copilot进行辅助开发，但是核心架构是我自己设计的，不必过度担心，代码我已经审查过了
 
 <a name="warning"></a>
 ## 警告
