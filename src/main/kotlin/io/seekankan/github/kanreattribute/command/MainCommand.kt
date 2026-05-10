@@ -2,7 +2,7 @@ package io.seekankan.github.kanreattribute.command
 
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.message.Message
-import io.seekankan.github.kanreattribute.message.MessageManager
+import io.seekankan.github.kanreattribute.message.MessageService
 import io.seekankan.github.kanreattribute.command.admin.SubAdminCommand
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
@@ -16,7 +16,7 @@ class MainCommand(
     val plugin: KanReAttribute
 ): CommandExecutor, TabCompleter, KoinComponent {
 
-    private val messageManager: MessageManager by inject()
+    private val messageManager: MessageService by inject()
 
     val subCommands = arrayOf(
         SubReloadCommand(plugin),

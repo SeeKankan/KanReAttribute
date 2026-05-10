@@ -1,6 +1,6 @@
 package io.seekankan.github.kanreattribute.gui
 
-import io.seekankan.github.kanreattribute.message.MessageManager
+import io.seekankan.github.kanreattribute.message.MessageService
 import io.seekankan.github.kanreattribute.attribute.AttributeManager
 import io.seekankan.github.kanreattribute.attribute.Displayable
 import io.seekankan.github.kanreattribute.gui.data.AttributeGroupConfig
@@ -21,7 +21,7 @@ import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
 class StateGUIService(
-    private val messageManager: MessageManager,
+    private val messageManager: MessageService,
     private val attributeManager: AttributeManager,
     private val guiProtectService: GUIProtectService,
     private val config: GUIConfig
@@ -38,7 +38,7 @@ class StateGUIService(
 //                        ItemStack(it)
 //                    },
 //                    onClick = { clickEvent, element ->
-//                        clickEvent.player.sendMessage("TODO")
+//                        clickEvent.player.sendMessage("")
 //                    }
 //                )
 //                val materials = Material.entries.filter {

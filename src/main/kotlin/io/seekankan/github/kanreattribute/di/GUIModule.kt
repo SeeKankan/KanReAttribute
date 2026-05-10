@@ -1,7 +1,7 @@
 package io.seekankan.github.kanreattribute.di
 
 import io.seekankan.github.kanreattribute.KanReAttribute
-import io.seekankan.github.kanreattribute.message.MessageManager
+import io.seekankan.github.kanreattribute.message.MessageService
 import io.seekankan.github.kanreattribute.PluginModule
 import io.seekankan.github.kanreattribute.gui.GUIConfig
 import io.seekankan.github.kanreattribute.gui.GUIProtectService
@@ -21,7 +21,7 @@ class GUIModule(
     override val name: String = "GUIModule"
 
     //    private val audiences: BukkitAudiences by inject()
-    private val messageManager: MessageManager by inject()
+    private val messageManager: MessageService by inject()
     private val guiProtectService: GUIProtectService by inject()
     private val guiConfig: GUIConfig by inject()
 //    private val config: Config by inject()

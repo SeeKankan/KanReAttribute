@@ -8,8 +8,8 @@ import com.fasterxml.jackson.module.kotlin.KotlinFeature
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import io.seekankan.github.kanreattribute.PluginInfo
 import io.seekankan.github.kanreattribute.util.JacksonUtil.yamlMapper
-import net.axay.kspigot.gui.GUIType
 import org.bukkit.plugin.Plugin
 import java.io.File
 
@@ -34,16 +34,16 @@ private fun ObjectMapper.applyModule(): ObjectMapper {
 }
 
 
-private fun saveYAMLFile(plugin: Plugin, resourcePath: String): File {
+private fun saveYAMLFile(pluginInfo: PluginInfo, resourcePath: String): File {
     if(!resourcePath.endsWith(".yml")) {
         if(resourcePath.endsWith(".yaml")) {
-            plugin.logger.warning("YAML file does not end with .yml")
-        } else plugin.logger.warning("File '$resourcePath' is not a YAML file")
+            pluginInfo.logger.warning("YAML file does not end with .yml")
+        } else pluginInfo.logger.warning("File '$resourcePath' is not a YAML file")
     }
-    val file = File(plugin.dataFolder, resourcePath)
+    val file = File(pluginInfo.dataFolder, resourcePath)
     if(!file.exists()) {
-        plugin.logger.info("Create file $resourcePath")
-        plugin.saveResource(resourcePath, false)
+        pluginInfo.logger.info("Create file $resourcePath")
+        pluginInfo.saveResource(resourcePath, false)
     }
     return file
 }
@@ -52,19 +52,8 @@ private fun saveYAMLFile(plugin: Plugin, resourcePath: String): File {
  * @param resourcePath 文件的相对路径(比如需要读取resource/foo/bar.yml, 传入foo/bar.yml)
  * @return 被解析好的对象
  */
-inline fun <reified T> saveFileAndReadYAML(plugin: Plugin, resourcePath: String): T {
-//    if(!resourcePath.endsWith(".yml")) {
-//        if(resourcePath.endsWith(".yaml")) {
-//            plugin.logger.warning("YAML file does not end with .yml")
-//        } else plugin.logger.warning("File '$resourcePath' is not a YAML file")
-//    }
-//    val file = File(plugin.dataFolder, resourcePath)
-//    if(!file.exists()) {
-//        plugin.logger.info("Create file $resourcePath")
-//        plugin.saveResource(resourcePath, false)
-//    }
-//    return yamlMapper.readValue(file, T::class.java)
-    return saveFileAndReadYAML(plugin, T::class.java, resourcePath)
+inline fun <reified T> saveFileAndReadYAML(pluginInfo: PluginInfo, resourcePath: String): T {
+    return saveFileAndReadYAML(pluginInfo, T::class.java, resourcePath)
 }
 /**
  * @param plugin 插件
@@ -72,8 +61,8 @@ inline fun <reified T> saveFileAndReadYAML(plugin: Plugin, resourcePath: String)
  * @param resourcePath 文件的相对路径(比如需要读取resource/foo/bar.yml, 传入foo/bar.yml)
  * @return 被解析好的对象
  */
-fun <T> saveFileAndReadYAML(plugin: Plugin, clazz: Class<T>, resourcePath: String): T {
-    val file = saveYAMLFile(plugin, resourcePath)
+fun <T> saveFileAndReadYAML(pluginInfo: PluginInfo, clazz: Class<T>, resourcePath: String): T {
+    val file = saveYAMLFile(pluginInfo, resourcePath)
     return yamlMapper.readValue(file, clazz)
 }
 
@@ -83,8 +72,8 @@ fun <T> saveFileAndReadYAML(plugin: Plugin, clazz: Class<T>, resourcePath: Strin
  * @param resourcePath 文件的相对路径(比如需要读取resource/foo/bar.yml, 传入foo/bar.yml)
  * @return 被解析好的对象
  */
-fun <T> saveFileAndReadYAML(plugin: Plugin, typeRef: TypeReference<T>, resourcePath: String): T {
-    val file = saveYAMLFile(plugin, resourcePath)
+fun <T> saveFileAndReadYAML(pluginInfo: PluginInfo, typeRef: TypeReference<T>, resourcePath: String): T {
+    val file = saveYAMLFile(pluginInfo, resourcePath)
     return yamlMapper.readValue(file, typeRef)
 }
 

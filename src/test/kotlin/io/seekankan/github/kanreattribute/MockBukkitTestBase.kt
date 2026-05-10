@@ -16,13 +16,8 @@ abstract class MockBukkitTestBase {
         println(
             Yaml::class.java.toString()
         )
-        throw IllegalArgumentException(
-
-        )
         server = MockBukkit.mock()
         plugin = MockBukkit.load(KanReAttribute::class.java)
-        throw IllegalArgumentException(this.javaClass.classLoader.toString())
-        plugin = KanReAttribute()
 
         MockBukkit.getOrCreateMock().pluginManager.registerLoadedPlugin(plugin)
     }

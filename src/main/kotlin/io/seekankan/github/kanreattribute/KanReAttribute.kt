@@ -6,7 +6,7 @@ import net.axay.kspigot.main.KSpigot
 
 open class KanReAttribute: KSpigot() {
 
-    lateinit var pluginModuleManager: PluginModuleManager
+    private lateinit var pluginModuleManager: PluginModuleManager
 
 //    private var _attributeManager: AttributeManager? = null
 //    val attributeManager: AttributeManager
@@ -84,6 +84,6 @@ open class KanReAttribute: KSpigot() {
 
 }
 
-class KanReAttributePlugin: KanReAttribute() {
-
-}
+//class KanReAttributePlugin: KanReAttribute() {
+//
+//}

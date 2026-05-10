@@ -145,6 +145,7 @@ dependencies {
 
     //yaml
     implementation("org.yaml:snakeyaml:2.6")
+//    implementation("org.yaml:snakeyaml:1.27")
 
     //nbt api
     compileOnly("de.tr7zw:item-nbt-api-plugin:2.15.7")
@@ -201,18 +202,18 @@ tasks.register('checkTestShadowJar') {
 //    useJUnitPlatform()
 //}
 // Exclude unshaded snakeyaml during tests so relocated one is used.
-configurations {
-    testRuntimeClasspath {
-        exclude group: 'org.yaml', module: 'snakeyaml'
-    }
-}
+//configurations {
+//    testRuntimeClasspath {
+//        exclude group: 'org.yaml', module: 'snakeyaml'
+//    }
+//}
 
 tasks.register('shadowJarForTest', ShadowJar) {
     archiveClassifier.set('test')
 
     // Shade only main runtime deps (don't package junit/mockbukkit into this jar).
     configurations = [project.configurations.runtimeClasspath]
-    from sourceSets.main.output
+//    from sourceSets.main.output
 
     relocate 'org.yaml.snakeyaml', 'io.seekankan.github.kanreattribute.shaded.org.yaml.snakeyaml'
     mergeServiceFiles()
@@ -221,18 +222,30 @@ tasks.register('shadowJarForTest', ShadowJar) {
 test {
     group = "verification"
     description = "Runs tests with shaded main classes."
-    dependsOn tasks.named('shadowJarForTest')
-    useJUnitPlatform()
+    dependsOn(shadowJarForTest)
 
     // Keep only test-specific runtime libs/classes, then add shaded main jar.
-    def testOnlyRuntime = sourceSets.test.runtimeClasspath - sourceSets.main.runtimeClasspath
-    classpath = testOnlyRuntime + files(tasks.named('shadowJarForTest').flatMap { it.archiveFile })
+//    def testOnlyRuntime = sourceSets.test.runtimeClasspath - sourceSets.main.runtimeClasspath
+//    classpath = testOnlyRuntime + files(tasks.named('shadowJarForTest').flatMap { it.archiveFile })
+
+    println(
+            classpath
+    )
+    classpath = files()
+    classpath = files(
+            tasks.shadowJarForTest.outputs.files.singleFile,
+            sourceSets.test.output.classesDirs,
+            sourceSets.test.output.resourcesDir,
+    )
+    classpath += sourceSets.test.runtimeClasspath
 
     testLogging {
         events "passed", "skipped", "failed"
         exceptionFormat "full"
         showStandardStreams = true
     }
+
+    useJUnitPlatform()
 }
 
 java {

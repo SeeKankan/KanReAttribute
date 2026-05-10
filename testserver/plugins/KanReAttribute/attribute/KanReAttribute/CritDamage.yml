@@ -1,8 +1,0 @@
-formatter: '##.#'
-divisor: 100.0
-min-value: 0.0
-display-name: <blue>暴击倍率</blue>
-base-value: 1.0
-priority: 10
-max-value: 1.7976931348623157E308
-exponent: 1.0

@@ -13,8 +13,11 @@ import org.bukkit.plugin.java.JavaPlugin
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.core.module.Module
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.bind
 import org.koin.dsl.binds
 import org.koin.dsl.module
+import java.io.File
 
 class PluginModuleManager(
     val plugin: KanReAttribute
@@ -30,7 +33,7 @@ class PluginModuleManager(
 //        }
 //    }
 
-    val pluginModules: List<PluginModule> = listOf(
+    private val pluginModules: List<PluginModule> = listOf(
         BaseConfigModule(plugin),
 
         ItemModule(plugin),
@@ -50,6 +53,13 @@ class PluginModuleManager(
             single<JavaPlugin> { plugin }
             single { plugin }
             single { plugin.logger }
+
+            singleOf(::PluginInfoImpl) bind PluginInfo::class
+            single {
+                PluginReloader(
+                    this@PluginModuleManager::reload
+                )
+            }
         }
 //        pluginModules.forEachIndexed { index, pluginModule ->
 //            moduleList[index] = pluginModule.createKoinModule()

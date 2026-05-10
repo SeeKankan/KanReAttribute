@@ -1,7 +1,7 @@
 package io.seekankan.github.kanreattribute.command
 
 import io.seekankan.github.kanreattribute.message.Message
-import io.seekankan.github.kanreattribute.message.MessageManager
+import io.seekankan.github.kanreattribute.message.MessageService
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.permissions.Permission
@@ -14,7 +14,7 @@ abstract class SubCommand(
     val types: Array<SenderType> = arrayOf(SenderType.PLAYER, SenderType.CONSOLE),
     val requirePermissions: Array<Permission> = arrayOf()
 ): KoinComponent {
-    protected val messageManager: MessageManager by inject()
+    protected val messageManager: MessageService by inject()
 
     val subCommandNames: List<String> by lazy {
         subCommands.map {

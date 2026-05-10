@@ -5,6 +5,7 @@ import io.seekankan.github.kanreattribute.common.ResourceLocation
 import io.seekankan.github.kanreattribute.util.saveFileAndReadYAML
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.JoinConfiguration
+import net.kyori.adventure.text.minimessage.MiniMessage
 import net.kyori.adventure.text.minimessage.tag.Tag
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 import org.bukkit.plugin.Plugin
@@ -12,7 +13,8 @@ import java.io.File
 
 class ItemLoreParser(
     private val plugin: Plugin,
-    private val messageManager: MessageManager
+    private val miniMessage: MiniMessage,
+    private val messageManager: MessageService
 ) {
     private val loreConfigDir = ResourceLocation.TAG_RESOLVER_FOLDER
     private val itemStyleConfigFile = File(loreConfigDir, "item_style.yml").path
@@ -23,7 +25,7 @@ class ItemLoreParser(
     fun loadConfig() {
         itemStyleMap = saveFileAndReadYAML(plugin, object: TypeReference<Map<String, String>>(){}, itemStyleConfigFile)
 
-        val miniMessage = messageManager.miniMessage
+//        val miniMessage = messageManager.miniMessage
         val builder = TagResolver.builder()
         itemStyleMap.forEach { (key, templateString) ->
             builder.resolver(TagResolver.resolver(key) { args, context ->
@@ -45,7 +47,7 @@ class ItemLoreParser(
                         })
                     }
                 }.build()
-            messageManager.miniMessage.deserialize(eachLoopTemplate, rowResolver)
+            miniMessage.deserialize(eachLoopTemplate, rowResolver)
         }
         return Component.join(JoinConfiguration.separator(separator), parsedLines)
     }

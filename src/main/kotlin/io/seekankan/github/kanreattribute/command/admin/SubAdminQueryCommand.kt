@@ -2,7 +2,7 @@ package io.seekankan.github.kanreattribute.command.admin
 
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.message.Message
-import io.seekankan.github.kanreattribute.message.MessageManager
+import io.seekankan.github.kanreattribute.message.MessageService
 import io.seekankan.github.kanreattribute.attribute.AttributeManager
 import io.seekankan.github.kanreattribute.command.SubCommand
 import io.seekankan.github.kanreattribute.item.manager.ItemConditionManager
@@ -25,16 +25,9 @@ class SubAdminQueryCommand(
         SubQueryRegSubAttribute()
     )
 ) {
-//    override fun onSubCommand(
-//        sender: CommandSender,
-//        command: Command,
-//        label: String
-//    ): Boolean {
-//        TODO("Not yet implemented")
-//    }
 
 }
-private fun sendQuery(messageManager: MessageManager, sender: CommandSender, registerType: String, regListStr: String) {
+private fun sendQuery(messageManager: MessageService, sender: CommandSender, registerType: String, regListStr: String) {
     messageManager.sendTo(sender, Message.COMMAND__QUERY_REGISTERED, "register_type" to registerType, "register_list" to regListStr)
 }
 
