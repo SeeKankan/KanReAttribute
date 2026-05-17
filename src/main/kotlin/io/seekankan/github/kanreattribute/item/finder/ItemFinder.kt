@@ -2,9 +2,9 @@ package io.seekankan.github.kanreattribute.item.finder
 
 import io.seekankan.github.kanreattribute.common.ItemFinderKey
 import io.seekankan.github.kanreattribute.item.data.LivingEntityInventoryData
-import io.seekankan.github.kanreattribute.util.LifeCycle
+import io.seekankan.github.kanreattribute.registry.LifeCycle
 import io.seekankan.github.kanreattribute.util.MathUtil
-import io.seekankan.github.kanreattribute.util.Named
+import io.seekankan.github.kanreattribute.registry.Named
 import org.bukkit.entity.LivingEntity
 
 interface ItemFinder: Named<ItemFinderKey>, Comparable<ItemFinder>, LifeCycle {

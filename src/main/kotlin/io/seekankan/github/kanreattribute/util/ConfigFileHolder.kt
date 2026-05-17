@@ -1,7 +1,6 @@
 package io.seekankan.github.kanreattribute.util
 
 import io.seekankan.github.kanreattribute.PluginInfo
-import org.bukkit.plugin.Plugin
 
 open class ConfigFileHolder<E>(
     private val pluginInfo: PluginInfo,
@@ -16,7 +15,7 @@ open class ConfigFileHolder<E>(
             } else return nullableConfig!!
         }
     fun loadConfig() {
-        nullableConfig = saveFileAndReadYAML(pluginInfo, configClass, resourcePath)
+        nullableConfig = pluginInfo.loadYAML(configClass, resourcePath)
     }
 
 }

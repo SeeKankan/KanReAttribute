@@ -1,16 +1,16 @@
 package io.seekankan.github.kanreattribute.item.message
 
+import io.seekankan.github.kanreattribute.PluginInfo
 import io.seekankan.github.kanreattribute.common.ResourceLocation
 import io.seekankan.github.kanreattribute.item.data.ItemCategory
 import io.seekankan.github.kanreattribute.item.data.ItemSlot
 import io.seekankan.github.kanreattribute.util.ConfigFileHolder
-import org.bukkit.plugin.Plugin
 import java.io.File
 
 class ItemDefinitions(
-    private val plugin: Plugin
+    private val pluginInfo: PluginInfo
 ): ConfigFileHolder<ItemDefinitionConfig>(
-    plugin,
+    pluginInfo,
     ItemDefinitionConfig::class.java,
     File(ResourceLocation.TAG_RESOLVER_FOLDER, "item_definitions.yml").path
 ) {

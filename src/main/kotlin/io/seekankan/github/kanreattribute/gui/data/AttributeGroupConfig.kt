@@ -8,7 +8,7 @@ import org.bukkit.Material
 data class AttributeGroupConfig(
     val material: Material,
     val name: String,
-    @field:JsonProperty("show-attributes")
+    @param:JsonProperty("show-attributes")
     val showAttributes: List<AttributeType>
 ) {
 }

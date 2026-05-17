@@ -5,7 +5,6 @@ import io.seekankan.github.kanreattribute.PluginModule
 import io.seekankan.github.kanreattribute.item.ItemService
 import io.seekankan.github.kanreattribute.item.condition.ItemCondition
 import io.seekankan.github.kanreattribute.item.condition.impl.ItemSlotCondition
-import io.seekankan.github.kanreattribute.item.itemtype.ItemType
 import io.seekankan.github.kanreattribute.item.finder.ItemFinder
 import io.seekankan.github.kanreattribute.item.finder.impl.VanillaInventoryItemFinder
 import io.seekankan.github.kanreattribute.item.itemcreate.ItemCreateHandler
@@ -13,12 +12,11 @@ import io.seekankan.github.kanreattribute.item.itemcreate.ItemFactory
 import io.seekankan.github.kanreattribute.item.itemcreate.ItemMetaAssembler
 import io.seekankan.github.kanreattribute.item.itemcreate.impl.SetItemMetaHandler
 import io.seekankan.github.kanreattribute.item.itemcreate.impl.WriteItemTypeHandler
-import io.seekankan.github.kanreattribute.item.itemtype.ConfigurationItemType
+import io.seekankan.github.kanreattribute.item.itemtype.ItemType
 import io.seekankan.github.kanreattribute.item.manager.ItemConditionManager
 import io.seekankan.github.kanreattribute.item.manager.ItemFinderManager
 import io.seekankan.github.kanreattribute.item.manager.ItemTypeManager
 import io.seekankan.github.kanreattribute.item.message.ItemDefinitions
-import org.bukkit.configuration.serialization.ConfigurationSerialization
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.module.Module
@@ -29,11 +27,11 @@ import org.koin.dsl.module
 class ItemModule(
     private val plugin: KanReAttribute,
 ): PluginModule, KoinComponent {
-    companion object {
-        init {
-            ConfigurationSerialization.registerClass(ConfigurationItemType::class.java, "ConfigurationItemType")
-        }
-    }
+//    companion object {
+//        init {
+//            ConfigurationSerialization.registerClass(ConfigurationItemType::class.java, "ConfigurationItemType")
+//        }
+//    }
     override val name: String = "ItemModule"
 
     private val itemTypeManager: ItemTypeManager by inject()

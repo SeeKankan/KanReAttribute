@@ -8,7 +8,7 @@ import io.seekankan.github.kanreattribute.attribute.data.AttributeType
 import io.seekankan.github.kanreattribute.attribute.util.attributeConfig
 import io.seekankan.github.kanreattribute.data.EventData
 import io.seekankan.github.kanreattribute.util.KanRandom
-import io.seekankan.github.kanreattribute.util.MathUtil.divAndPow
+import io.seekankan.github.kanreattribute.util.divAndPow
 import io.seekankan.github.kanreattribute.util.enumValueOfOrDefault
 import io.seekankan.github.kanreattribute.util.mutableLazy
 import org.bukkit.attribute.Attribute

@@ -12,14 +12,15 @@ class CommandUtil {
 //            if (args.isNotEmpty()) {
 //                latest = args[args.size - 1]
 //            }
-//            filter(list, latest)
+//            retainByPrefix(list, latest)
 //            return list
 //        }
 
-         fun filter(list: MutableList<String>, latest: String?) {
-            if (list.isEmpty() || latest == null) return
-            val ll = latest.lowercase(Locale.getDefault())
-            list.removeIf { k: String -> !k.lowercase(Locale.getDefault()).startsWith(ll) }
-        }
     }
+}
+fun MutableList<String>.retainByPrefix(prefix: String?) {
+    if (this.isEmpty()) return
+    if(prefix == null) return
+    val ll = prefix.lowercase(Locale.getDefault())
+    this.removeIf { k: String -> !k.lowercase(Locale.getDefault()).startsWith(ll) }
 }

@@ -2,36 +2,16 @@ package io.seekankan.github.kanreattribute
 
 import io.seekankan.github.kanreattribute.util.JacksonUtil
 import net.axay.kspigot.main.KSpigot
+import org.bukkit.plugin.Plugin
+import org.bukkit.plugin.java.JavaPlugin
 
+interface KanReAttribute: Plugin {
 
-open class KanReAttribute: KSpigot() {
+}
+class KanReAttributePlugin: KSpigot(), KanReAttribute {
 
     private lateinit var pluginModuleManager: PluginModuleManager
 
-//    private var _attributeManager: AttributeManager? = null
-//    val attributeManager: AttributeManager
-//        get() {
-//            if (_attributeManager  == null) {
-//                throw IllegalStateException("Attribute manager must init before use")
-//            } else return _attributeManager!!
-//        }
-//
-//    var mainCommand: MainCommand? = null
-
-    companion object {
-
-//        private var nullableInstance: KanReAttribute? = null
-
-
-//        @Deprecated("")
-//        val instance: KanReAttribute
-//            get() {
-//                if (nullableInstance  == null) {
-//                    throw IllegalStateException("KanReAttribute must be load or enable before use")
-//                } else return nullableInstance!!
-//            }
-
-    }
 
     override fun load() {
         pluginModuleManager = PluginModuleManager(this)
@@ -83,7 +63,3 @@ open class KanReAttribute: KSpigot() {
 
 
 }
-
-//class KanReAttributePlugin: KanReAttribute() {
-//
-//}

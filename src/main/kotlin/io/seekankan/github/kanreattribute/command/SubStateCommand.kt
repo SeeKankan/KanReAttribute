@@ -6,21 +6,17 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.koin.core.component.inject
+import java.util.EnumSet
 
 class SubStateCommand(
     val plugin: KanReAttribute
 ): SubCommand(
     command = "state",
-    subCommands = listOf()
-
+    types = EnumSet.of(SenderType.PLAYER)
 ) {
     private val stateGUIService: StateGUIService by inject()
 
-    override fun onSubCommand(
-        sender: CommandSender,
-        command: Command,
-        label: String
-    ): Boolean {
+    override fun handleCommand(sender: CommandSender, args: ArgumentList): Boolean {
         if(sender is Player) {
             stateGUIService.openGUI(sender)
         }

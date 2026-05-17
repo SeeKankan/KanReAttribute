@@ -5,18 +5,24 @@ data class MessageConfig(
 )
 data class CommandConfig(
     val common: CommandCommonConfig,
+    val mainCommand: CommandMainCommandConfig,
     val plugin: CommandPluginConfig,
     val items: CommandItemConfig
 
 )
-class CommandCommonConfig(
+data class CommandCommonConfig(
     val noCommand: String,
     val mustBePlayer: String,
+    val mustBeConsole: String,
     val noPermission: String,
+    val missingPermission: String,
     val invalidArguments: String,
     val correctUsage: String
 )
-class CommandPluginConfig(
+data class CommandMainCommandConfig(
+    val introduction: List<String>
+)
+data class CommandPluginConfig(
     val reloadStart: String,
     val reloadStartBySb: String,
     val reloadSuccess: String,
@@ -24,8 +30,9 @@ class CommandPluginConfig(
 
     val queryRegistered: String
 )
-class CommandItemConfig(
+data class CommandItemConfig(
     val invalidItemAmount: String,
+    val itemTypeMissing: String,
     val itemTypeNotFound: String,
     val itemInstanceNotFound: String
 )

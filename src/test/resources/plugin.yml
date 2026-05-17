@@ -1,0 +1,32 @@
+name: KanReAttribute
+version: 1.1.0
+author: seekankan
+main: io.seekankan.github.kanreattribute.MockKanReAttribute
+
+api-version: 1.16
+#depend: [PlaceholderAPI]
+depend: [NBTAPI]
+softdepend: [MythicMobs, PlaceholderAPI, Vault]
+
+commands:
+  kanreattribute:
+    aliases: [ ka, kanattr, kra ]
+
+permissions:
+  kra.user:
+    description: Basic user permission.
+    default: true
+
+  kra.admin.manage:
+    description: The permission of manage the KanReAttribute plugin(like use /kra reload).
+    default: op
+
+  kra.admin.*:
+    description: Give all permission about admin.
+    default: op
+    children:
+      kra.admin.manage: true
+
+  kra.item.give:
+    description: Allow player to get ANY rpg items.
+    default: false

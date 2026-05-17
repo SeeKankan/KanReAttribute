@@ -1,7 +1,6 @@
 package io.seekankan.github.kanreattribute.message
 
 import io.seekankan.github.kanreattribute.PluginInfo
-import io.seekankan.github.kanreattribute.util.saveFileAndReadYAML
 
 class MessageManager(
     private val pluginInfo: PluginInfo
@@ -14,6 +13,6 @@ class MessageManager(
 //            logger.info("Create message.yml");
 //            pluginInfo.saveResource("message.yml", true);
 //        }
-        config = saveFileAndReadYAML(pluginInfo, "message.yml")
+        config = pluginInfo.loadYAML("message.yml")
     }
 }

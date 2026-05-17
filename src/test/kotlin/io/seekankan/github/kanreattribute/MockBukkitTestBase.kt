@@ -11,13 +11,9 @@ abstract class MockBukkitTestBase {
     protected lateinit var plugin: KanReAttribute
 
     @BeforeEach
-    @Suppress("UNREACHABLE_CODE")
     open fun setup() {
-        println(
-            Yaml::class.java.toString()
-        )
         server = MockBukkit.mock()
-        plugin = MockBukkit.load(KanReAttribute::class.java)
+        plugin = MockBukkit.load(MockKanReAttribute::class.java)
 
         MockBukkit.getOrCreateMock().pluginManager.registerLoadedPlugin(plugin)
     }

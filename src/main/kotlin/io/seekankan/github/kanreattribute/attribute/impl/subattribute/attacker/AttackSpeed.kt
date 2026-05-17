@@ -8,12 +8,11 @@ import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
 import io.seekankan.github.kanreattribute.attribute.util.attributeConfig
 import io.seekankan.github.kanreattribute.data.EventData
 import io.seekankan.github.kanreattribute.util.KanRandom
-import io.seekankan.github.kanreattribute.util.MathUtil.divAndPow
+import io.seekankan.github.kanreattribute.util.divAndPow
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.entity.HumanEntity
 import org.bukkit.entity.LivingEntity
-import kotlin.math.pow
 
 class AttackSpeed(private val plugin: KanReAttribute) : ConfigurableSubAttribute(plugin,
     AttributeType(plugin.name, "AttackSpeed")) {

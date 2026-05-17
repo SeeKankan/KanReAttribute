@@ -17,13 +17,13 @@ fun Array<out Pair<String, *>>.toPlaceholderArray():  Array<TagResolver>{
 
 fun Component.splitByNewLine(): List<Component> {
     val lines = mutableListOf<Component>()
-    var current = Component.empty()
+    var current: TextComponent? = null
 
     fun flushLine() {
         if(current != Component.empty()) {
-            lines += current
+            if(current != null) lines += current!!
         }
-        current = Component.empty()
+        current = null
     }
 
     fun walk(node: Component, inherited: Style) {
@@ -34,8 +34,13 @@ fun Component.splitByNewLine(): List<Component> {
             val parts = node.content().split('\n')
             for (i in parts.indices) {
                 val part = parts[i]
-                if (part.isNotEmpty()) { //delete part.isNotBlank
-                    current = current.append(Component.text(part, effectiveStyle))
+                if (part.isNotEmpty() && part != " ") { //delete part.isNotBlank
+                    current = if(current == null) {
+                        Component.text(part, effectiveStyle)
+                    } else {
+                        current!!.append(Component.text(part, effectiveStyle))
+                    }
+
                 }
                 if (i != parts.lastIndex) {
                     flushLine()

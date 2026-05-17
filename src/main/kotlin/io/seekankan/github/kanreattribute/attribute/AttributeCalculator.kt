@@ -1,7 +1,7 @@
 package io.seekankan.github.kanreattribute.attribute
 
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
-import io.seekankan.github.kanreattribute.util.Named
+import io.seekankan.github.kanreattribute.registry.Named
 import org.bukkit.entity.LivingEntity
 
 interface AttributeCalculator: Comparable<AttributeCalculator>, Named<String> {

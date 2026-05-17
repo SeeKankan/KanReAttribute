@@ -6,6 +6,7 @@ import io.seekankan.github.kanreattribute.di.CommandModule
 import io.seekankan.github.kanreattribute.di.GUIModule
 import io.seekankan.github.kanreattribute.di.ItemModule
 import io.seekankan.github.kanreattribute.di.ListenerModule
+import io.seekankan.github.kanreattribute.di.PermissionModule
 import org.bukkit.command.Command
 import org.bukkit.event.HandlerList
 import org.bukkit.plugin.Plugin
@@ -36,6 +37,8 @@ class PluginModuleManager(
     private val pluginModules: List<PluginModule> = listOf(
         BaseConfigModule(plugin),
 
+        PermissionModule(plugin),
+
         ItemModule(plugin),
         AttributeModule(plugin),
 
@@ -50,7 +53,7 @@ class PluginModuleManager(
         }
         val pluginInstanceModule = module {
             single<Plugin> { plugin }
-            single<JavaPlugin> { plugin }
+//            single<JavaPlugin> { plugin }
             single { plugin }
             single { plugin.logger }
 

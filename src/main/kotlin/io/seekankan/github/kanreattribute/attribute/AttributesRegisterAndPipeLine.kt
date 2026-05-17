@@ -2,7 +2,7 @@ package io.seekankan.github.kanreattribute.attribute
 
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.attribute.data.AttributeType
-import io.seekankan.github.kanreattribute.util.RegistryPipeLine
+import io.seekankan.github.kanreattribute.registry.RegistryPipeLine
 
 class AttributeCalculatorRegistry(val plugin: KanReAttribute): RegistryPipeLine<String, AttributeCalculator>() {
     override fun register(value: AttributeCalculator): Boolean {

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 
 class FinalDamageTest: MockBukkitTestBase() {
 
-//    @Test
+    @Test
     fun `Test the final damage`() {
 
     }

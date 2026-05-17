@@ -1,6 +1,5 @@
 package io.seekankan.github.kanreattribute.message
 
-import io.seekankan.github.kanreattribute.KanReAttribute
 import net.kyori.adventure.platform.bukkit.BukkitAudiences
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.MiniMessage
@@ -8,18 +7,14 @@ import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.command.CommandSender
-import org.bukkit.configuration.file.YamlConfiguration
-import java.io.File
-import java.text.MessageFormat
 
 class MessageService(
     private val audiences: BukkitAudiences,
     private val miniMessage: MiniMessage,
+    private val messageManager: MessageManager
 ) {
-//    val miniMessage: MiniMessage by lazy {
-//        MiniMessage.miniMessage()
-//    }
-    private lateinit var messageYML: YamlConfiguration
+
+//    private lateinit var messageYML: YamlConfiguration
 
 
 
@@ -27,26 +22,45 @@ class MessageService(
 //        val rawStr = messageYML.getString(message.loc, message.loc)!!
 //        return MessageFormat.format(rawStr, *args).replace('&', '§')
 //    }
-    fun getComponent(message: Message, vararg args: Pair<String, Any>): Component {
-        val rawStr = messageYML.getString(message.loc, message.loc)!!
-//        val a = Placeholder.parsed(args[0].component1(), args[0].component2().toString())
-//        val placeholders = args.map { (papiName, value) ->
-//            if(value is Component) {
-//                Placeholder.component(papiName, value)
-//            } else Placeholder.parsed(papiName, value.toString())
-//        }.toTypedArray()
+//    @Deprecated("")
+//    fun getComponent(message: Message, vararg args: Pair<String, Any>): Component {
+//        val rawStr = messageYML.getString(message.loc, message.loc)!!
+//        val placeholders = args.toPlaceholderArray()
+//        val component = miniMessage.deserialize(rawStr, *placeholders)
+//        return component
+//    }
+    fun getComponent(message: String, vararg args: Pair<String, *>): Component {
         val placeholders = args.toPlaceholderArray()
-        val component = miniMessage.deserialize(rawStr, *placeholders)
-        return component
+        return miniMessage.deserialize(message, *placeholders)
     }
     fun sendComponent(sender: CommandSender, component: Component) {
         audiences.sender(sender).sendMessage(component)
     }
-    fun sendTo(sender: CommandSender, message: Message, vararg args: Pair<String, Any>) {
+//    @Deprecated("")
+//    fun sendTo(sender: CommandSender, message: Message, vararg args: Pair<String, Any>) {
+//        val component = getComponent(message, *args)
+//        sendComponent(sender, component)
+//    }
+    fun sendParsed(sender: CommandSender, messageFunction: MessageConfig.() -> String) {
+        val message = messageManager.config.messageFunction()
+        val component = getComponent(message)
+        sendComponent(sender, component)
+    }
+    fun sendParsedMessages(sender: CommandSender, messageFunction: MessageConfig.() -> List<String>) {
+        val messages = messageManager.config.messageFunction()
+        messages.forEach {
+            val component = getComponent(it)
+            sendComponent(sender, component)
+        }
+    }
+    fun sendParsed(sender: CommandSender, vararg args: Pair<String, *>, messageFunction: MessageConfig.() -> String) {
+        val message = messageManager.config.messageFunction()
         val component = getComponent(message, *args)
         sendComponent(sender, component)
     }
-    fun toLegacyText(text: String, vararg args: Pair<String, Any>): String {
+
+
+    fun toLegacyText(text: String, vararg args: Pair<String, *>): String {
         val component = miniMessage.deserialize(text, *args.toPlaceholderArray())
         return LegacyComponentSerializer.legacySection().serialize(component)
     }

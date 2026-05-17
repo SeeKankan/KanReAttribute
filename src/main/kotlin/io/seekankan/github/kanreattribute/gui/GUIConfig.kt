@@ -1,9 +1,7 @@
 package io.seekankan.github.kanreattribute.gui
 
-import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.PluginInfo
 import io.seekankan.github.kanreattribute.gui.data.StateGUIConfig
-import io.seekankan.github.kanreattribute.util.saveFileAndReadYAML
 import java.io.File
 
 class GUIConfig(
@@ -16,7 +14,7 @@ class GUIConfig(
     lateinit var stateGUIConfig: StateGUIConfig
 
     fun loadConfig() {
-        stateGUIConfig = saveFileAndReadYAML(pluginInfo, stateGUIConfigFile)
+        stateGUIConfig = pluginInfo.loadYAML(stateGUIConfigFile)
 //        plugin.logger.info("stateGUIConfig: $stateGUIConfig")
     }
 }

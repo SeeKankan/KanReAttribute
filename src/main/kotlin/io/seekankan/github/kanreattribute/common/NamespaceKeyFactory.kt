@@ -22,8 +22,8 @@ value class NamespacedKeyOf<@Suppress("unused") T>(val value: NamespacedKey) {
         return value.toString()
     }
 }
-val NamespacedKeyOf<*>.namespace get() = value.namespace
-val NamespacedKeyOf<*>.key get() = value.key
+inline val NamespacedKeyOf<*>.namespace get() = value.namespace
+inline val NamespacedKeyOf<*>.key get() = value.key
 
 
 interface ItemTypeTag

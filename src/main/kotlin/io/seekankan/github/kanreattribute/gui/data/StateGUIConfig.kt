@@ -9,21 +9,21 @@ data class StateGUIConfig(
     val title: String,
 //    @field:JsonDeserialize(using = GUITypeDeserializer::class, contentAs = Any::class)
     val type: String,
-    @field:JsonProperty("border-item")
+    @param:JsonProperty("border-item")
     val borderItemIcon: IconConfig = IconConfig(
         Material.GRAY_STAINED_GLASS_PANE,
         " "
     ),
-    @field:JsonProperty("placeholder-item")
+    @param:JsonProperty("placeholder-item")
     val placeholderItemIcon: IconConfig = IconConfig(
         Material.WHITE_STAINED_GLASS_PANE,
         " "
     ),
-    @field:JsonProperty("groups-start")
+    @param:JsonProperty("groups-start")
     val groupStart: Int,
-    @field:JsonProperty("groups-end")
+    @param:JsonProperty("groups-end")
     val groupEnd: Int,
-    @field:JsonProperty("attribute-groups")
+    @param:JsonProperty("attribute-groups")
     val attributeGroupMap: Map<String, AttributeGroupConfig> = emptyMap()
 ) {
     fun guiType(): GUIType<*> {

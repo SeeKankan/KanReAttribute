@@ -2,9 +2,18 @@ command:
   common:
     no-command: "<red>您输入的命令不正确. 请查阅这个命令的相关使用方法.</red>"
     must-be-player: "<red>只有玩家才能使用这个命令!</red>"
+    must-be-console: "<red>只有控制台才能使用这个命令!</red>"
     no-permission: "<red>您没有权限使用这个命令!</red>"
+    missing-permission: "<red>您缺失这一些权限: [<aqua><missing_permission></aqua>] </red>"
     invalid-arguments: "<red>您输入的参数不正确. 请查阅这个命令的相关使用方法.</red>"
     correct-usage: "<green>正确的用法: </green><white><usage></white>"
+
+  main-command:
+    introduction:
+      - "--- <green>KanReAttribute</green> ---"
+      - "/kra reload - <click:suggest_command:'/kra admin'><red>重载插件</red></click>"
+      - "<gray>/kra admin - <click:suggest_command:'/kra admin'><red>管理员相关指令</red></click></gray>"
+      - "/kra state - <click:run_command:'/kra state'><red>查看自身属性</red></click>"
 
   plugin:
     reload-start: "<aqua>插件开始重载!</aqua>"
@@ -15,6 +24,7 @@ command:
 
   items:
     invalid-item-amount: "<red>无效的物品数量: <amount></red>"
+    item-type-missing: "<red>缺失物品id.</red>"
     item-type-not-found: "<red>未找到物品类型: <item_type></red>"
     item-instance-not-found: "<red>未找到属性实例化配置: <item_instance></red>"
 

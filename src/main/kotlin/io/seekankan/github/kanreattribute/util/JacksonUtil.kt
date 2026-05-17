@@ -3,11 +3,13 @@ package io.seekankan.github.kanreattribute.util
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.module.kotlin.KotlinFeature
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule
 import io.seekankan.github.kanreattribute.PluginInfo
 import io.seekankan.github.kanreattribute.util.JacksonUtil.yamlMapper
 import org.bukkit.plugin.Plugin
@@ -16,19 +18,27 @@ import java.io.File
 object JacksonUtil {
     val jsonMapper: ObjectMapper = jacksonObjectMapper().applyModule()
 
-    val yamlMapper: ObjectMapper = ObjectMapper(YAMLFactory()).applyModule()
+    val yamlMapper: ObjectMapper = ObjectMapper(YAMLFactory()).applyModule().apply {
+        propertyNamingStrategy = PropertyNamingStrategies.KEBAB_CASE
+    }
 
 }
 private fun ObjectMapper.applyModule(): ObjectMapper {
-     registerKotlinModule().apply {
-        registerModule(KotlinModule.Builder()
+//     registerKotlinModule().apply {
+//        registerModule()
+//
+//
+//    }
+    registerModule(
+        KotlinModule.Builder()
             .configure(KotlinFeature.NullToEmptyCollection, true)
             .configure(KotlinFeature.NullToEmptyMap, true)
             .configure(KotlinFeature.NullIsSameAsDefault, true)
-            .build())
-
-        configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-    }
+            .configure(KotlinFeature.SingletonSupport, true)
+            .build()
+    )
+    registerModule(ParameterNamesModule())
+    configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 //    addMixIn(GUIType::class.java, GUITypeMixin::class.java)
     return this
 }
@@ -48,7 +58,7 @@ private fun saveYAMLFile(pluginInfo: PluginInfo, resourcePath: String): File {
     return file
 }
 /**
- * @param plugin 插件
+ * @param pluginInfo 插件info
  * @param resourcePath 文件的相对路径(比如需要读取resource/foo/bar.yml, 传入foo/bar.yml)
  * @return 被解析好的对象
  */
@@ -56,7 +66,7 @@ inline fun <reified T> saveFileAndReadYAML(pluginInfo: PluginInfo, resourcePath:
     return saveFileAndReadYAML(pluginInfo, T::class.java, resourcePath)
 }
 /**
- * @param plugin 插件
+ * @param pluginInfo 插件info
  * @param clazz 配置文件的class
  * @param resourcePath 文件的相对路径(比如需要读取resource/foo/bar.yml, 传入foo/bar.yml)
  * @return 被解析好的对象
@@ -67,7 +77,7 @@ fun <T> saveFileAndReadYAML(pluginInfo: PluginInfo, clazz: Class<T>, resourcePat
 }
 
 /**
- * @param plugin 插件
+ * @param pluginInfo 插件info
  * @param typeRef 想要转化的类型
  * @param resourcePath 文件的相对路径(比如需要读取resource/foo/bar.yml, 传入foo/bar.yml)
  * @return 被解析好的对象

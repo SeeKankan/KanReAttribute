@@ -1,8 +1,8 @@
 package io.seekankan.github.kanreattribute.message
 
 import com.fasterxml.jackson.core.type.TypeReference
+import io.seekankan.github.kanreattribute.PluginInfo
 import io.seekankan.github.kanreattribute.common.ResourceLocation
-import io.seekankan.github.kanreattribute.util.saveFileAndReadYAML
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.JoinConfiguration
 import net.kyori.adventure.text.minimessage.MiniMessage
@@ -13,6 +13,7 @@ import java.io.File
 
 class ItemLoreParser(
     private val plugin: Plugin,
+    private val pluginInfo: PluginInfo,
     private val miniMessage: MiniMessage,
     private val messageManager: MessageService
 ) {
@@ -23,7 +24,7 @@ class ItemLoreParser(
     lateinit var rootResolver: TagResolver
 
     fun loadConfig() {
-        itemStyleMap = saveFileAndReadYAML(plugin, object: TypeReference<Map<String, String>>(){}, itemStyleConfigFile)
+        itemStyleMap = pluginInfo.loadYAML(object: TypeReference<Map<String, String>>(){}, itemStyleConfigFile)
 
 //        val miniMessage = messageManager.miniMessage
         val builder = TagResolver.builder()
