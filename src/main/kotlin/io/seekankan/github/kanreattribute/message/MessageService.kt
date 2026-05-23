@@ -14,21 +14,6 @@ class MessageService(
     private val messageManager: MessageManager
 ) {
 
-//    private lateinit var messageYML: YamlConfiguration
-
-
-
-//    fun getMessage(message: Message, vararg args: Any): String {
-//        val rawStr = messageYML.getString(message.loc, message.loc)!!
-//        return MessageFormat.format(rawStr, *args).replace('&', '§')
-//    }
-//    @Deprecated("")
-//    fun getComponent(message: Message, vararg args: Pair<String, Any>): Component {
-//        val rawStr = messageYML.getString(message.loc, message.loc)!!
-//        val placeholders = args.toPlaceholderArray()
-//        val component = miniMessage.deserialize(rawStr, *placeholders)
-//        return component
-//    }
     fun getComponent(message: String, vararg args: Pair<String, *>): Component {
         val placeholders = args.toPlaceholderArray()
         return miniMessage.deserialize(message, *placeholders)
@@ -36,11 +21,7 @@ class MessageService(
     fun sendComponent(sender: CommandSender, component: Component) {
         audiences.sender(sender).sendMessage(component)
     }
-//    @Deprecated("")
-//    fun sendTo(sender: CommandSender, message: Message, vararg args: Pair<String, Any>) {
-//        val component = getComponent(message, *args)
-//        sendComponent(sender, component)
-//    }
+
     fun sendParsed(sender: CommandSender, messageFunction: MessageConfig.() -> String) {
         val message = messageManager.config.messageFunction()
         val component = getComponent(message)
@@ -84,16 +65,10 @@ class MessageService(
             splitComponents
 //            val fullString = LegacyComponentSerializer.legacySection().serialize(component)
 //            GsonComponentSerializer.gson().serialize(component)
-//            plugin.logger.info("$json")
 //            fullString.split("\n")
         }.map {
             GsonComponentSerializer.gson().serialize(it)
         }
-//        val separator = Component.newline()
-//        val components = textList.map {
-//            miniMessage.deserialize(it, *tagResolvers).spliterator()
-//        }
-//
-//        return "a".split()
+
     }
 }

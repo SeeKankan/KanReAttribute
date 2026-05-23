@@ -24,15 +24,6 @@ class PluginModuleManager(
     val plugin: KanReAttribute
 ) {
 
-//    companion object {
-//        fun createKoinModule(): Module {
-//            return module {
-//                single(createdAtStart = true) {
-//                    val manager =
-//                }
-//            }
-//        }
-//    }
 
     private val pluginModules: List<PluginModule> = listOf(
         BaseConfigModule(plugin),
@@ -64,9 +55,6 @@ class PluginModuleManager(
                 )
             }
         }
-//        pluginModules.forEachIndexed { index, pluginModule ->
-//            moduleList[index] = pluginModule.createKoinModule()
-//        }
         startKoin {
             modules(pluginInstanceModule)
 
@@ -79,12 +67,6 @@ class PluginModuleManager(
         }
     }
 
-//    fun enable() {
-//        pluginModules.forEach { module ->
-//            module.onEnable()
-//            plugin.logger.info("Enable plugin module: ${module.name}")
-//        }
-//    }
     fun reload() {
         pluginModules.forEach { module ->
             plugin.logger.info("Reloading plugin module: ${module.name}")
