@@ -15,7 +15,7 @@ object MathUtil {
     ): Int {
         val num1 = selfPriority.compareTo(otherPriority)
         return if(num1 != 0) num1 else {
-            val num2 = self.uniqueName.namespace.compareTo(self.uniqueName.namespace)
+            val num2 = self.uniqueName.namespace.compareTo(other.uniqueName.namespace)
             if(num2 != 0) num2 else self.uniqueName.key.compareTo(other.uniqueName.key)
         }
     }

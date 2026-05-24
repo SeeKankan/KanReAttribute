@@ -34,7 +34,7 @@ fun Component.splitByNewLine(): List<Component> {
             val parts = node.content().split('\n')
             for (i in parts.indices) {
                 val part = parts[i]
-                if (part.isNotEmpty() && part != " ") { //delete part.isNotBlank
+                if (part.isNotEmpty()) { //delete part.isNotBlank
                     current = if(current == null) {
                         Component.text(part, effectiveStyle)
                     } else {

@@ -61,6 +61,10 @@ class AttackSpeed(private val plugin: KanReAttribute) : ConfigurableSubAttribute
         val attackSpeedAttribute = entity.getAttribute(Attribute.GENERIC_ATTACK_SPEED)?: return
         val modifierValue = correctValue(attrValue).divAndPow(divisor, exponent)
         val modifier = createAttackSpeedModifier(modifierValue)
+        attackSpeedAttribute.removeModifier(modifier)
+//        if(modifier in attackSpeedAttribute.modifiers) {
+//            attackSpeedAttribute.removeModifier(modifier)
+//        }
         attackSpeedAttribute.addModifier(modifier)
     }
 

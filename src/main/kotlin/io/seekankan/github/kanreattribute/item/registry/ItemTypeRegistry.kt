@@ -5,12 +5,14 @@ import io.seekankan.github.kanreattribute.item.itemtype.ItemType
 import io.seekankan.github.kanreattribute.registry.RegisterResult
 import io.seekankan.github.kanreattribute.registry.UnregisterResult
 import java.util.Collections
+import java.util.NavigableMap
+import java.util.TreeSet
 import java.util.logging.Logger
 
 open class ItemTypeRegistry(
     private val logger: Logger
 ) {
-    private val items: MutableSet<ItemType> = hashSetOf()
+    private val items: MutableSet<ItemType> = TreeSet()
     private val persistentRegisterMap: MutableMap<ItemTypeKey, ItemType> = hashMapOf()
     private val transientRegisterMap: MutableMap<ItemTypeKey, ItemType> = hashMapOf()
 

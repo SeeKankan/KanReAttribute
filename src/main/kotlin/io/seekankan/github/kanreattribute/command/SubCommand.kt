@@ -30,6 +30,16 @@ abstract class SubCommand<in T: CommandSender>(
 //        }
 //    }
 
+    protected inline fun <R> checkPermission(sender: CommandSender, whenFailed: (PermissionResult.Failed) -> R) {
+        when(val result = hasPermissions(sender)) {
+            is PermissionResult.Failed -> {
+                whenFailed(result)
+            }
+
+            PermissionResult.Success -> {}
+        }
+    }
+
     protected fun isValidSenderType(sender: CommandSender): Boolean {
         return sender isInstanceOf types
     }
@@ -83,45 +93,60 @@ abstract class SubCommand<in T: CommandSender>(
         sender: CommandSender,
         args: ArgumentList
     ): Boolean {
-        if(!args.hasNext()) {
-            when(val result = hasPermissions(sender)) {
-                is PermissionResult.Failed -> {
-                    sendMissingPermission(sender, result)
-                    return true
-                }
-                PermissionResult.Success -> {
-//                    val senderType = sender.getSenderType()
-//                    if(senderType !in types) {
-//                        when(senderType) {
-//                            SenderType.PLAYER -> sendMustBeConsole(sender)
-//                            SenderType.CONSOLE -> sendMustBePlayer(sender)
-//                        }
+//        if(!args.hasNext()) {
+//            when(val result = hasPermissions(sender)) {
+//                is PermissionResult.Failed -> {
+//                    sendMissingPermission(sender, result)
+//                    return true
+//                }
+//                PermissionResult.Success -> {
+//                    if(!isValidSenderType(sender)) {
+//                        sendInvalidSenderType(sender)
 //                        return true
 //                    }
-                    if(!isValidSenderType(sender)) {
-                        sendInvalidSenderType(sender)
-                        return true
-                    }
-                    sender as T
-                    return handleCommand(sender, args)
-                }
-            }
+//                    sender as T
+//                    return handleCommand(sender, args)
+//                }
+//            }
+//        } else {
+//            return handleWithArgument(sender, args)
+//        }
+        val hasArgument = args.hasNext()
+        if(hasArgument && subCommands.isNotEmpty()) {
+            return handleSubCommand(sender, args)
+        }
+        checkPermission(sender) {
+            sendMissingPermission(sender, it)
+            return true
+        }
+        if(!isValidSenderType(sender)) {
+            sendInvalidSenderType(sender)
+            return true
+        }
+        sender as T
+        return if(!hasArgument) {
+            handleCommand(sender, args)
         } else {
-            return handleWithArgument(sender, args)
+            handleWithArgument(sender, args)
         }
     }
     open fun handleCommand(sender: T, args: ArgumentList): Boolean{
-        sendInvalid(sender)
+        sendCorrectUsage(sender)
+//        sendInvalid(sender)
         return true
     }
-    open fun handleWithArgument(sender: CommandSender, args: ArgumentList): Boolean {
+    open fun handleSubCommand(sender: CommandSender, args: ArgumentList): Boolean {
         val popArg = args.pop() ?: return true
         val exeSubCommand = subCommands[popArg]
         if(exeSubCommand == null) {
-            sendInvalid(sender)
+            sendCorrectUsage(sender)
             return true
         }
         return exeSubCommand.onCommandBody(sender, args)
+    }
+    open fun handleWithArgument(sender: T, args: ArgumentList): Boolean {
+        sendCorrectUsage(sender)
+        return true
     }
 
     open fun onTabComplete(

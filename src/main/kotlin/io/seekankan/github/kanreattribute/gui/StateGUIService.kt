@@ -111,8 +111,11 @@ class StateGUIService(
 //            }
 //        }
         val compound = createAttributeCompound(player)
-        config.stateGUIConfig.attributeGroupMap.forEach { (_, config) ->
-            compound.addContent(player to config)
+//        config.stateGUIConfig.attributeGroupMap.forEach { (_, config) ->
+//            compound.addContent(player to config)
+//        }
+        config.stateGUIConfig.sortAttributeGroupSet.forEach {
+            compound.addContent(player to it)
         }
     }
     private fun genIcon(pair: Pair<Player, AttributeGroupConfig>): ItemStack {

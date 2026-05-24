@@ -40,8 +40,10 @@ private fun sendQuery(messageService: MessageService, sender: CommandSender, reg
 
 class SubQueryRegItemFindersCommand: SubCommand<CommandSender>(
     "regitemfinders",
-    usage = "/kra admin query regitemfinders"
-
+    requirePermissions = listOf(
+        PermissionNode.Admin.Manage
+    ),
+    usage = "/kra admin query regitemfinders",
 ), KoinComponent {
     val itemFinderManager: ItemFinderManager by inject()
 
@@ -56,6 +58,9 @@ class SubQueryRegItemFindersCommand: SubCommand<CommandSender>(
 }
 class SubQueryRegItemConditionsCommand: SubCommand<CommandSender>(
     "regitemconditions",
+    requirePermissions = listOf(
+        PermissionNode.Admin.Manage
+    ),
     usage = "/kra admin query regitemconditions"
 
 ), KoinComponent {
@@ -72,6 +77,9 @@ class SubQueryRegItemConditionsCommand: SubCommand<CommandSender>(
 }
 class SubQueryRegItemTypeCommand: SubCommand<CommandSender>(
     "regitemtypes",
+    requirePermissions = listOf(
+        PermissionNode.Admin.Manage
+    ),
     usage = "/kra admin query regitemtypes"
 ), KoinComponent {
     val itemTypeManager: ItemTypeManager by inject()
@@ -88,6 +96,9 @@ class SubQueryRegItemTypeCommand: SubCommand<CommandSender>(
 
 class SubQueryRegAttributeCalculatorCommand: SubCommand<CommandSender>(
     "regattributecalculators",
+    requirePermissions = listOf(
+        PermissionNode.Admin.Manage
+    ),
     usage = "/kra admin query regattributecalculators"
 ), KoinComponent {
     val attributeManager: AttributeManager by inject()
@@ -104,6 +115,9 @@ class SubQueryRegAttributeCalculatorCommand: SubCommand<CommandSender>(
 
 class SubQueryRegSubAttribute: SubCommand<CommandSender>(
     "regsubattributes",
+    requirePermissions = listOf(
+        PermissionNode.Admin.Manage
+    ),
     usage = "/kra admin query regsubattributes"
 ), KoinComponent {
     val attributeManager: AttributeManager by inject()

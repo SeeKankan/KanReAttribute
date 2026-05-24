@@ -83,6 +83,10 @@ class ExtraHealth(
         val maxHealthAttribute = entity.getAttribute(Attribute.GENERIC_MAX_HEALTH)?: return
         val modifierValue = correctValue(attrValue).divAndPow(divisor, exponent)
         val modifier = createMaxHealthModifier(modifierValue)
+        maxHealthAttribute.removeModifier(modifier)
+//        if(modifier in maxHealthAttribute.modifiers) {
+//            maxHealthAttribute.removeModifier(modifier)
+//        }
         maxHealthAttribute.addModifier(modifier)
 
         //Check zip health

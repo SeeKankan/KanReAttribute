@@ -18,7 +18,7 @@ command:
   main-command:
     introduction:
       - "--- <green>KanReAttribute</green> ---"
-      - "/kra reload - <click:suggest_command:'/kra admin'><red>重载插件</red></click>"
+      - "/kra reload - <click:suggest_command:'/kra reload'><red>重载插件</red></click>"
       - "<gray>/kra admin - <click:suggest_command:'/kra admin'><red>管理员相关指令</red></click></gray>"
       - "/kra state - <click:run_command:'/kra state'><red>查看自身属性</red></click>"
 

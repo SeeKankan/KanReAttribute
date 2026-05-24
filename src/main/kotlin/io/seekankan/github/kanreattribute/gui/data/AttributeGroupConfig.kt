@@ -6,9 +6,18 @@ import io.seekankan.github.kanreattribute.common.ItemTypeKey
 import org.bukkit.Material
 
 data class AttributeGroupConfig(
+    val priority: Int = 0,
     val material: Material,
     val name: String,
-    @param:JsonProperty("show-attributes")
+    @field:JsonProperty("show-attributes")
     val showAttributes: List<AttributeType>
-) {
+): Comparable<AttributeGroupConfig> {
+    override fun compareTo(other: AttributeGroupConfig): Int {
+        return compareValuesBy(this,
+            other,
+            { it.priority },
+            { it.name },
+            { it.material }
+            )
+    }
 }

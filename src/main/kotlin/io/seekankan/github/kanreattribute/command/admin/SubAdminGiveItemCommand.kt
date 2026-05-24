@@ -40,7 +40,7 @@ class SubAdminGiveItemCommand(
         )
         return itemFactory.createItemStack(itemCreateContext)
     }
-    override fun handleCommand(sender: Player, args: ArgumentList): Boolean {
+    override fun handleWithArgument(sender: Player, args: ArgumentList): Boolean {
         val itemTypeAndInstanceConfig = args.pop() ?: run {
             messageService.sendParsed(sender) {
                 command.items.itemTypeMissing

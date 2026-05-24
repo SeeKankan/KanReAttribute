@@ -17,6 +17,9 @@ class CommandMap internal constructor(
             cmdName.startsWith(prefix, ignoreCase = true) && subCommand.hasPermissions(commandSender).isSuccess()
         }.keys.toList()
     }
+    fun isNotEmpty(): Boolean {
+        return map.isNotEmpty()
+    }
 
 }
 fun commandMapOf(vararg commands: SubCommand<*>): CommandMap {
