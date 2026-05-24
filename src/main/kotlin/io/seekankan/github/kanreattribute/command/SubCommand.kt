@@ -1,5 +1,6 @@
 package io.seekankan.github.kanreattribute.command
 
+import io.seekankan.github.kanreattribute.extensions.isInstanceOf
 import io.seekankan.github.kanreattribute.message.MessageManager
 import io.seekankan.github.kanreattribute.message.MessageService
 import io.seekankan.github.kanreattribute.permission.PermissionNode
@@ -8,22 +9,16 @@ import io.seekankan.github.kanreattribute.permission.PermissionService
 import org.bukkit.command.CommandSender
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import java.util.EnumSet
 
-abstract class SubCommand(
+abstract class SubCommand<in T: CommandSender>(
     val command: String,
     val subCommands: CommandMap = emptyCommandMap(),
-    val types: EnumSet<SenderType> = EnumSet.allOf(SenderType::class.java),
+    val types: Class<*> = CommandSender::class.java,
     val requirePermissions: List<PermissionNode> = listOf(),
-    val usage: String = "/<command> ..."
+    val usage: String
 ): KoinComponent {
-    val lowerCaseCommand: String
-
-    init {
-        if(types.isEmpty()) throw IllegalArgumentException("Command type cannot be empty")
-
-        lowerCaseCommand = command.lowercase()
-    }
+    //        if(types.isEmpty()) throw IllegalArgumentException("Command type cannot be empty")
+    val lowerCaseCommand: String = command.lowercase()
 
     protected val permissionService: PermissionService by inject()
     protected val messageManager: MessageManager by inject()
@@ -35,20 +30,29 @@ abstract class SubCommand(
 //        }
 //    }
 
-
+    protected fun isValidSenderType(sender: CommandSender): Boolean {
+        return sender isInstanceOf types
+    }
     protected fun sendInvalid(sender: CommandSender) {
         messageService.sendParsed(sender) {
             command.common.noCommand
         }
     }
-    protected fun sendMustBePlayer(sender: CommandSender) {
-        messageService.sendParsed(sender) {
-            command.common.mustBePlayer
-        }
-    }
-    protected fun sendMustBeConsole(sender: CommandSender) {
-        messageService.sendParsed(sender) {
-            command.common.mustBeConsole
+//    protected fun sendMustBePlayer(sender: CommandSender) {
+//        messageService.sendParsed(sender) {
+//            command.common.mustBePlayer
+//        }
+//    }
+//    protected fun sendMustBeConsole(sender: CommandSender) {
+//        messageService.sendParsed(sender) {
+//            command.common.mustBeConsole
+//        }
+//    }
+
+    protected fun sendInvalidSenderType(sender: CommandSender) {
+        val formatRequireSenderType = messageService.formatSenderType(types)
+        messageService.sendParsed(sender, "sender_type" to formatRequireSenderType) {
+            command.common.invalidSenderType
         }
     }
     fun hasPermissions(sender: CommandSender): PermissionResult {
@@ -86,14 +90,19 @@ abstract class SubCommand(
                     return true
                 }
                 PermissionResult.Success -> {
-                    val senderType = sender.getSenderType()
-                    if(senderType !in types) {
-                        when(senderType) {
-                            SenderType.PLAYER -> sendMustBeConsole(sender)
-                            SenderType.CONSOLE -> sendMustBePlayer(sender)
-                        }
+//                    val senderType = sender.getSenderType()
+//                    if(senderType !in types) {
+//                        when(senderType) {
+//                            SenderType.PLAYER -> sendMustBeConsole(sender)
+//                            SenderType.CONSOLE -> sendMustBePlayer(sender)
+//                        }
+//                        return true
+//                    }
+                    if(!isValidSenderType(sender)) {
+                        sendInvalidSenderType(sender)
                         return true
                     }
+                    sender as T
                     return handleCommand(sender, args)
                 }
             }
@@ -101,12 +110,13 @@ abstract class SubCommand(
             return handleWithArgument(sender, args)
         }
     }
-    open fun handleCommand(sender: CommandSender, args: ArgumentList): Boolean {
+    open fun handleCommand(sender: T, args: ArgumentList): Boolean{
         sendInvalid(sender)
         return true
     }
     open fun handleWithArgument(sender: CommandSender, args: ArgumentList): Boolean {
-        val exeSubCommand = subCommands[args.pop()!!]
+        val popArg = args.pop() ?: return true
+        val exeSubCommand = subCommands[popArg]
         if(exeSubCommand == null) {
             sendInvalid(sender)
             return true

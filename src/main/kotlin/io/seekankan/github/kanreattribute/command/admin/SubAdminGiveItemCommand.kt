@@ -2,7 +2,6 @@ package io.seekankan.github.kanreattribute.command.admin
 
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.command.ArgumentList
-import io.seekankan.github.kanreattribute.command.SenderType
 import io.seekankan.github.kanreattribute.command.SubCommand
 import io.seekankan.github.kanreattribute.command.retainByPrefix
 import io.seekankan.github.kanreattribute.common.ItemTypeTag
@@ -13,18 +12,21 @@ import io.seekankan.github.kanreattribute.item.itemcreate.ItemFactory
 import io.seekankan.github.kanreattribute.item.itemcreate.ItemInstanceConfig
 import io.seekankan.github.kanreattribute.item.itemtype.ItemType
 import io.seekankan.github.kanreattribute.item.manager.ItemTypeManager
+import io.seekankan.github.kanreattribute.permission.PermissionNode
 import net.axay.kspigot.extensions.bukkit.give
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.koin.core.component.inject
-import java.util.*
 
 class SubAdminGiveItemCommand(
     val plugin: KanReAttribute
-): SubCommand(
+): SubCommand<Player>(
     command = "giveitem",
-    types = EnumSet.of(SenderType.PLAYER),
+    types = Player::class.java,
+    requirePermissions = listOf(
+        PermissionNode.Item.Give
+    ),
     usage = "/kanreattribute admin giveitem <item_type>:[item_instance_type] <amount>"
 ) {
     private val itemTypeManager: ItemTypeManager by inject()
@@ -38,15 +40,7 @@ class SubAdminGiveItemCommand(
         )
         return itemFactory.createItemStack(itemCreateContext)
     }
-    override fun onCommandBody(sender: CommandSender, args: ArgumentList): Boolean {
-        if(sender !is Player) {
-//            messageManager.sendTo(sender, Message.COMMAND__MUST_BE_PLAYER)
-            return true
-        }
-//        if(args.size < 2) {
-//            sendCorrectUsage(sender)
-//            return true
-//        }
+    override fun handleCommand(sender: Player, args: ArgumentList): Boolean {
         val itemTypeAndInstanceConfig = args.pop() ?: run {
             messageService.sendParsed(sender) {
                 command.items.itemTypeMissing
@@ -128,7 +122,6 @@ class SubAdminGiveItemCommand(
         instConfig = nItemType.instanceConfig[instConfigKey]!!
 
         sender.give(createItem(itemType, instConfig, itemAmount))
-
 
         return true
     }

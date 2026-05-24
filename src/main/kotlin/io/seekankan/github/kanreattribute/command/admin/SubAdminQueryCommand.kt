@@ -9,13 +9,14 @@ import io.seekankan.github.kanreattribute.item.manager.ItemConditionManager
 import io.seekankan.github.kanreattribute.item.manager.ItemFinderManager
 import io.seekankan.github.kanreattribute.item.manager.ItemTypeManager
 import io.seekankan.github.kanreattribute.message.MessageService
+import io.seekankan.github.kanreattribute.permission.PermissionNode
 import org.bukkit.command.CommandSender
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 class SubAdminQueryCommand(
     val plugin: KanReAttribute
-): SubCommand(
+): SubCommand<CommandSender>(
     command = "query",
     subCommands = commandMapOf(
         SubQueryRegItemFindersCommand(),
@@ -23,7 +24,11 @@ class SubAdminQueryCommand(
         SubQueryRegItemTypeCommand(),
         SubQueryRegAttributeCalculatorCommand(),
         SubQueryRegSubAttribute()
-    )
+    ),
+    requirePermissions = listOf(
+        PermissionNode.Admin.Manage
+    ),
+    usage = "/kra admin query <regitemfinders|regitemconditions|regitemtypes|regattributecalculators|regsubattributes>"
 )
 
 private fun sendQuery(messageService: MessageService, sender: CommandSender, registerType: String, regListStr: String) {
@@ -33,8 +38,10 @@ private fun sendQuery(messageService: MessageService, sender: CommandSender, reg
     }
 }
 
-class SubQueryRegItemFindersCommand: SubCommand(
-    "regitemfinders"
+class SubQueryRegItemFindersCommand: SubCommand<CommandSender>(
+    "regitemfinders",
+    usage = "/kra admin query regitemfinders"
+
 ), KoinComponent {
     val itemFinderManager: ItemFinderManager by inject()
 
@@ -47,8 +54,10 @@ class SubQueryRegItemFindersCommand: SubCommand(
         return true
     }
 }
-class SubQueryRegItemConditionsCommand: SubCommand(
-    "regitemconditions"
+class SubQueryRegItemConditionsCommand: SubCommand<CommandSender>(
+    "regitemconditions",
+    usage = "/kra admin query regitemconditions"
+
 ), KoinComponent {
     val itemConditionManager: ItemConditionManager by inject()
 
@@ -61,8 +70,9 @@ class SubQueryRegItemConditionsCommand: SubCommand(
         return true
     }
 }
-class SubQueryRegItemTypeCommand: SubCommand(
-    "regitemtypes"
+class SubQueryRegItemTypeCommand: SubCommand<CommandSender>(
+    "regitemtypes",
+    usage = "/kra admin query regitemtypes"
 ), KoinComponent {
     val itemTypeManager: ItemTypeManager by inject()
 
@@ -76,8 +86,9 @@ class SubQueryRegItemTypeCommand: SubCommand(
     }
 }
 
-class SubQueryRegAttributeCalculatorCommand: SubCommand(
-    "regattributecalculators"
+class SubQueryRegAttributeCalculatorCommand: SubCommand<CommandSender>(
+    "regattributecalculators",
+    usage = "/kra admin query regattributecalculators"
 ), KoinComponent {
     val attributeManager: AttributeManager by inject()
 
@@ -91,8 +102,9 @@ class SubQueryRegAttributeCalculatorCommand: SubCommand(
     }
 }
 
-class SubQueryRegSubAttribute: SubCommand(
-    "regsubattributes"
+class SubQueryRegSubAttribute: SubCommand<CommandSender>(
+    "regsubattributes",
+    usage = "/kra admin query regsubattributes"
 ), KoinComponent {
     val attributeManager: AttributeManager by inject()
 

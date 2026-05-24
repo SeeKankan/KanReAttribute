@@ -9,11 +9,13 @@ import org.koin.core.component.inject
 
 class SubReloadCommand(
     val plugin: KanReAttribute,
-): SubCommand(
+): SubCommand<CommandSender>(
     "reload",
     requirePermissions = listOf(
         PermissionNode.Admin.Manage
-    )
+    ),
+    types = CommandSender::class.java,
+    usage = "/kra reload"
 ) {
     private val reloader: PluginReloader by inject()
 

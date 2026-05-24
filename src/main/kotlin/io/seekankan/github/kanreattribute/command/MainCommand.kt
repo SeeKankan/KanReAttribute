@@ -11,13 +11,15 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class MainCommand(
     val plugin: KanReAttribute
-): CommandExecutor, TabCompleter, SubCommand(
+): CommandExecutor, TabCompleter, SubCommand<CommandSender>(
     "kanreattribute",
-    commandMapOf(
+    subCommands = commandMapOf(
         SubReloadCommand(plugin),
         SubAdminCommand(plugin),
         SubStateCommand(plugin)
-    )
+    ),
+    usage = "/kra [reload|admin|state] [...]"
+
 ) {
 
 //    private val messageManager: MessageService by inject()

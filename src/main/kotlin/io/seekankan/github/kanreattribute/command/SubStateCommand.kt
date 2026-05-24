@@ -10,16 +10,15 @@ import java.util.EnumSet
 
 class SubStateCommand(
     val plugin: KanReAttribute
-): SubCommand(
+): SubCommand<Player>(
     command = "state",
-    types = EnumSet.of(SenderType.PLAYER)
+    types = Player::class.java,
+    usage = "/kra state"
 ) {
     private val stateGUIService: StateGUIService by inject()
 
-    override fun handleCommand(sender: CommandSender, args: ArgumentList): Boolean {
-        if(sender is Player) {
-            stateGUIService.openGUI(sender)
-        }
+    override fun handleCommand(sender: Player, args: ArgumentList): Boolean {
+        stateGUIService.openGUI(sender)
         return true
     }
 

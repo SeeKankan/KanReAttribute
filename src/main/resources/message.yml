@@ -1,8 +1,15 @@
 command:
+  sender-types:
+    CommandSender: "命令执行者"
+    Entity: "实体"
+    LivingEntity: "有生命的实体"
+    HumanEntity: "玩家或者NPC"
+    Player: "玩家"
   common:
     no-command: "<red>您输入的命令不正确. 请查阅这个命令的相关使用方法.</red>"
-    must-be-player: "<red>只有玩家才能使用这个命令!</red>"
-    must-be-console: "<red>只有控制台才能使用这个命令!</red>"
+#    must-be-player: "<red>只有玩家才能使用这个命令!</red>"
+#    must-be-console: "<red>只有控制台才能使用这个命令!</red>"
+    invalid-sender-type: "<red>只有<sender_type>才能执行此命令!</red>"
     no-permission: "<red>您没有权限使用这个命令!</red>"
     missing-permission: "<red>您缺失这一些权限: [<aqua><missing_permission></aqua>] </red>"
     invalid-arguments: "<red>您输入的参数不正确. 请查阅这个命令的相关使用方法.</red>"

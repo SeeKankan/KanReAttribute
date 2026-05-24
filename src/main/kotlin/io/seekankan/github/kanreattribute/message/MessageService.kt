@@ -14,6 +14,17 @@ class MessageService(
     private val messageManager: MessageManager
 ) {
 
+    fun formatSenderType(clazz: Class<*>): Component {
+        return formatSenderType(clazz.simpleName)
+    }
+    fun formatSenderType(senderType: String): Component {
+        val formatSenderType = messageManager.config.senderTypes.getOrDefault(
+            senderType, senderType
+        )
+        return miniMessage.deserialize(formatSenderType)
+    }
+
+
     fun getComponent(message: String, vararg args: Pair<String, *>): Component {
         val placeholders = args.toPlaceholderArray()
         return miniMessage.deserialize(message, *placeholders)

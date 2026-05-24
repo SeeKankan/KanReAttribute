@@ -7,18 +7,18 @@ class ArgumentList(
     fun pop(): String? {
         return fullArgs.getOrNull(readIndex++)
     }
-    fun peek(): String? {
-        return fullArgs.getOrNull(readIndex)
-    }
+//    fun peek(): String? {
+//        return fullArgs.getOrNull(readIndex)
+//    }
     fun hasNext(): Boolean {
         return readIndex < fullArgs.size
     }
-    fun skip() {
-        readIndex++
-    }
-    fun back(){
-        readIndex--
-    }
+//    fun skip() {
+//        readIndex++
+//    }
+//    fun back(){
+//        readIndex--
+//    }
 
     override fun iterator(): Iterator<String> {
         return fullArgs.sliceArray(readIndex until fullArgs.size).iterator()

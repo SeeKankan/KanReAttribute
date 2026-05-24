@@ -3,10 +3,10 @@ package io.seekankan.github.kanreattribute.command
 import org.bukkit.command.CommandSender
 
 class CommandMap internal constructor(
-    private val map: Map<String, SubCommand>
+    private val map: Map<String, SubCommand<*>>
 ) {
 
-    operator fun get(commandName: String): SubCommand? {
+    operator fun get(commandName: String): SubCommand<*>? {
         return map[commandName.lowercase()]
     }
     fun matchCommandsByPrefix(commandSender: CommandSender, prefix: String?): List<String> {
@@ -19,8 +19,8 @@ class CommandMap internal constructor(
     }
 
 }
-fun commandMapOf(vararg commands: SubCommand): CommandMap {
-    val map = mutableMapOf<String, SubCommand>()
+fun commandMapOf(vararg commands: SubCommand<*>): CommandMap {
+    val map = mutableMapOf<String, SubCommand<*>>()
     commands.forEach {
         map[it.lowerCaseCommand] = it
     }

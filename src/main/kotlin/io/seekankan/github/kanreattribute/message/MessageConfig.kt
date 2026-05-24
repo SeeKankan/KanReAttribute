@@ -1,6 +1,7 @@
 package io.seekankan.github.kanreattribute.message
 
 data class MessageConfig(
+    val senderTypes: Map<String, String>,
     val command: CommandConfig
 )
 data class CommandConfig(
@@ -12,8 +13,9 @@ data class CommandConfig(
 )
 data class CommandCommonConfig(
     val noCommand: String,
-    val mustBePlayer: String,
-    val mustBeConsole: String,
+//    val mustBePlayer: String,
+//    val mustBeConsole: String,
+    val invalidSenderType: String,
     val noPermission: String,
     val missingPermission: String,
     val invalidArguments: String,
