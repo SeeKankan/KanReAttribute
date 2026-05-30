@@ -22,7 +22,7 @@ inline fun <reified T, P>
 /*@ExperimentalContracts*/
 fun ItemStack?.isValid(): Boolean {
 //    contract {
-//        returns(true) implies (this@isValid != null)
+//        returns(true) implies (this@isHologramValid != null)
 //    }
     return this != null && this.type != Material.AIR && this.amount > 0
 }

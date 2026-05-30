@@ -3,7 +3,9 @@ package io.seekankan.github.kanreattribute
 import io.seekankan.github.kanreattribute.di.AttributeModule
 import io.seekankan.github.kanreattribute.di.BaseConfigModule
 import io.seekankan.github.kanreattribute.di.CommandModule
+import io.seekankan.github.kanreattribute.di.CoroutinesModule
 import io.seekankan.github.kanreattribute.di.GUIModule
+import io.seekankan.github.kanreattribute.di.HologramModule
 import io.seekankan.github.kanreattribute.di.ItemModule
 import io.seekankan.github.kanreattribute.di.ListenerModule
 import io.seekankan.github.kanreattribute.di.PermissionModule
@@ -27,8 +29,11 @@ class PluginModuleManager(
 
     private val pluginModules: List<PluginModule> = listOf(
         BaseConfigModule(plugin),
+        CoroutinesModule(plugin),
 
         PermissionModule(plugin),
+
+        HologramModule(plugin),
 
         ItemModule(plugin),
         AttributeModule(plugin),
