@@ -12,9 +12,10 @@ class HologramInstance(
     var age: Int = 0
 
     fun isHologramValid(): Boolean {
-        if(armorStand == null) return false
-        if(armorStand!!.isValid) return false
-        return true
+//        if(armorStand == null) return false
+//        if(armorStand!!.isValid) return false
+        return armorStand?.isValid ?: false
+//        return true
     }
     fun isHologramInvalid(): Boolean {
         return !isHologramValid()
@@ -28,6 +29,13 @@ class HologramInstance(
     }
     fun onRemove() {
         hologramConfig.onRemove(this)
+    }
+
+    fun tick(age: Int) {
+        this.age = age
+        if(age > 0 && age % hologramConfig.updateInterval.value == 0L) {
+            onUpdate()
+        }
     }
 
     fun cancel() {

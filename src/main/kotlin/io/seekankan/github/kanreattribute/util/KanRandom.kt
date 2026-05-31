@@ -5,7 +5,8 @@ import java.util.concurrent.ThreadLocalRandom
 import kotlin.random.Random
 
 object KanRandom: Random(){
-    private val delegate = ThreadLocalRandom.current()
+    private val delegate
+        get() = ThreadLocalRandom.current()
     override fun nextBits(bitCount: Int): Int = delegate.nextInt( bitCount)
 
     override fun nextInt(): Int = delegate.nextInt()

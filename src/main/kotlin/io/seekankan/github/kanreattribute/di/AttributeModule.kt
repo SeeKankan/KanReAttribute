@@ -11,6 +11,8 @@ import io.seekankan.github.kanreattribute.attribute.impl.attributecalculator.Ite
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.AttackSpeed
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.CritChance
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.CritDamage
+import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.LifeSteal
+import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.LifeStealChance
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.Strength
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.defence.Defense
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.defence.ExtraHealth
@@ -52,6 +54,8 @@ class AttributeModule(
         singleOf(::Strength) bind SubAttribute::class
         singleOf(::CritChance) bind SubAttribute::class
         singleOf(::CritDamage) bind SubAttribute::class
+        singleOf(::LifeStealChance) bind SubAttribute::class
+        singleOf(::LifeSteal) bind SubAttribute::class
         singleOf(::AttackSpeed) bind SubAttribute::class
 
         singleOf(::ExtraHealth) bind SubAttribute::class

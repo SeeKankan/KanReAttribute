@@ -60,7 +60,7 @@ abstract class ConfigurableSubAttribute(
     }
 
     override fun onBeforeRegister() {
-        super.onEnable()
+        super.onBeforeRegister()
         initConfig()
     }
     override fun onEnable() {

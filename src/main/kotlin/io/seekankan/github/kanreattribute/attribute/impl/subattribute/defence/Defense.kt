@@ -5,7 +5,6 @@ import io.seekankan.github.kanreattribute.attribute.ConfigurableSubAttribute
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
 import io.seekankan.github.kanreattribute.attribute.data.AttributeType
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
-import io.seekankan.github.kanreattribute.attribute.data.KanFlag
 import io.seekankan.github.kanreattribute.attribute.util.attributeConfig
 import io.seekankan.github.kanreattribute.data.EventData
 import org.bukkit.entity.HumanEntity

@@ -38,10 +38,7 @@ class HologramManager(
                         return@launchBukkit
                     }
 
-                    hologramInstance.age = age
-                    if(age % hologramInstance.hologramConfig.updateInterval.value == 0L) {
-                        hologramInstance.onUpdate()
-                    }
+                    hologramInstance.tick(age)
 
                     coroutinesManager.delayTicks(ONE_TICK)
                 }

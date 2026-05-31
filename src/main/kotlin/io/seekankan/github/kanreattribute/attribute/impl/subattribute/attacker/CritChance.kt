@@ -1,13 +1,12 @@
 package io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker
 
 import io.seekankan.github.kanreattribute.KanReAttribute
-import io.seekankan.github.kanreattribute.attribute.AttributeKeys
 import io.seekankan.github.kanreattribute.attribute.ConfigurableSubAttribute
 import io.seekankan.github.kanreattribute.attribute.Displayable
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
 import io.seekankan.github.kanreattribute.attribute.data.AttributeType
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
-import io.seekankan.github.kanreattribute.attribute.data.KanFlag
+import io.seekankan.github.kanreattribute.attribute.data.KanAttributeFlag
 import io.seekankan.github.kanreattribute.attribute.util.attributeConfig
 import io.seekankan.github.kanreattribute.data.EventData
 import io.seekankan.github.kanreattribute.util.KanRandom
@@ -30,7 +29,7 @@ class CritChance(private val plugin: KanReAttribute) : ConfigurableSubAttribute(
         priority = 20
         maxValue = 1.0
         baseValue = 0.3
-        displayName = "<red>基础伤害</red>"
+        displayName = "<blue>暴击倍率</blue>"
         formatter = Displayable.DEFAULT_PERCENT_FORMAT_CONFIG
     }
 
@@ -48,7 +47,7 @@ class CritChance(private val plugin: KanReAttribute) : ConfigurableSubAttribute(
             if(eventData.stage == EntityDamageEventData.HandleStage.HANDLE_ATTACKER) {
                 val correctValue = correctValue(attrValue)
                 if(KanRandom.chance(correctValue)) {
-                    eventData.flagContext.addEnumFlag(KanFlag.CRITICAL)
+                    eventData.flagContext.addEnumFlag(KanAttributeFlag.CRITICAL)
                 }
             }
         }

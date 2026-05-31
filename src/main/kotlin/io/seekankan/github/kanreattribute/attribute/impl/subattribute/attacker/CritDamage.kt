@@ -1,13 +1,11 @@
 package io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker
 
 import io.seekankan.github.kanreattribute.KanReAttribute
-import io.seekankan.github.kanreattribute.attribute.AttributeKeys
 import io.seekankan.github.kanreattribute.attribute.ConfigurableSubAttribute
-import io.seekankan.github.kanreattribute.attribute.Displayable
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
 import io.seekankan.github.kanreattribute.attribute.data.AttributeType
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
-import io.seekankan.github.kanreattribute.attribute.data.KanFlag
+import io.seekankan.github.kanreattribute.attribute.data.KanAttributeFlag
 import io.seekankan.github.kanreattribute.attribute.util.attributeConfig
 import io.seekankan.github.kanreattribute.data.EventData
 import kotlin.math.pow
@@ -34,7 +32,7 @@ class CritDamage(private val plugin: KanReAttribute) : ConfigurableSubAttribute(
 //    }
 
     private val defaultsMap = attributeConfig {
-        priority = 0
+        priority = 25
         baseValue = 0.0
         displayName = "<blue>暴击倍率</blue>"
         divisor = 100.0
@@ -52,7 +50,7 @@ class CritDamage(private val plugin: KanReAttribute) : ConfigurableSubAttribute(
     ) {
         if(eventData is EntityDamageEventData) {
             if(eventData.stage == EntityDamageEventData.HandleStage.HANDLE_ATTACKER
-                && eventData.flagContext.hasEnumFlag(KanFlag.CRITICAL)) {
+                && eventData.flagContext.hasEnumFlag(KanAttributeFlag.CRITICAL)) {
                 val correctValue = correctValue(attrValue)
                 val normalized = correctValue / divisor
                 val power = 1 + normalized.pow(exponent)

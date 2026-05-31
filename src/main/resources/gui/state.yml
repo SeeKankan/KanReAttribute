@@ -22,6 +22,8 @@ attribute-groups:
       - "KanReAttribute:Strength"
       - "KanReAttribute:CritChance"
       - "KanReAttribute:CritDamage"
+      - "KanReAttribute:LifeStealChance"
+      - "KanReAttribute:LifeSteal"
       - "KanReAttribute:AttackSpeed"
   defense:
     priority: 1
