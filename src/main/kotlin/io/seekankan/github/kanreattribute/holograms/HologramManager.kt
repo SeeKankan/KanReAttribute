@@ -1,6 +1,8 @@
 package io.seekankan.github.kanreattribute.holograms
 
 import io.seekankan.github.kanreattribute.coroutines.CoroutinesManager
+import io.seekankan.github.kanreattribute.coroutines.LaunchesCoroutine
+import io.seekankan.github.kanreattribute.coroutines.MainThreadOnly
 import io.seekankan.github.kanreattribute.coroutines.ONE_TICK
 import io.seekankan.github.kanreattribute.coroutines.ticks
 import kotlinx.coroutines.cancel
@@ -23,6 +25,9 @@ class HologramManager(
         }
         return armorStand
     }
+
+    @MainThreadOnly
+    @LaunchesCoroutine
     fun spawnHologram(holoConfig: HologramConfig): HologramInstance {
         val armorStand = createHoloArmorStand(holoConfig)
         val hologramInstance = HologramInstance(
