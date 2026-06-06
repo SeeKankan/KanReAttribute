@@ -1,8 +1,8 @@
 package io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker
 
 import io.seekankan.github.kanreattribute.KanReAttribute
-import io.seekankan.github.kanreattribute.attribute.ConfigurableSubAttribute
-import io.seekankan.github.kanreattribute.attribute.Displayable
+import io.seekankan.github.kanreattribute.attribute.subattribute.ConfigurableSubAttribute
+import io.seekankan.github.kanreattribute.attribute.subattribute.Displayable
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
 import io.seekankan.github.kanreattribute.attribute.data.AttributeType
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
@@ -47,7 +47,7 @@ class CritChance(private val plugin: KanReAttribute) : ConfigurableSubAttribute(
             if(eventData.stage == EntityDamageEventData.HandleStage.HANDLE_ATTACKER) {
                 val correctValue = correctValue(attrValue)
                 if(KanRandom.chance(correctValue)) {
-                    eventData.flagContext.addEnumFlag(KanAttributeFlag.CRITICAL)
+                    eventData.attackerFlagContext.addEnumFlag(KanAttributeFlag.CRITICAL)
                 }
             }
         }

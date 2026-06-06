@@ -2,12 +2,15 @@ package io.seekankan.github.kanreattribute.di
 
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.PluginModule
-import io.seekankan.github.kanreattribute.attribute.AttributeCalculator
+import io.seekankan.github.kanreattribute.attribute.attributecalculator.AttributeCalculator
 import io.seekankan.github.kanreattribute.attribute.AttributeManager
-import io.seekankan.github.kanreattribute.attribute.SubAttribute
+import io.seekankan.github.kanreattribute.attribute.EffectApplierRegistry
+import io.seekankan.github.kanreattribute.attribute.effectapplier.EffectApplier
+import io.seekankan.github.kanreattribute.attribute.subattribute.SubAttribute
 import io.seekankan.github.kanreattribute.attribute.impl.attributecalculator.BaseAttributeCalculator
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.Damage
 import io.seekankan.github.kanreattribute.attribute.impl.attributecalculator.ItemAttributeCalculator
+import io.seekankan.github.kanreattribute.attribute.impl.effectapplier.FinalDamageHologramSpawner
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.AttackSpeed
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.CritChance
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.CritDamage
@@ -35,9 +38,14 @@ class AttributeModule(
     private val attributeRefresher: EntityAttributeRefresher by inject()
 
     override val koinModule: Module = module {
-        single<AttributeManager>(createdAtStart = true) {
-            AttributeManager(plugin)
-        }.onClose {
+        singleOf(::EffectApplierRegistry)
+
+//        single<AttributeManager> {
+//            AttributeManager(plugin)
+//        }.onClose {
+//            it?.unregisterListener()
+//        }
+        singleOf(::AttributeManager).onClose {
             it?.unregisterListener()
         }
 
@@ -60,6 +68,8 @@ class AttributeModule(
 
         singleOf(::ExtraHealth) bind SubAttribute::class
         singleOf(::Defense) bind SubAttribute::class
+
+        singleOf(::FinalDamageHologramSpawner) bind EffectApplier::class
     }
 
     override fun onEnable() {
@@ -78,18 +88,24 @@ class AttributeModule(
 //            BaseAttributeCalculator(manager),
 //            ItemAttributeCalculator(get()),
 //        )
+        val effectApplierRegistry = getKoin().get<EffectApplierRegistry>()
+
         val attributeCalculators = getKoin().getAll<AttributeCalculator>()
 //        val subAttributes = arrayOf(
 //            Damage(plugin)
 //        )
-        val subAttributes= getKoin().getAll<SubAttribute>()
+        val subAttributes = getKoin().getAll<SubAttribute>()
+        val effectAppliers = getKoin().getAll<EffectApplier>()
+
         attributeCalculators.forEach {
             manager.attributeCalculatorRegistry.register(it)
         }
         subAttributes.forEach {
             manager.subAttributeRegistry.register(it)
         }
-
+        effectAppliers.forEach {
+            effectApplierRegistry.registerPersistent(it)
+        }
 
     }
 }

@@ -1,6 +1,6 @@
 package io.seekankan.github.kanreattribute.attribute.impl.attributecalculator
 
-import io.seekankan.github.kanreattribute.attribute.AttributeCalculator
+import io.seekankan.github.kanreattribute.attribute.attributecalculator.AttributeCalculator
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
 import io.seekankan.github.kanreattribute.item.ItemService
 import org.bukkit.entity.LivingEntity

@@ -1,7 +1,7 @@
 package io.seekankan.github.kanreattribute.attribute.impl.subattribute.defence
 
 import io.seekankan.github.kanreattribute.KanReAttribute
-import io.seekankan.github.kanreattribute.attribute.ConfigurableSubAttribute
+import io.seekankan.github.kanreattribute.attribute.subattribute.ConfigurableSubAttribute
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
 import io.seekankan.github.kanreattribute.attribute.data.AttributeType
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData

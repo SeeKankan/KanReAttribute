@@ -7,6 +7,7 @@ import io.seekankan.github.kanreattribute.gui.GUIConfig
 import io.seekankan.github.kanreattribute.gui.GUIProtectService
 import io.seekankan.github.kanreattribute.gui.StateGUIService
 import org.bukkit.Bukkit
+import org.bukkit.event.HandlerList
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.module.Module
@@ -21,7 +22,7 @@ class GUIModule(
     override val name: String = "GUIModule"
 
     //    private val audiences: BukkitAudiences by inject()
-    private val messageManager: MessageService by inject()
+    private val messageService: MessageService by inject()
     private val guiProtectService: GUIProtectService by inject()
     private val guiConfig: GUIConfig by inject()
 //    private val config: Config by inject()
@@ -31,6 +32,7 @@ class GUIModule(
 
         singleOf(::GUIProtectService).onClose {
             it?.clearAllInventories()
+            it?.let { HandlerList.unregisterAll(it) }
         }
         singleOf(::StateGUIService)
 //        singleOf(::ShowPlayerAttributeGUI)

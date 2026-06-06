@@ -5,7 +5,6 @@ import io.seekankan.github.kanreattribute.item.itemtype.ItemType
 import io.seekankan.github.kanreattribute.registry.RegisterResult
 import io.seekankan.github.kanreattribute.registry.UnregisterResult
 import java.util.Collections
-import java.util.NavigableMap
 import java.util.TreeSet
 import java.util.logging.Logger
 

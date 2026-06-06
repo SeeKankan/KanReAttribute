@@ -26,7 +26,6 @@ class PluginModuleManager(
     val plugin: KanReAttribute
 ) {
 
-
     private val pluginModules: List<PluginModule> = listOf(
         BaseConfigModule(plugin),
         CoroutinesModule(plugin),
@@ -47,6 +46,9 @@ class PluginModuleManager(
         val moduleList = pluginModules.map { pluginModule ->
             pluginModule.koinModule
         }
+//        moduleList.forEach {
+//            plugin.logger.info("Module: $it")
+//        }
         val pluginInstanceModule = module {
             single<Plugin> { plugin }
 //            single<JavaPlugin> { plugin }

@@ -2,7 +2,7 @@ package io.seekankan.github.kanreattribute.gui
 
 import io.seekankan.github.kanreattribute.message.MessageService
 import io.seekankan.github.kanreattribute.attribute.AttributeManager
-import io.seekankan.github.kanreattribute.attribute.Displayable
+import io.seekankan.github.kanreattribute.attribute.subattribute.Displayable
 import io.seekankan.github.kanreattribute.gui.data.AttributeGroupConfig
 import net.axay.kspigot.gui.ForEveryInventory
 import net.axay.kspigot.gui.ForInventory

@@ -4,15 +4,18 @@ import io.seekankan.github.kanreattribute.data.EventData
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDamageEvent
-import kotlin.collections.set
 
 data class EntityDamageEventData(
     val event: EntityDamageByEntityEvent,
+
     val attacker: LivingEntity,
-    val victim: LivingEntity,
+    val defender: LivingEntity,
+
     val attackerAttributeMap: AttributeMap,
-    val victimAttributeMap: AttributeMap,
-    val flagContext: FlagContext = FlagContext(),
+    val defenderAttributeMap: AttributeMap,
+
+    val attackerFlagContext: FlagContext = FlagContext(),
+    val defenderFlagContext: FlagContext = FlagContext()
 ): EventData() {
     enum class HandleStage {
         HANDLE_ATTACKER,

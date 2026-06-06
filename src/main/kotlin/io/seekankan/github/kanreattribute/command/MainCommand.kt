@@ -81,7 +81,7 @@ class MainCommand(
 
 
     fun setupCommand() {
-        val command = (plugin as JavaPlugin).getCommand("kanreattribute")!!
+        val command = (plugin as JavaPlugin).getCommand("kanreattribute") ?: throw IllegalStateException("Cannot find /kanreattribute command")
         command.setExecutor(this)
         command.tabCompleter = this
     }

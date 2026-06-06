@@ -1,6 +1,7 @@
 package io.seekankan.github.kanreattribute
 
 import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import java.io.File
 import java.util.logging.Logger
 
@@ -10,6 +11,10 @@ abstract class PluginInfo {
     abstract val dataFolder: File
 
     abstract val logger: Logger
+
+    val snakeCaseName: String by lazy {
+        PropertyNamingStrategies.SnakeCaseStrategy.INSTANCE.translate(name)
+    }
 
     abstract fun saveResource(resourcePath: String, replace: Boolean)
 

@@ -3,11 +3,15 @@ package io.seekankan.github.kanreattribute
 import io.seekankan.github.kanreattribute.util.JacksonUtil
 import net.axay.kspigot.main.KSpigot
 import org.bukkit.plugin.Plugin
+import org.koin.mp.KoinPlatformTools
 
 interface KanReAttribute: Plugin {
 
 }
 class KanReAttributePlugin: KSpigot(), KanReAttribute {
+    companion object {
+        const val DO_PRINT_MODULE_DEPEND_TREE: Boolean = true
+    }
 
     private lateinit var pluginModuleManager: PluginModuleManager
 
@@ -19,6 +23,10 @@ class KanReAttributePlugin: KSpigot(), KanReAttribute {
 
     override fun startup() {
         pluginModuleManager.enable()
+
+        if(DO_PRINT_MODULE_DEPEND_TREE) {
+            val koin = KoinPlatformTools.defaultContext().get()
+        }
     }
 
     override fun shutdown() {

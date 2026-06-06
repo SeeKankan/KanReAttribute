@@ -1,11 +1,10 @@
 package io.seekankan.github.kanreattribute.attribute.data
 
 import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonValue
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import io.seekankan.github.kanreattribute.attribute.AttributeManager
-import io.seekankan.github.kanreattribute.attribute.Displayable
+import io.seekankan.github.kanreattribute.attribute.subattribute.Displayable
 import io.seekankan.github.kanreattribute.message.ItemStyleKey
 
 class AttributeMap(

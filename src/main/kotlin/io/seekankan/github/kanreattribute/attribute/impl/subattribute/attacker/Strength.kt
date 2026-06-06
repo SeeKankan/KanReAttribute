@@ -1,11 +1,9 @@
 package io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker
 
 import io.seekankan.github.kanreattribute.KanReAttribute
-import io.seekankan.github.kanreattribute.attribute.AttributeKeys
-import io.seekankan.github.kanreattribute.attribute.AttributeKeys.DIVISOR
-import io.seekankan.github.kanreattribute.attribute.AttributeKeys.EXPONENT
-import io.seekankan.github.kanreattribute.attribute.ConfigurableSubAttribute
-import io.seekankan.github.kanreattribute.attribute.Displayable
+import io.seekankan.github.kanreattribute.attribute.subattribute.AttributeKeys.DIVISOR
+import io.seekankan.github.kanreattribute.attribute.subattribute.AttributeKeys.EXPONENT
+import io.seekankan.github.kanreattribute.attribute.subattribute.ConfigurableSubAttribute
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
 import io.seekankan.github.kanreattribute.attribute.data.AttributeType
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData

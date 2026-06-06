@@ -37,7 +37,7 @@ class HologramManager(
         val hologramJob = coroutinesManager.launchBukkit {
             try {
                 hologramInstance.onCreate()
-                for(age in 1..holoConfig.maxAge) {
+                for(age in 0 until holoConfig.maxAge) {
                     if(hologramInstance.isHologramInvalid()) {
                         cancel("The armorStand of hologram is invalid.")
                         return@launchBukkit

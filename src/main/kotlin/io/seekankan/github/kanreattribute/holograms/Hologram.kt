@@ -13,18 +13,18 @@ data class HologramConfig(
     val location: Location,
     val displayText: String,
     val maxAge: Int,
-    val updateInterval: Ticks = 1.ticks,
+    val updateInterval: Ticks = 0.ticks,
     val onCreate: HologramInstance.() -> Unit = {},
     val onUpdate: HologramInstance.() -> Unit = {},
     val onRemove: HologramInstance.() -> Unit = {}
 )
 class HologramConfigBuilder(
     var location: Location? = null,
-    val displayText: String? = null,
+    var displayText: String? = null,
     var offsetRadius: Double = 0.0,
     var offsetY: Double = 0.0,
-    var maxAge: Int? = null,
-    var updateInterval: Ticks = 1.ticks,
+    var maxAge: Ticks? = null,
+    var updateInterval: Ticks = 0.ticks,
     var onCreate: HologramInstance.() -> Unit = {},
     var onUpdate: HologramInstance.() -> Unit = {},
     var onRemove: HologramInstance.() -> Unit = {}
@@ -49,7 +49,7 @@ fun hologramConfig(initFunc: HologramConfigBuilder.() -> Unit): HologramConfig {
         HologramConfig(
             location = finalLocation,
             displayText = displayText ?: throw IllegalArgumentException("DisplayText must be not null"),
-            maxAge = maxAge ?: throw IllegalArgumentException("MaxAge must be not null"),
+            maxAge = maxAge?.value?.toInt() ?: throw IllegalArgumentException("MaxAge must be not null"),
             updateInterval = updateInterval,
             onCreate = onCreate,
             onUpdate = onUpdate,

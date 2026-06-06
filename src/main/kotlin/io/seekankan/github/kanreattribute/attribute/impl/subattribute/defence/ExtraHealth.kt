@@ -1,8 +1,8 @@
 package io.seekankan.github.kanreattribute.attribute.impl.subattribute.defence
 
 import io.seekankan.github.kanreattribute.KanReAttribute
-import io.seekankan.github.kanreattribute.attribute.AttributeKeys
-import io.seekankan.github.kanreattribute.attribute.ConfigurableSubAttribute
+import io.seekankan.github.kanreattribute.attribute.subattribute.AttributeKeys
+import io.seekankan.github.kanreattribute.attribute.subattribute.ConfigurableSubAttribute
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
 import io.seekankan.github.kanreattribute.attribute.data.AttributeType
 import io.seekankan.github.kanreattribute.attribute.util.attributeConfig
@@ -98,11 +98,11 @@ class ExtraHealth(
                     entity.isHealthScaled = true
                 }
                 HealthScaleMode.CLAMP -> {
-                    if(maxHealth >= scaleHealth) {
+                    if(maxHealth > scaleHealth) {
                         entity.healthScale = scaleHealth
                         entity.isHealthScaled = true
                     } else {
-                        entity.healthScale = scaleHealth
+//                        entity.healthScale = scaleHealth
                         entity.isHealthScaled = false
                     }
                 }

@@ -1,12 +1,12 @@
 package io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker
 
 import io.seekankan.github.kanreattribute.PluginInfo
-import io.seekankan.github.kanreattribute.attribute.Displayable
-import io.seekankan.github.kanreattribute.attribute.JacksonTypedSubAttribute
-import io.seekankan.github.kanreattribute.attribute.config.CommonAttributeConfig
-import io.seekankan.github.kanreattribute.attribute.config.DisplayAttributeConfig
-import io.seekankan.github.kanreattribute.attribute.config.NumericConfig
-import io.seekankan.github.kanreattribute.attribute.config.TypedAttributeConfig
+import io.seekankan.github.kanreattribute.attribute.subattribute.Displayable
+import io.seekankan.github.kanreattribute.attribute.subattribute.JacksonTypedSubAttribute
+import io.seekankan.github.kanreattribute.attribute.subattribute.config.CommonAttributeConfig
+import io.seekankan.github.kanreattribute.attribute.subattribute.config.DisplayAttributeConfig
+import io.seekankan.github.kanreattribute.attribute.subattribute.config.NumericConfig
+import io.seekankan.github.kanreattribute.attribute.subattribute.config.TypedAttributeConfig
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
 import io.seekankan.github.kanreattribute.attribute.data.AttributeType
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
@@ -31,7 +31,8 @@ class LifeSteal(
         otherAttributes: AttributeMap,
         eventData: EntityDamageEventData
     ) {
-        if(!eventData.flagContext.hasEnumFlag(KanAttributeFlag.LIFE_STEAL)) return
+        if(eventData.stage != EntityDamageEventData.HandleStage.HANDLE_ATTACKER) return
+        if(!eventData.attackerFlagContext.hasEnumFlag(KanAttributeFlag.LIFE_STEAL)) return
 
         val divisor = currentConfig.numeric.divisor
         val exponent = currentConfig.numeric.exponent

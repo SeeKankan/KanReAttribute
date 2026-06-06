@@ -1,7 +1,7 @@
 package io.seekankan.github.kanreattribute.attribute.util
 
-import io.seekankan.github.kanreattribute.attribute.Displayable
-import io.seekankan.github.kanreattribute.attribute.AttributeKeys
+import io.seekankan.github.kanreattribute.attribute.subattribute.Displayable
+import io.seekankan.github.kanreattribute.attribute.subattribute.AttributeKeys
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.defence.HealthScaleMode
 
 data class AttributeConfigBuilder(

@@ -51,7 +51,9 @@ class ItemModule(
         singleOf(::ItemService)
 
         singleOf(::VanillaInventoryItemFinder) bind ItemFinder::class
+
         singleOf(::ItemSlotCondition) bind ItemCondition::class
+
         singleOf(::WriteItemTypeHandler) bind ItemCreateHandler::class
         singleOf(::SetItemMetaHandler) bind ItemCreateHandler::class
     }

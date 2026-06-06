@@ -53,13 +53,21 @@ class ListenerDamage(private val plugin: KanReAttribute): Listener, AutoRegistra
         damageEventData.useStage(EntityDamageEventData.HandleStage.HANDLE_DEFENSE) {
             attributeManager.handleEventData(defenseEntityAttrs, damageEventData)
         }
-//        attackerEntityAttrs.handleEventData(damageEventData)
-//        damageEventData.stage = EntityDamageEventData.HandleStage.HANDLE_DEFENSE
-//        defenseEntityAttrs.handleEventData(damageEventData)
+        damageEventData.stage = EntityDamageEventData.HandleStage.END
+
+        damageEventData.commit()
+
+        if(damageEventData.isCancelled) return
+
+        damageEventData.useStage(EntityDamageEventData.HandleStage.HANDLE_ATTACKER) {
+            attributeManager.applyEffect(attackerEntityAttrs, damageEventData)
+        }
+        damageEventData.useStage(EntityDamageEventData.HandleStage.HANDLE_DEFENSE) {
+            attributeManager.applyEffect(defenseEntityAttrs, damageEventData)
+        }
         damageEventData.stage = EntityDamageEventData.HandleStage.END
 
         val kanDamageEvent = KanDamageEvent(damageEventData)
         Bukkit.getPluginManager().callEvent(kanDamageEvent)
-        damageEventData.commit()
     }
 }

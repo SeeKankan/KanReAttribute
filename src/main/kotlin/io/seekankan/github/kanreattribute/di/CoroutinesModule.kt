@@ -30,7 +30,6 @@ class CoroutinesModule(
             it?.shutdown()
         }
 
-
     }
 
     override fun onEnable() {

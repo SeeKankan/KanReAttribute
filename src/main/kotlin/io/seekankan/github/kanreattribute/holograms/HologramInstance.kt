@@ -33,8 +33,12 @@ class HologramInstance(
 
     fun tick(age: Int) {
         this.age = age
-        if(age > 0 && age % hologramConfig.updateInterval.value == 0L) {
-            onUpdate()
+
+        val interval = hologramConfig.updateInterval.value
+        if(interval > 0) { //enable hologram interval
+            if(age > 0 && age % interval == 0L) {
+                onUpdate()
+            }
         }
     }
 

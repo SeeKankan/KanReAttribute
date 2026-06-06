@@ -1,7 +1,6 @@
 package io.seekankan.github.kanreattribute.item.data
 
 import io.seekankan.github.kanreattribute.common.ItemTypeKey
-import io.seekankan.github.kanreattribute.common.key
 import org.bukkit.NamespacedKey
 import org.bukkit.persistence.PersistentDataAdapterContext
 import org.bukkit.persistence.PersistentDataType

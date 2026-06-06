@@ -1,7 +1,7 @@
 package io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker
 
 import io.seekankan.github.kanreattribute.KanReAttribute
-import io.seekankan.github.kanreattribute.attribute.ConfigurableSubAttribute
+import io.seekankan.github.kanreattribute.attribute.subattribute.ConfigurableSubAttribute
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
 import io.seekankan.github.kanreattribute.attribute.data.AttributeType
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
@@ -50,7 +50,7 @@ class CritDamage(private val plugin: KanReAttribute) : ConfigurableSubAttribute(
     ) {
         if(eventData is EntityDamageEventData) {
             if(eventData.stage == EntityDamageEventData.HandleStage.HANDLE_ATTACKER
-                && eventData.flagContext.hasEnumFlag(KanAttributeFlag.CRITICAL)) {
+                && eventData.attackerFlagContext.hasEnumFlag(KanAttributeFlag.CRITICAL)) {
                 val correctValue = correctValue(attrValue)
                 val normalized = correctValue / divisor
                 val power = 1 + normalized.pow(exponent)

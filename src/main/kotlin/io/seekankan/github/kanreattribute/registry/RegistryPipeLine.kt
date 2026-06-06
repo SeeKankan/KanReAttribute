@@ -3,7 +3,7 @@ package io.seekankan.github.kanreattribute.registry
 import java.util.Collections
 import java.util.SortedSet
 
-open class RegistryPipeLine<K,V: Named<K>>(
+open class RegistryPipeLine<K,V: Named<K>>( //TODO 这个该废除了，应该使用AbstractFunctionRegistry
     val registerMap: MutableMap<K,V> = hashMapOf(),
     private val pipeLineSet: SortedSet<V> = sortedSetOf(),
 ) {

@@ -8,7 +8,10 @@ import org.bukkit.entity.LivingEntity
 import org.bukkit.event.HandlerList
 import org.bukkit.metadata.FixedMetadataValue
 
-class AttributeManager constructor(private val plugin: KanReAttribute) {
+class AttributeManager constructor(
+    private val plugin: KanReAttribute,
+    private val effectApplierRegistry: EffectApplierRegistry
+) {
     companion object {
         const val ATTRIBUTE_CACHE_KEY = "kanreattribute_attribute_cache"
     }
@@ -67,13 +70,22 @@ class AttributeManager constructor(private val plugin: KanReAttribute) {
             if(attrValue != null) subAttribute.calculateEventNumber(attrValue, attrMap, eventData)
         }
     }
+
+    fun applyEffect(attrMap: AttributeMap, eventData: EventData) {
+        effectApplierRegistry.forEach { effectApplier ->
+            effectApplier.applyEffect(attrMap, eventData)
+        }
+    }
+
+
     fun reloadAttributes() {
-        attributeCalculatorRegistry.pipeLineView.forEach { calculator ->
+        attributeCalculatorRegistry.pipeLineView.forEach { calculator -> //TODO 该改正了
             calculator.onReload()
         }
         subAttributeRegistry.pipeLineView.forEach { subAttribute ->
             subAttribute.onReload()
         }
+        effectApplierRegistry.reloadAndClearTransient()
     }
 //    fun calcValue(attrType: AttributeType, attrMap: Map<String, Double>, baseValue: Double): Double {
 //        val valueCalculator = valueCalculatorMap[attrType] ?: return baseValue
