@@ -5,6 +5,7 @@ import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.attribute.AttributeManager
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
 import io.seekankan.github.kanreattribute.di.AutoRegistrable
+import io.seekankan.github.kanreattribute.eventhandle.EventHandleSystem
 import org.bukkit.Bukkit
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Projectile
@@ -17,6 +18,8 @@ import org.koin.core.component.inject
 
 class ListenerDamage(private val plugin: KanReAttribute): Listener, AutoRegistrable, KoinComponent {
     private val attributeManager: AttributeManager by inject()
+    private val eventHandleSystem: EventHandleSystem by inject()
+
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onEntityDamageByEntity(event: EntityDamageByEntityEvent) {
         if(event.entity !is LivingEntity) return
@@ -34,8 +37,7 @@ class ListenerDamage(private val plugin: KanReAttribute): Listener, AutoRegistra
                 return
             }
         }
-//        val defenseEntityAttrs = plugin.attributeManager.getLivingEntityAttribute(defenseEntity)
-//        val attackerEntityAttrs = plugin.attributeManager.getLivingEntityAttribute(attackerEntity)
+
         val defenseEntityAttrs = attributeManager.getLivingEntityAttribute(defenseEntity)
         val attackerEntityAttrs = attributeManager.getLivingEntityAttribute(attackerEntity)
 
@@ -47,25 +49,8 @@ class ListenerDamage(private val plugin: KanReAttribute): Listener, AutoRegistra
             attackerEntityAttrs,
             defenseEntityAttrs,
         )
-        damageEventData.useStage(EntityDamageEventData.HandleStage.HANDLE_ATTACKER) {
-            attributeManager.handleEventData(attackerEntityAttrs, damageEventData)
-        }
-        damageEventData.useStage(EntityDamageEventData.HandleStage.HANDLE_DEFENSE) {
-            attributeManager.handleEventData(defenseEntityAttrs, damageEventData)
-        }
-        damageEventData.stage = EntityDamageEventData.HandleStage.END
 
-        damageEventData.commit()
-
-        if(damageEventData.isCancelled) return
-
-        damageEventData.useStage(EntityDamageEventData.HandleStage.HANDLE_ATTACKER) {
-            attributeManager.applyEffect(attackerEntityAttrs, damageEventData)
-        }
-        damageEventData.useStage(EntityDamageEventData.HandleStage.HANDLE_DEFENSE) {
-            attributeManager.applyEffect(defenseEntityAttrs, damageEventData)
-        }
-        damageEventData.stage = EntityDamageEventData.HandleStage.END
+        eventHandleSystem.handleEventData(damageEventData)
 
         val kanDamageEvent = KanDamageEvent(damageEventData)
         Bukkit.getPluginManager().callEvent(kanDamageEvent)

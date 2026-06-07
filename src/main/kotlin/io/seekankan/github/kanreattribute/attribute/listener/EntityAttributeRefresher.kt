@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerItemConsumeEvent
 import org.bukkit.event.player.PlayerItemHeldEvent
 import org.bukkit.event.player.PlayerSwapHandItemsEvent
 
-class EntityAttributeRefresher(
+class EntityAttributeRefresher( //TODO这个逻辑有问题
     private val attributeManager: AttributeManager,
 ): Listener {
     @EventHandler

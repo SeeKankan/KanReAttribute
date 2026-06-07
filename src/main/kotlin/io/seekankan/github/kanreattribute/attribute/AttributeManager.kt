@@ -6,7 +6,6 @@ import io.seekankan.github.kanreattribute.data.EventData
 import io.seekankan.github.kanreattribute.util.EntityDataCache
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.HandlerList
-import org.bukkit.metadata.FixedMetadataValue
 
 class AttributeManager constructor(
     private val plugin: KanReAttribute,
@@ -65,7 +64,7 @@ class AttributeManager constructor(
         cache.invalid(entity)
     }
 
-    fun handleEventData(attrMap: AttributeMap, eventData: EventData) {
+    fun processEventWithAttribute(attrMap: AttributeMap, eventData: EventData) {
         subAttributeRegistry.forEachMap(attrMap) { attrType, subAttribute, attrValue ->
             if(attrValue != null) subAttribute.calculateEventNumber(attrValue, attrMap, eventData)
         }

@@ -54,7 +54,7 @@ class AttributeMap(
         this[key] = newVal
         return newVal
     }
-//    fun handleEventData(eventData: EventData) {
+//    fun processEventWithAttribute(eventData: EventData) {
 //        plugin.attributeManager.subAttributeRegistry.forEachMap(this) { attrType, subAttribute, attrValue ->
 //            if(attrValue != null) subAttribute.calculateEventNumber(attrValue, this, eventData)
 //        }

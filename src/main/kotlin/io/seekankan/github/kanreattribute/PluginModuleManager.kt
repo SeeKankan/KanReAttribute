@@ -4,6 +4,7 @@ import io.seekankan.github.kanreattribute.di.AttributeModule
 import io.seekankan.github.kanreattribute.di.BaseConfigModule
 import io.seekankan.github.kanreattribute.di.CommandModule
 import io.seekankan.github.kanreattribute.di.CoroutinesModule
+import io.seekankan.github.kanreattribute.di.EventDataHandleModule
 import io.seekankan.github.kanreattribute.di.GUIModule
 import io.seekankan.github.kanreattribute.di.HologramModule
 import io.seekankan.github.kanreattribute.di.ItemModule
@@ -36,6 +37,8 @@ class PluginModuleManager(
 
         ItemModule(plugin),
         AttributeModule(plugin),
+
+        EventDataHandleModule(plugin),
 
         ListenerModule(plugin),
         GUIModule(plugin),
