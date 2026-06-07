@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonValue
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import io.seekankan.github.kanreattribute.attribute.AttributeManager
+import io.seekankan.github.kanreattribute.attribute.SubAttributeRegistry
 import io.seekankan.github.kanreattribute.attribute.subattribute.Displayable
 import io.seekankan.github.kanreattribute.message.ItemStyleKey
 
@@ -59,9 +60,9 @@ class AttributeMap(
 //            if(attrValue != null) subAttribute.calculateEventNumber(attrValue, this, eventData)
 //        }
 //    }
-    fun toMiniMessageLoreData(manager: AttributeManager): List<Map<String, String>> {
+    fun toMiniMessageLoreData(subAttributeRegistry: SubAttributeRegistry): List<Map<String, String>> {
         return this.mapNotNull { (key, value) ->
-            val subAttribute = manager.subAttributeRegistry.get(key)
+            val subAttribute = subAttributeRegistry.get(key)
             if(subAttribute == null || subAttribute !is Displayable) { //ignore non-displayable attribute
 //                mapOf(
 //                    ItemStyleKey.ATTRIBUTE_DISPLAY_NAME to key,

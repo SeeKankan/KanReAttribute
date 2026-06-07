@@ -1,15 +1,16 @@
 package io.seekankan.github.kanreattribute.holograms
 
 import io.seekankan.github.kanreattribute.coroutines.CoroutinesManager
-import io.seekankan.github.kanreattribute.coroutines.LaunchesCoroutine
-import io.seekankan.github.kanreattribute.coroutines.MainThreadOnly
-import io.seekankan.github.kanreattribute.coroutines.ONE_TICK
-import io.seekankan.github.kanreattribute.coroutines.ticks
+import io.seekankan.github.kanreattribute.coroutines.ScheduleService
+import io.seekankan.github.kanreattribute.coroutines.annotation.LaunchesCoroutine
+import io.seekankan.github.kanreattribute.coroutines.annotation.MainThreadOnly
+import io.seekankan.github.kanreattribute.coroutines.time.ONE_TICK
 import kotlinx.coroutines.cancel
 import org.bukkit.entity.ArmorStand
 
 class HologramManager(
-    val coroutinesManager: CoroutinesManager
+    private val scheduleService: ScheduleService,
+    private val coroutinesManager: CoroutinesManager
 ) {
     private fun createHoloArmorStand(holoConfig: HologramConfig): ArmorStand {
         val world = holoConfig.location.world ?: throw IllegalArgumentException("World must be not null")
@@ -45,7 +46,8 @@ class HologramManager(
 
                     hologramInstance.tick(age)
 
-                    coroutinesManager.delayTicks(ONE_TICK)
+//                    coroutinesManager.delayTicks(ONE_TICK)
+                    scheduleService.delayTicks(ONE_TICK)
                 }
             } finally {
                 hologramInstance.onRemove()

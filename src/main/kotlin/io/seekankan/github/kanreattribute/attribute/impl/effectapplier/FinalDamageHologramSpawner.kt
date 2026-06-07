@@ -7,8 +7,8 @@ import io.seekankan.github.kanreattribute.attribute.effectapplier.JacksonTypedEf
 import io.seekankan.github.kanreattribute.attribute.effectapplier.config.CommonEffectApplierConfig
 import io.seekankan.github.kanreattribute.attribute.effectapplier.config.TypedEffectApplierConfig
 import io.seekankan.github.kanreattribute.common.effectApplierKeyOf
-import io.seekankan.github.kanreattribute.coroutines.Ticks
-import io.seekankan.github.kanreattribute.coroutines.tickSeconds
+import io.seekankan.github.kanreattribute.coroutines.time.Ticks
+import io.seekankan.github.kanreattribute.coroutines.time.tickSeconds
 import io.seekankan.github.kanreattribute.extensions.midpoint
 import io.seekankan.github.kanreattribute.holograms.HologramManager
 import io.seekankan.github.kanreattribute.holograms.hologramConfig

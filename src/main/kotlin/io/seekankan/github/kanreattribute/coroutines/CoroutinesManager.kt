@@ -1,5 +1,6 @@
 package io.seekankan.github.kanreattribute.coroutines
 
+import io.seekankan.github.kanreattribute.coroutines.time.Ticks
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -12,6 +13,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import org.bukkit.Bukkit
 import org.bukkit.plugin.Plugin
 import java.util.logging.Logger
+import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.resume
 
 class CoroutinesManager(
@@ -29,22 +31,11 @@ class CoroutinesManager(
         rootJob + bukkitDispatcher + Dispatchers.IO + exceptionHandler
     )
 
-    @OptIn(ExperimentalCoroutinesApi::class)
-    suspend fun delayTicks(ticks: Ticks) {
-        require(ticks.value >= 0) {
-            "Delayed ticks must be non-negative"
-        }
-        suspendCancellableCoroutine { continuation ->
-            val runnable = Runnable { continuation.resume(Unit) }
-            val bukkitTask = Bukkit.getScheduler().runTaskLater(plugin, runnable, ticks.value)
-            continuation.invokeOnCancellation {
-                bukkitTask.cancel()
-            }
-        }
-    }
-
     fun launchBukkit(block: suspend CoroutineScope.() -> Unit): Job {
         return scope.launch(bukkitDispatcher,block = block)
+    }
+    fun launchIn(context: CoroutineContext, block: suspend CoroutineScope.() -> Unit): Job {
+        return scope.launch(context, block = block)
     }
 
     fun shutdown() {

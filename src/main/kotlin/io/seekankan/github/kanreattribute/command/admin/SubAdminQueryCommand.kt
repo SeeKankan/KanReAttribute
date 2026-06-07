@@ -1,7 +1,9 @@
 package io.seekankan.github.kanreattribute.command.admin
 
 import io.seekankan.github.kanreattribute.KanReAttribute
+import io.seekankan.github.kanreattribute.attribute.AttributeCalculatorRegistry
 import io.seekankan.github.kanreattribute.attribute.AttributeManager
+import io.seekankan.github.kanreattribute.attribute.SubAttributeRegistry
 import io.seekankan.github.kanreattribute.command.ArgumentList
 import io.seekankan.github.kanreattribute.command.SubCommand
 import io.seekankan.github.kanreattribute.command.commandMapOf
@@ -101,10 +103,11 @@ class SubQueryRegAttributeCalculatorCommand: SubCommand<CommandSender>(
     ),
     usage = "/kra admin query regattributecalculators"
 ), KoinComponent {
-    val attributeManager: AttributeManager by inject()
+//    val attributeManager: AttributeManager by inject()
+    val attributeCalculatorRegistry: AttributeCalculatorRegistry by inject()
 
     override fun handleCommand(sender: CommandSender, args: ArgumentList): Boolean {
-        val regCalc = attributeManager.attributeCalculatorRegistry.pipeLineView.joinToString {
+        val regCalc = attributeCalculatorRegistry.pipeLineView.joinToString {
             it.uniqueName
         }
         sendQuery(messageService, sender, "AttributeCalculator", regCalc)
@@ -120,10 +123,11 @@ class SubQueryRegSubAttribute: SubCommand<CommandSender>(
     ),
     usage = "/kra admin query regsubattributes"
 ), KoinComponent {
-    val attributeManager: AttributeManager by inject()
+    val subAttributeRegistry: SubAttributeRegistry by inject()
+//    val attributeManager: AttributeManager by inject()
 
     override fun handleCommand(sender: CommandSender, args: ArgumentList): Boolean {
-        val regAttr = attributeManager.subAttributeRegistry.pipeLineView.joinToString {
+        val regAttr = subAttributeRegistry.pipeLineView.joinToString {
             it.uniqueName.toString()
         }
         sendQuery(messageService, sender, "SubAttributes", regAttr)

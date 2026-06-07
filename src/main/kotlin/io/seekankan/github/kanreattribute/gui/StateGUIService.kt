@@ -2,6 +2,7 @@ package io.seekankan.github.kanreattribute.gui
 
 import io.seekankan.github.kanreattribute.message.MessageService
 import io.seekankan.github.kanreattribute.attribute.AttributeManager
+import io.seekankan.github.kanreattribute.attribute.SubAttributeRegistry
 import io.seekankan.github.kanreattribute.attribute.subattribute.Displayable
 import io.seekankan.github.kanreattribute.gui.data.AttributeGroupConfig
 import net.axay.kspigot.gui.ForEveryInventory
@@ -22,6 +23,7 @@ import org.bukkit.inventory.ItemStack
 
 class StateGUIService(
     private val messageManager: MessageService,
+    private val subAttributeRegistry: SubAttributeRegistry,
     private val attributeManager: AttributeManager,
     private val guiProtectService: GUIProtectService,
     private val config: GUIConfig
@@ -125,7 +127,7 @@ class StateGUIService(
             this.itemMeta = this.itemMeta?.apply {
                 name = messageManager.toLegacyText(groupConfig.name)
                 val lore = groupConfig.showAttributes.map {
-                    it to attributeManager.subAttributeRegistry.get(it)
+                    it to subAttributeRegistry.get(it)
                 }.filter {
                     it.component2() is Displayable
                 }.map {

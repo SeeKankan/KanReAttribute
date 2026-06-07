@@ -1,7 +1,7 @@
 package io.seekankan.github.kanreattribute.holograms
 
-import io.seekankan.github.kanreattribute.coroutines.Ticks
-import io.seekankan.github.kanreattribute.coroutines.ticks
+import io.seekankan.github.kanreattribute.coroutines.time.Ticks
+import io.seekankan.github.kanreattribute.coroutines.time.ticks
 import io.seekankan.github.kanreattribute.util.KanRandom
 import org.bukkit.Location
 import org.bukkit.entity.ArmorStand

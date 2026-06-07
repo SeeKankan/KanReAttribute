@@ -2,9 +2,11 @@ package io.seekankan.github.kanreattribute.di
 
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.PluginModule
+import io.seekankan.github.kanreattribute.attribute.AttributeCalculatorRegistry
 import io.seekankan.github.kanreattribute.attribute.attributecalculator.AttributeCalculator
 import io.seekankan.github.kanreattribute.attribute.AttributeManager
 import io.seekankan.github.kanreattribute.attribute.EffectApplierRegistry
+import io.seekankan.github.kanreattribute.attribute.SubAttributeRegistry
 import io.seekankan.github.kanreattribute.attribute.effectapplier.EffectApplier
 import io.seekankan.github.kanreattribute.attribute.subattribute.SubAttribute
 import io.seekankan.github.kanreattribute.attribute.impl.attributecalculator.BaseAttributeCalculator
@@ -38,6 +40,8 @@ class AttributeModule(
     private val attributeRefresher: EntityAttributeRefresher by inject()
 
     override val koinModule: Module = module {
+        singleOf(::AttributeCalculatorRegistry)
+        singleOf(::SubAttributeRegistry)
         singleOf(::EffectApplierRegistry)
 
 //        single<AttributeManager> {
@@ -88,6 +92,8 @@ class AttributeModule(
 //            BaseAttributeCalculator(manager),
 //            ItemAttributeCalculator(get()),
 //        )
+        val attributeCalculatorRegistry = getKoin().get<AttributeCalculatorRegistry>()
+        val subAttributeRegistry = getKoin().get<SubAttributeRegistry>()
         val effectApplierRegistry = getKoin().get<EffectApplierRegistry>()
 
         val attributeCalculators = getKoin().getAll<AttributeCalculator>()
@@ -98,10 +104,10 @@ class AttributeModule(
         val effectAppliers = getKoin().getAll<EffectApplier>()
 
         attributeCalculators.forEach {
-            manager.attributeCalculatorRegistry.register(it)
+            attributeCalculatorRegistry.register(it)
         }
         subAttributes.forEach {
-            manager.subAttributeRegistry.register(it)
+            subAttributeRegistry.register(it)
         }
         effectAppliers.forEach {
             effectApplierRegistry.registerPersistent(it)

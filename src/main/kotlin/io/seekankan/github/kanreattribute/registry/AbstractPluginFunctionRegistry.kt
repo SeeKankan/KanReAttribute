@@ -26,6 +26,8 @@ abstract class AbstractPluginFunctionRegistry<K,V>(
                 logger.severe("Unregister $typeStr $functionTypeName >>> [${value.uniqueName} failed! ${ex.message}")
                 ex.printStackTrace()
                 e.addSuppressed(ex)
+            } finally {
+                super.unregister(value)
             }
 
             RegisterResult.Failure.ExecutionError(

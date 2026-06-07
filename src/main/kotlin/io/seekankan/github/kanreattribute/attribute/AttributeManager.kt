@@ -2,6 +2,9 @@ package io.seekankan.github.kanreattribute.attribute
 
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
+import io.seekankan.github.kanreattribute.coroutines.CoroutinesManager
+import io.seekankan.github.kanreattribute.coroutines.annotation.LaunchesCoroutine
+import io.seekankan.github.kanreattribute.coroutines.handle.DebounceHandle
 import io.seekankan.github.kanreattribute.data.EventData
 import io.seekankan.github.kanreattribute.util.EntityDataCache
 import org.bukkit.entity.LivingEntity
@@ -9,17 +12,22 @@ import org.bukkit.event.HandlerList
 
 class AttributeManager constructor(
     private val plugin: KanReAttribute,
-    private val effectApplierRegistry: EffectApplierRegistry
+    private val coroutinesManager: CoroutinesManager,
+
+    private val attributeCalculatorRegistry: AttributeCalculatorRegistry,
+    private val subAttributeRegistry: SubAttributeRegistry,
+    private val effectApplierRegistry: EffectApplierRegistry,
 ) {
     companion object {
         const val ATTRIBUTE_CACHE_KEY = "kanreattribute_attribute_cache"
     }
+
     private val cache = EntityDataCache<LivingEntity, AttributeMap>()
     private lateinit var cacheListener: EntityDataCache.CacheListener
 
-    val attributeCalculatorRegistry = AttributeCalculatorRegistry(plugin)
+//    val attributeCalculatorRegistry = AttributeCalculatorRegistry(plugin)
 
-    val subAttributeRegistry = SubAttributeRegistry(plugin)
+
 
 //    val livingEntityAttributeCache = hashMapOf<UUID, AttributeMap>()
     fun registerListener() {
@@ -54,6 +62,10 @@ class AttributeManager constructor(
         }
 
     }
+    @LaunchesCoroutine
+    fun scheduleRefreshLivingEntityAttribute(entity: LivingEntity) {
+
+    }
     fun refreshLivingEntityAttribute(entity: LivingEntity): AttributeMap {
 //        entity.removeMetadata(ATTRIBUTE_CACHE_KEY, plugin)
         cache.invalid(entity)
@@ -63,19 +75,6 @@ class AttributeManager constructor(
 //        entity.removeMetadata(ATTRIBUTE_CACHE_KEY, plugin)
         cache.invalid(entity)
     }
-
-    fun processEventWithAttribute(attrMap: AttributeMap, eventData: EventData) {
-        subAttributeRegistry.forEachMap(attrMap) { attrType, subAttribute, attrValue ->
-            if(attrValue != null) subAttribute.calculateEventNumber(attrValue, attrMap, eventData)
-        }
-    }
-
-    fun applyEffect(attrMap: AttributeMap, eventData: EventData) {
-        effectApplierRegistry.forEach { effectApplier ->
-            effectApplier.applyEffect(attrMap, eventData)
-        }
-    }
-
 
     fun reloadAttributes() {
         attributeCalculatorRegistry.pipeLineView.forEach { calculator -> //TODO 该改正了

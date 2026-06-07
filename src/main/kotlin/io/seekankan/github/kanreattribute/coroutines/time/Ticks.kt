@@ -1,4 +1,4 @@
-package io.seekankan.github.kanreattribute.coroutines
+package io.seekankan.github.kanreattribute.coroutines.time
 
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.core.JsonParser
@@ -8,6 +8,8 @@ import com.fasterxml.jackson.databind.JsonSerializer
 import com.fasterxml.jackson.databind.SerializerProvider
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import io.seekankan.github.kanreattribute.coroutines.ScheduleService
+import io.seekankan.github.kanreattribute.coroutines.annotation.Delayable
 
 
 @JvmInline
@@ -15,7 +17,12 @@ value class Ticks(
     @get:JsonSerialize(using = TickSerializer::class)
     @get:JsonDeserialize(using = TickDeserializer::class)
     val value: Long
-)
+): DelayTime {
+    @Delayable
+    override suspend fun delayBy(scheduleService: ScheduleService) {
+        scheduleService.delayTicks(this)
+    }
+}
 
 class TickSerializer: JsonSerializer<Ticks>() {
     override fun serialize(

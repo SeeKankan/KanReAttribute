@@ -1,6 +1,7 @@
 package io.seekankan.github.kanreattribute.item.itemcreate
 
 import io.seekankan.github.kanreattribute.attribute.AttributeManager
+import io.seekankan.github.kanreattribute.attribute.SubAttributeRegistry
 import io.seekankan.github.kanreattribute.item.itemtype.ItemType
 import io.seekankan.github.kanreattribute.item.message.ItemDefinitions
 import io.seekankan.github.kanreattribute.message.ItemLoreParser
@@ -9,7 +10,10 @@ import io.seekankan.github.kanreattribute.message.wrapTag
 
 class ItemMetaAssembler(
     private val itemLoreParser: ItemLoreParser,
+
+    private val subAttributeRegistry: SubAttributeRegistry,
     private val attributeManager: AttributeManager,
+
     private val itemDefinitions: ItemDefinitions
 ) {
     fun assembleGsonLore(itemType: ItemType): List<String> {
@@ -24,12 +28,8 @@ class ItemMetaAssembler(
         val itemSlotsList = itemType.slots
         val itemSlotsString = itemDefinitions.getSlotListDisplayName(itemSlotsList).joinToString(separator = ItemStyleKey.EACH_ITEM_SLOT_DELIMITER.wrapTag())
 
-        val itemTypeIntro = if(itemType.introduction != null) {
-            itemType.introduction!!
-        } else {
-            ItemStyleKey.EMPTY_ITEM_INTRODUCTION.wrapTag()
-        }
-        val itemTypeAttributeMap = itemType.attrMap.toMiniMessageLoreData(attributeManager)
+        val itemTypeIntro = itemType.introduction ?: ItemStyleKey.EMPTY_ITEM_INTRODUCTION.wrapTag()
+        val itemTypeAttributeMap = itemType.attrMap.toMiniMessageLoreData(subAttributeRegistry)
         val itemAttribute = itemLoreParser.parseList(
             ItemStyleKey.EACH_ITEM_ATTRIBUTE.wrapTag(),
             itemTypeAttributeMap

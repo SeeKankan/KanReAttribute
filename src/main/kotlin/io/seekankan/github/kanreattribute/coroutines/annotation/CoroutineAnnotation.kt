@@ -1,4 +1,4 @@
-package io.seekankan.github.kanreattribute.coroutines
+package io.seekankan.github.kanreattribute.coroutines.annotation
 
 @Target(AnnotationTarget.FUNCTION)
 
