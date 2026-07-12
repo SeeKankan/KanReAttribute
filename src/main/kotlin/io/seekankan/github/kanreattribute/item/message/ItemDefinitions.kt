@@ -16,7 +16,7 @@ class ItemDefinitions(
 ) {
 
     fun getSlotDisplayName(itemSlot: ItemSlot): String {
-        return config.slots.getOrDefault(itemSlot, itemSlot.name)
+        return currentConfig.slots.getOrDefault(itemSlot, itemSlot.name)
     }
     fun getSlotListDisplayName(itemSlots: List<ItemSlot>): List<String> {
         return itemSlots.map {
@@ -24,6 +24,6 @@ class ItemDefinitions(
         }
     }
     fun getCategoryConfig(category: ItemCategory): ItemCategoryConfig {
-        return config.itemCategories[category] ?: throw IllegalArgumentException("Unknown item category ${category.name}. This category does not config in item_definitions.yml.")
+        return currentConfig.itemCategories[category] ?: throw IllegalArgumentException("Unknown item category ${category.name}. This category does not currentConfig in item_definitions.yml.")
     }
 }

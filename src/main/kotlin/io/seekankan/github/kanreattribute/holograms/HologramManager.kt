@@ -1,6 +1,6 @@
 package io.seekankan.github.kanreattribute.holograms
 
-import io.seekankan.github.kanreattribute.coroutines.CoroutinesManager
+import io.seekankan.github.kanreattribute.coroutines.CoroutineManager
 import io.seekankan.github.kanreattribute.coroutines.ScheduleService
 import io.seekankan.github.kanreattribute.coroutines.annotation.LaunchesCoroutine
 import io.seekankan.github.kanreattribute.coroutines.annotation.MainThreadOnly
@@ -10,7 +10,7 @@ import org.bukkit.entity.ArmorStand
 
 class HologramManager(
     private val scheduleService: ScheduleService,
-    private val coroutinesManager: CoroutinesManager
+    private val coroutinesManager: CoroutineManager
 ) {
     private fun createHoloArmorStand(holoConfig: HologramConfig): ArmorStand {
         val world = holoConfig.location.world ?: throw IllegalArgumentException("World must be not null")

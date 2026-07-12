@@ -2,6 +2,7 @@ package io.seekankan.github.kanreattribute.attribute.listener
 
 import io.seekankan.github.kanreattribute.attribute.AttributeManager
 import net.axay.kspigot.event.listen
+import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
@@ -18,15 +19,19 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent
 class EntityAttributeRefresher( //TODO这个逻辑有问题
     private val attributeManager: AttributeManager,
 ): Listener {
+    private fun scheduleRefresh(entity: LivingEntity) {
+        attributeManager.scheduleRefreshLivingEntityAttribute(entity)
+    }
+
     @EventHandler
     fun onInventoryClick(event: InventoryClickEvent) {
         val entity = event.whoClicked
-        attributeManager.deleteLivingEntityAttributeCache(entity)
+        scheduleRefresh(entity)
     }
     @EventHandler
     fun onInventoryDrag(event: InventoryDragEvent) {
         val entity = event.whoClicked
-        attributeManager.deleteLivingEntityAttributeCache(entity)
+        scheduleRefresh(entity)
     }
 //    @EventHandler
 //    fun onInventoryTradeSelect(event: TradeSelectEvent) {
@@ -37,32 +42,32 @@ class EntityAttributeRefresher( //TODO这个逻辑有问题
     fun onPlayerInteract(event: PlayerInteractEvent) {
         val entity = event.player
         if(event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) {
-            attributeManager.deleteLivingEntityAttributeCache(entity)
+            scheduleRefresh(entity)
         }
     }
     @EventHandler
     fun onPlayerDropItem(event: PlayerDropItemEvent) {
         val entity = event.player
-        attributeManager.deleteLivingEntityAttributeCache(entity)
+        scheduleRefresh(entity)
     }
     @EventHandler
     fun onPlayerHeldItem(event: PlayerItemHeldEvent) {
         val entity = event.player
-        attributeManager.deleteLivingEntityAttributeCache(entity)
+        scheduleRefresh(entity)
     }
     @EventHandler
     fun onPlayerSwapItem(event: PlayerSwapHandItemsEvent) {
         val entity = event.player
-        attributeManager.deleteLivingEntityAttributeCache(entity)
+        scheduleRefresh(entity)
     }
     @EventHandler
     fun onPlayerBrokeItem(event: PlayerItemBreakEvent) {
         val entity = event.player
-        attributeManager.deleteLivingEntityAttributeCache(entity)
+        scheduleRefresh(entity)
     }
     @EventHandler
     fun onPlayerConsumeItem(event: PlayerItemConsumeEvent) {
         val entity = event.player
-        attributeManager.deleteLivingEntityAttributeCache(entity)
+        scheduleRefresh(entity)
     }
 }

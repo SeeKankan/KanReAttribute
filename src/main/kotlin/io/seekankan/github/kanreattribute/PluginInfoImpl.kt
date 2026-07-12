@@ -1,6 +1,7 @@
 package io.seekankan.github.kanreattribute
 
 import com.fasterxml.jackson.core.type.TypeReference
+import io.seekankan.github.kanreattribute.util.Configurable
 import io.seekankan.github.kanreattribute.util.saveFileAndReadYAML
 import org.bukkit.plugin.Plugin
 import java.io.File
@@ -29,4 +30,39 @@ class PluginInfoImpl(
     ): T {
         return saveFileAndReadYAML(this, typeRef, resourcePath)
     }
+
+    override fun <T> saveAndLoadConfig(
+        file: File,
+        defaultConfigProvider: () -> T,
+        configWriter: (T) -> Unit,
+        configFetcher: () -> T
+    ): T {
+        val parentDir = file.parentFile
+        if(parentDir != null && !parentDir.exists()) {
+            val created = parentDir.mkdirs()
+            if(!created) {
+                logger.warning("Cannot create directory: " + parentDir.absolutePath)
+            }
+        }
+        if(!file.exists()) {
+            logger.info("Create currentConfig file: ${file.name}")
+            val defaultConfig = defaultConfigProvider()
+            configWriter(defaultConfig)
+        }
+        return configFetcher()
+    }
+
+    override fun <T> saveAndLoadConfig(
+        file: File,
+        configurable: Configurable<T>
+    ): T {
+        return saveAndLoadConfig(
+            file,
+            configurable::createDefaultConfig,
+            configurable::writeConfig,
+            configurable::fetchConfig
+        )
+    }
+
+
 }

@@ -2,28 +2,25 @@ package io.seekankan.github.kanreattribute.attribute
 
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
-import io.seekankan.github.kanreattribute.coroutines.CoroutinesManager
+import io.seekankan.github.kanreattribute.coroutines.BukkitDispatcher
+import io.seekankan.github.kanreattribute.coroutines.CoroutineManager
 import io.seekankan.github.kanreattribute.coroutines.annotation.LaunchesCoroutine
-import io.seekankan.github.kanreattribute.coroutines.handle.DebounceHandle
-import io.seekankan.github.kanreattribute.data.EventData
 import io.seekankan.github.kanreattribute.util.EntityDataCache
 import org.bukkit.entity.LivingEntity
 import org.bukkit.event.HandlerList
 
 class AttributeManager constructor(
     private val plugin: KanReAttribute,
-    private val coroutinesManager: CoroutinesManager,
+    private val bukkitDispatcher: BukkitDispatcher,
+
+    private val attributeRefreshDebounceHandle: AttributeRefreshDebounceHandle,
 
     private val attributeCalculatorRegistry: AttributeCalculatorRegistry,
     private val subAttributeRegistry: SubAttributeRegistry,
     private val effectApplierRegistry: EffectApplierRegistry,
 ) {
-    companion object {
-        const val ATTRIBUTE_CACHE_KEY = "kanreattribute_attribute_cache"
-    }
 
     private val cache = EntityDataCache<LivingEntity, AttributeMap>()
-    private lateinit var cacheListener: EntityDataCache.CacheListener
 
 //    val attributeCalculatorRegistry = AttributeCalculatorRegistry(plugin)
 
@@ -31,13 +28,15 @@ class AttributeManager constructor(
 
 //    val livingEntityAttributeCache = hashMapOf<UUID, AttributeMap>()
     fun registerListener() {
-        cacheListener = EntityDataCache.CacheListener(cache)
-        plugin.server.pluginManager.registerEvents(cacheListener, plugin)
+//        cacheListener = EntityDataCache.CacheListener(cache)
+//        plugin.server.pluginManager.registerEvents(cacheListener, plugin)
+        cache.registerListener(plugin)
     }
     fun unregisterListener() {
-        if(::cacheListener.isInitialized) {
-            HandlerList.unregisterAll(cacheListener)
-        }
+//        if(::cacheListener.isInitialized) {
+//            HandlerList.unregisterAll(cacheListener)
+//        }
+        cache.unregisterListener()
     }
 
     fun computeLivingEntityAttribute(entity: LivingEntity): AttributeMap {
@@ -45,10 +44,12 @@ class AttributeManager constructor(
         attributeCalculatorRegistry.pipeLineView.forEach { calculator ->
             calculator.calculate(entity, entityAttributeMap)
         }
-        subAttributeRegistry.pipeLineView.forEach { subAttribute ->
-            subAttribute.onUpdate(entity, entityAttributeMap.getOrDefault(subAttribute.uniqueName, 0.0), entityAttributeMap)
-        }
         return entityAttributeMap
+    }
+    fun triggerAttributeUpdate(entity: LivingEntity, attributeMap: AttributeMap) {
+        subAttributeRegistry.pipeLineView.forEach { subAttribute ->
+            subAttribute.onUpdate(entity, attributeMap.getOrDefault(subAttribute.uniqueName, 0.0), attributeMap)
+        }
     }
     fun getLivingEntityAttribute(entity: LivingEntity): AttributeMap {
 //        if(!entity.hasMetadata(ATTRIBUTE_CACHE_KEY)) {
@@ -58,18 +59,25 @@ class AttributeManager constructor(
 //        }
 //        return entity.getMetadata(ATTRIBUTE_CACHE_KEY)[0].value() as AttributeMap
         return cache.getOrCompute(entity) {
-            computeLivingEntityAttribute(entity)
+            val attrMap = computeLivingEntityAttribute(entity)
+            triggerAttributeUpdate(entity, attrMap)
+            attrMap
         }
 
     }
     @LaunchesCoroutine
     fun scheduleRefreshLivingEntityAttribute(entity: LivingEntity) {
-
+        attributeRefreshDebounceHandle.trigger(entity.uniqueId, bukkitDispatcher) {
+            refreshLivingEntityAttribute(entity)
+        }
     }
     fun refreshLivingEntityAttribute(entity: LivingEntity): AttributeMap {
-//        entity.removeMetadata(ATTRIBUTE_CACHE_KEY, plugin)
-        cache.invalid(entity)
-        return computeLivingEntityAttribute(entity)
+//        cache.invalid(entity)
+//        return computeLivingEntityAttribute(entity)
+        val newAttribute = computeLivingEntityAttribute(entity)
+        cache[entity] = newAttribute
+        triggerAttributeUpdate(entity, newAttribute)
+        return newAttribute
     }
     fun deleteLivingEntityAttributeCache(entity: LivingEntity) { //Make cache invalid
 //        entity.removeMetadata(ATTRIBUTE_CACHE_KEY, plugin)

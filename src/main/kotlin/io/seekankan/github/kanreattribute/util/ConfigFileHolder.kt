@@ -8,7 +8,7 @@ open class ConfigFileHolder<E>(
     val resourcePath: String
 ) {
     private var nullableConfig: E? = null
-    val config: E
+    val currentConfig: E
         get() {
             if (nullableConfig == null) {
                 throw IllegalStateException("Config must be load before use")

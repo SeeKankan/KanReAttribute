@@ -25,7 +25,7 @@ class GUIModule(
     private val messageService: MessageService by inject()
     private val guiProtectService: GUIProtectService by inject()
     private val guiConfig: GUIConfig by inject()
-//    private val config: Config by inject()
+//    private val currentConfig: Config by inject()
 
     override val koinModule: Module = module {
         singleOf(::GUIConfig)

@@ -34,19 +34,25 @@ abstract class TypedEffectApplier<T: EventData, E: TypedEffectApplierConfig>(
     protected abstract fun fetchConfig(): E
 
     protected open fun loadConfig() {
-        val parentDir = configFile.parentFile
-        if(parentDir != null && !parentDir.exists()) {
-            val created = parentDir.mkdirs()
-            if(!created) {
-                pluginInfo.logger.warning("Cannot create directory: " + parentDir.absolutePath)
-            }
-        }
-        if(!configFile.exists()) {
-            pluginInfo.logger.info("Create config file: ${configFile.name}")
-            val defaultConfig = createDefaultConfig()
-            writeConfig(defaultConfig)
-        }
-        currentConfig = fetchConfig()
+//        val parentDir = configFile.parentFile
+//        if(parentDir != null && !parentDir.exists()) {
+//            val created = parentDir.mkdirs()
+//            if(!created) {
+//                pluginInfo.logger.warning("Cannot create directory: " + parentDir.absolutePath)
+//            }
+//        }
+//        if(!configFile.exists()) {
+//            pluginInfo.logger.info("Create currentConfig file: ${configFile.name}")
+//            val defaultConfig = createDefaultConfig()
+//            writeConfig(defaultConfig)
+//        }
+//        currentConfig = fetchConfig()
+        currentConfig = pluginInfo.saveAndLoadConfig(
+            configFile,
+            ::createDefaultConfig,
+            ::writeConfig,
+            ::fetchConfig
+        )
     }
 
     override fun onBeforeRegister() {

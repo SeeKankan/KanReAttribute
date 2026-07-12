@@ -16,10 +16,10 @@ class Strength(private val plugin: KanReAttribute) : ConfigurableSubAttribute(pl
 
 //    private val defaultsMap = hashMapOf(
 //        "priority" to 10,
-//        "min_value" to plugin.config.getDouble("min-value", 0.0),
-//        "max_value" to plugin.config.getDouble("max-value", Double.MAX_VALUE),
-//        "base_value" to plugin.config.getDouble("base-value", 1.0),
-//        "divisor" to plugin.config.getDouble("divisor"),
+//        "min_value" to plugin.currentConfig.getDouble("min-value", 0.0),
+//        "max_value" to plugin.currentConfig.getDouble("max-value", Double.MAX_VALUE),
+//        "base_value" to plugin.currentConfig.getDouble("base-value", 1.0),
+//        "divisor" to plugin.currentConfig.getDouble("divisor"),
 //    )
     val divisor: Double
         get() = configuration.getDouble(DIVISOR, 100.0)

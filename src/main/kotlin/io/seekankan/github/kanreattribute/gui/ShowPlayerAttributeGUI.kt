@@ -10,7 +10,7 @@ import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
 //class ShowPlayerAttributeGUI(
-//    private val config: StateGUIConfig
+//    private val currentConfig: StateGUIConfig
 //) {
 //    fun createGUI(player: Player) {
 //

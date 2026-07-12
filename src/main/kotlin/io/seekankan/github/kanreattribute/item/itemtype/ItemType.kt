@@ -18,8 +18,8 @@ data class ItemType(
     @field:JsonProperty("attributes") val attrMap: AttributeMap = AttributeMap(),
     @field:JsonProperty("introduction") val introduction: String? = null,
     @field:JsonProperty("lore") val lore: List<String> = emptyList(),
-    @field:JsonProperty("custom-config") val customConfig: Map<String, Any> = mapOf(),
-    @field:JsonProperty("instance-config") val instanceConfig: Map<ItemInstanceConfigKey, ItemInstanceConfig> = mapOf(
+    @field:JsonProperty("custom-currentConfig") val customConfig: Map<String, Any> = mapOf(),
+    @field:JsonProperty("instance-currentConfig") val instanceConfig: Map<ItemInstanceConfigKey, ItemInstanceConfig> = mapOf(
         itemInstConfigKey("default") to ItemInstanceConfig()
     )
 ): Comparable<ItemType>{

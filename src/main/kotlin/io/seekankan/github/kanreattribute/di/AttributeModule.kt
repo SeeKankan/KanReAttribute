@@ -5,6 +5,7 @@ import io.seekankan.github.kanreattribute.PluginModule
 import io.seekankan.github.kanreattribute.attribute.AttributeCalculatorRegistry
 import io.seekankan.github.kanreattribute.attribute.attributecalculator.AttributeCalculator
 import io.seekankan.github.kanreattribute.attribute.AttributeManager
+import io.seekankan.github.kanreattribute.attribute.AttributeRefreshDebounceHandle
 import io.seekankan.github.kanreattribute.attribute.EffectApplierRegistry
 import io.seekankan.github.kanreattribute.attribute.SubAttributeRegistry
 import io.seekankan.github.kanreattribute.attribute.effectapplier.EffectApplier
@@ -49,6 +50,9 @@ class AttributeModule(
 //        }.onClose {
 //            it?.unregisterListener()
 //        }
+
+        singleOf(::AttributeRefreshDebounceHandle)
+
         singleOf(::AttributeManager).onClose {
             it?.unregisterListener()
         }

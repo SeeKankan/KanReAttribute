@@ -2,7 +2,9 @@ package io.seekankan.github.kanreattribute.util
 
 import org.bukkit.Bukkit
 import org.bukkit.entity.Entity
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
+import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityChangeBlockEvent
 import org.bukkit.event.entity.EntityDeathEvent
@@ -16,79 +18,84 @@ import org.bukkit.event.entity.ItemMergeEvent
 import org.bukkit.event.entity.ProjectileHitEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.event.world.ChunkUnloadEvent
+import org.bukkit.plugin.Plugin
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 
 class EntityDataCache<T: Entity, E: Any> {
-    class CacheListener(
+    private class CacheListener( //只是用来清理残留的Data
         private val cache: EntityDataCache<out Entity, out Any>
     ): Listener {
+        private fun invalidIfNotPlayer(entity: Entity) {
+            if(entity !is Player) cache.invalid(entity.uniqueId)
+        }
 
         @EventHandler
-        fun onEntityDeath(event: EntityDeathEvent) {
+        fun onEntityDeath(event: EntityDeathEvent) { //possible for player
             val entity = event.entity
-            cache.invalid(entity.uniqueId)
+            invalidIfNotPlayer(entity)
         }
         @EventHandler
-        fun onEntityDespawn(event: ItemDespawnEvent) {
+        fun onEntityDespawn(event: ItemDespawnEvent) { //impossible for player
             val entity = event.entity
-            cache.invalid(entity.uniqueId)
+            invalidIfNotPlayer(entity)
         }
         @EventHandler
-        fun onEntityDrop(event: EntityDropItemEvent) {
+        fun onEntityDrop(event: EntityDropItemEvent) { //possible for player
             val entity = event.entity
-            cache.invalid(entity.uniqueId)
+            invalidIfNotPlayer(entity)
         }
         @EventHandler
-        fun onEntityEnterBlock(event: EntityEnterBlockEvent) {
+        fun onEntityEnterBlock(event: EntityEnterBlockEvent) { //impossible for player
             val entity = event.entity
-            cache.invalid(entity.uniqueId)
+            invalidIfNotPlayer(entity)
         }
         @EventHandler
-        fun onEntityChangeBlock(event: EntityChangeBlockEvent) {
+        fun onEntityChangeBlock(event: EntityChangeBlockEvent) { //maybe impossible for player
             val entity = event.entity
-            cache.invalid(entity.uniqueId)
+            invalidIfNotPlayer(entity)
         }
         @EventHandler
-        fun onEntityExplode(event: EntityExplodeEvent) {
+        fun onEntityExplode(event: EntityExplodeEvent) { //impossible for player
             val entity = event.entity
-            cache.invalid(entity.uniqueId)
+            invalidIfNotPlayer(entity)
         }
         @EventHandler
-        fun onProjectileHit(event: ProjectileHitEvent) {
+        fun onProjectileHit(event: ProjectileHitEvent) { //impossible for player
             val entity = event.entity
-            cache.invalid(entity.uniqueId)
+            invalidIfNotPlayer(entity)
         }
         @EventHandler
-        fun onItemMerge(event: ItemMergeEvent) {
+        fun onItemMerge(event: ItemMergeEvent) { //impossible for player
             val entity = event.entity
-            cache.invalid(entity.uniqueId)
+            invalidIfNotPlayer(entity)
         }
         //out of world function require to write
         @EventHandler
-        fun onItemPickUp(event: EntityPickupItemEvent) {
-            val entity = event.item
-            cache.invalid(entity.uniqueId)
+        fun onItemPickUp(event: EntityPickupItemEvent) { //item isn't player
+            val item = event.item
+            invalidIfNotPlayer(item)
         }
         @EventHandler
-        fun onPlayerQuit(event: PlayerQuitEvent) {
+        fun onPlayerQuit(event: PlayerQuitEvent) { //must be player
             val entity = event.player
             cache.invalid(entity.uniqueId)
         }
         @EventHandler
         fun onEntityTransform(event: EntityTransformEvent) {
             val entity = event.entity
-            cache.invalid(entity.uniqueId)
+            invalidIfNotPlayer(entity)
         }
         @EventHandler
         fun onChunkUnload(event: ChunkUnloadEvent) {
             val entities = event.chunk.entities
             for (entity in entities) {
-                cache.invalid(entity.uniqueId)
+                invalidIfNotPlayer(entity)
             }
         }
     }
     private val cacheMap = ConcurrentHashMap<UUID, E>()
+    private var cacheListener: CacheListener? = null
 
     operator fun get(entity: T): E? {
         return this[entity.uniqueId]
@@ -113,5 +120,17 @@ class EntityDataCache<T: Entity, E: Any> {
     }
     fun invalid(entityID: UUID) {
         cacheMap.remove(entityID)
+    }
+
+    fun registerListener(plugin: Plugin) {
+        if(cacheListener != null) return //ignore re-register the listener
+        val listener = CacheListener(this)
+        cacheListener = listener
+        plugin.server.pluginManager.registerEvents(listener, plugin)
+    }
+    fun unregisterListener() {
+        cacheListener?.let { listener ->
+            HandlerList.unregisterAll(listener)
+        }
     }
 }

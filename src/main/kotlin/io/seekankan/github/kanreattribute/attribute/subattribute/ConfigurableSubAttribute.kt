@@ -44,7 +44,7 @@ abstract class ConfigurableSubAttribute(
             }
         }
         if(!configFile.exists()) {
-            plugin.logger.info("Create config file: ${configFile.name}")
+            plugin.logger.info("Create currentConfig file: ${configFile.name}")
             configFile.createNewFile()
             val tempConfig = YamlConfiguration()
             val defaults = getDefaults()

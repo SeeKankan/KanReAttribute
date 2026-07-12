@@ -1,0 +1,6 @@
+combat:
+  ban-shield: false
+  clear-minecraft-armor-attribute: true
+
+attribute:
+  attribute-refresh-delay: 5t

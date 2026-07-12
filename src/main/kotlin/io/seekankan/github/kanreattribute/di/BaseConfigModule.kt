@@ -1,6 +1,7 @@
 package io.seekankan.github.kanreattribute.di
 
 import io.seekankan.github.kanreattribute.Config
+import io.seekankan.github.kanreattribute.ConfigHolder
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.message.MessageService
 import io.seekankan.github.kanreattribute.PluginModule
@@ -25,7 +26,6 @@ class BaseConfigModule(
     private val messageManager: MessageManager by inject()
     private val messageService: MessageService by inject()
     private val itemLoreParser: ItemLoreParser by inject()
-    private val config: Config by inject()
 
     override val koinModule: Module = module {
         singleOf(BukkitAudiences::create).onClose {
@@ -40,7 +40,7 @@ class BaseConfigModule(
         singleOf(::MessageManager)
         singleOf(::MessageService)
         singleOf(::ItemLoreParser)
-        singleOf(::Config)
+        singleOf(::ConfigHolder)
     }
 //    {
 //        return module {
@@ -58,20 +58,23 @@ class BaseConfigModule(
 //    }
 
     override fun onEnable() {
+        val configHolder = getKoin().get<ConfigHolder>()
+
         messageManager.loadMessage()
         itemLoreParser.loadConfig()
 
 //        Message.loadMessage(plugin)
 
-        plugin.saveDefaultConfig()
-        config.snapshotDefaults()
-        config.loadConfig(plugin)
+//        plugin.saveDefaultConfig()
+        configHolder.loadConfig()
     }
 
     override fun onReload() {
+        val configHolder = getKoin().get<ConfigHolder>()
+
         messageManager.loadMessage()
         itemLoreParser.loadConfig()
-        config.loadConfig(plugin)
+        configHolder.loadConfig()
     }
 
 }

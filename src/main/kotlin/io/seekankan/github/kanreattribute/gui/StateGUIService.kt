@@ -88,7 +88,7 @@ class StateGUIService(
         (this as GUIPageBuilder<ForEveryInventory>).placeholder(Slots.Border, fillerStack)
     }
     private fun <T : ForInventory> GUIPageBuilder<T>.renderIcons(player: Player) {
-//        config.stateGUIConfig.attributeGroupMap.values.map { groupConfig ->
+//        currentConfig.stateGUIConfig.attributeGroupMap.values.map { groupConfig ->
 //            val playerAttributeData = attributeManager.getLivingEntityAttribute(player)
 //            val attributeIcon = itemStack(groupConfig.material) {
 //                this.itemMeta = this.itemMeta?.apply {
@@ -113,8 +113,8 @@ class StateGUIService(
 //            }
 //        }
         val compound = createAttributeCompound(player)
-//        config.stateGUIConfig.attributeGroupMap.forEach { (_, config) ->
-//            compound.addContent(player to config)
+//        currentConfig.stateGUIConfig.attributeGroupMap.forEach { (_, currentConfig) ->
+//            compound.addContent(player to currentConfig)
 //        }
         config.stateGUIConfig.sortAttributeGroupSet.forEach {
             compound.addContent(player to it)
