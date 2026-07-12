@@ -1,5 +1,6 @@
 package io.seekankan.github.kanreattribute.di
 
+import io.seekankan.github.kanreattribute.AttributeService
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.PluginModule
 import io.seekankan.github.kanreattribute.attribute.AttributeCalculatorRegistry
@@ -56,6 +57,8 @@ class AttributeModule(
         singleOf(::AttributeManager).onClose {
             it?.unregisterListener()
         }
+
+        singleOf(::AttributeService)
 
         singleOf(::EntityAttributeRefresher).onClose {
             if (it != null) {
