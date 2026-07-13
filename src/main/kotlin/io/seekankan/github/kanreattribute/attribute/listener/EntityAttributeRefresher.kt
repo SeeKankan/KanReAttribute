@@ -6,6 +6,8 @@ import org.bukkit.entity.LivingEntity
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
+import org.bukkit.event.entity.EntityInteractEvent
+import org.bukkit.event.entity.EntityPickupItemEvent
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryDragEvent
 import org.bukkit.event.inventory.TradeSelectEvent
@@ -16,7 +18,7 @@ import org.bukkit.event.player.PlayerItemConsumeEvent
 import org.bukkit.event.player.PlayerItemHeldEvent
 import org.bukkit.event.player.PlayerSwapHandItemsEvent
 
-class EntityAttributeRefresher( //TODO这个逻辑有问题
+class EntityAttributeRefresher(
     private val attributeManager: AttributeManager,
 ): Listener {
     private fun scheduleRefresh(entity: LivingEntity) {
@@ -38,34 +40,50 @@ class EntityAttributeRefresher( //TODO这个逻辑有问题
 //        val entity = event.whoClicked
 //        attributeManager.deleteLivingEntityAttributeCache(entity)
 //    }
-    @EventHandler
+
+    @EventHandler(ignoreCancelled = true)
+    fun onEntityInteract(event: EntityInteractEvent) {
+        val entity = event.entity as? LivingEntity ?: return
+//        if(event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) {
+        scheduleRefresh(entity)
+//        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
     fun onPlayerInteract(event: PlayerInteractEvent) {
         val entity = event.player
         if(event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) {
             scheduleRefresh(entity)
         }
     }
-    @EventHandler
+
+    @EventHandler(ignoreCancelled = true)
+    fun onEntityPickupItem(event: EntityPickupItemEvent) {
+        val entity = event.entity
+        scheduleRefresh(entity)
+    }
+
+    @EventHandler(ignoreCancelled = true)
     fun onPlayerDropItem(event: PlayerDropItemEvent) {
         val entity = event.player
         scheduleRefresh(entity)
     }
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     fun onPlayerHeldItem(event: PlayerItemHeldEvent) {
         val entity = event.player
         scheduleRefresh(entity)
     }
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     fun onPlayerSwapItem(event: PlayerSwapHandItemsEvent) {
         val entity = event.player
         scheduleRefresh(entity)
     }
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     fun onPlayerBrokeItem(event: PlayerItemBreakEvent) {
         val entity = event.player
         scheduleRefresh(entity)
     }
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     fun onPlayerConsumeItem(event: PlayerItemConsumeEvent) {
         val entity = event.player
         scheduleRefresh(entity)
