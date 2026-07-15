@@ -1,10 +1,9 @@
 package io.seekankan.github.kanreattribute
 
-import be.seeseemelk.mockbukkit.MockBukkit
-import be.seeseemelk.mockbukkit.ServerMock
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
-import org.yaml.snakeyaml.Yaml
+import org.mockbukkit.mockbukkit.MockBukkit
+import org.mockbukkit.mockbukkit.ServerMock
 
 abstract class MockBukkitTestBase {
     protected lateinit var server: ServerMock

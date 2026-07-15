@@ -1,0 +1,58 @@
+dragon_sword:
+  ==: ConfigurationItemType
+  unique-name: "custom:dragon_sword"
+  display-name: "<red>龙剑</red>"
+  priority: 1
+  material: DIAMOND_SWORD
+  category: GEAR
+  slots:
+    - MAIN_HAND
+    - OFF_HAND
+  attributes:
+    KanReAttribute:Damage: 100
+    KanReAttribute:Strength: 100
+#    KanReAttribute:CritDamage: 10.0
+  introduction: "<yellow>这是一把龙剑！</yellow>"
+#  lore:
+#    - "<format_full_item_lore>"
+  custom-config:
+    foo: 114514
+    bar: "kankan"
+    is-happy: false
+
+#dragonsword1:
+#  ==: ConfigurationItemType
+#  unique-name: "custom:dragonsword1"
+#  display-name: "<gold>龙剑</gold>"
+#  priority: 1
+#  material: DIAMOND_SWORD
+#  slots:
+#    - MAIN_HAND
+#    - OFF_HAND
+#  attributes:
+#    KanReAttribute:Damage: 100
+#    KanReAttribute:Strength: 100
+#  introduction: "<blue>这是我的物品！</blue>"
+#  custom-config:
+#    foo: 114514
+#    bar: "kankan"
+#    is-happy: false
+
+dragon_chestplate:
+  ==: ConfigurationItemType
+  unique-name: "custom:dragon_chestplate"
+  display-name: "<red>龙胸甲</red>"
+  priority: 1
+  material: DIAMOND_CHESTPLATE
+  category: GEAR
+  slots:
+    - CHEST
+  attributes:
+    KanReAttribute:Damage: 20
+    KanReAttribute:Strength: 20
+
+    KanReAttribute:ExtraHealth: 40
+  #    KanReAttribute:CritDamage: 10.0
+  introduction: "<yellow>这是一件龙盔甲！</yellow>"
+  #  lore:
+  #    - "<format_full_item_lore>"

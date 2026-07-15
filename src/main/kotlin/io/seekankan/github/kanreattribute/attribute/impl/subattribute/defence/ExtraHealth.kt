@@ -6,11 +6,13 @@ import io.seekankan.github.kanreattribute.attribute.subattribute.ConfigurableSub
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
 import io.seekankan.github.kanreattribute.attribute.data.AttributeType
 import io.seekankan.github.kanreattribute.attribute.util.attributeConfig
+import io.seekankan.github.kanreattribute.common.keyOf
 import io.seekankan.github.kanreattribute.data.EventData
 import io.seekankan.github.kanreattribute.util.KanRandom
 import io.seekankan.github.kanreattribute.util.divAndPow
 import io.seekankan.github.kanreattribute.util.enumValueOfOrDefault
 import io.seekankan.github.kanreattribute.util.mutableLazy
+import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.entity.LivingEntity
@@ -25,6 +27,7 @@ class ExtraHealth(
     private val uuid = KanRandom.generateUUIDFromSeed(
         "${plugin.name}.living_entity.attribute.generic.max_health"
     )
+    private val attributeKey = NamespacedKey(plugin, "subattribute_extra_health")
 
     val divisor: Double
         get() = configuration.getDouble(AttributeKeys.DIVISOR, 1.0)
@@ -72,15 +75,20 @@ class ExtraHealth(
     }
 
     private fun createMaxHealthModifier(amount: Double): AttributeModifier {
+//        return AttributeModifier(
+//            uuid,
+//            "${plugin.name}.subattribute.max_health",
+//            amount,
+//            AttributeModifier.Operation.ADD_NUMBER
+//        )
         return AttributeModifier(
-            uuid,
-            "${plugin.name}.subattribute.max_health",
+            attributeKey,
             amount,
             AttributeModifier.Operation.ADD_NUMBER
         )
     }
     override fun onUpdate(entity: LivingEntity, attrValue: Double, otherAttributes: AttributeMap) {
-        val maxHealthAttribute = entity.getAttribute(Attribute.GENERIC_MAX_HEALTH)?: return
+        val maxHealthAttribute = entity.getAttribute(Attribute.MAX_HEALTH)?: return
         val modifierValue = correctValue(attrValue).divAndPow(divisor, exponent)
         val modifier = createMaxHealthModifier(modifierValue)
         maxHealthAttribute.removeModifier(modifier)

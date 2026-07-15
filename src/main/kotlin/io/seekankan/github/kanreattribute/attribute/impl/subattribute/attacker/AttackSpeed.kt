@@ -7,18 +7,27 @@ import io.seekankan.github.kanreattribute.attribute.data.AttributeType
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
 import io.seekankan.github.kanreattribute.attribute.util.attributeConfig
 import io.seekankan.github.kanreattribute.data.EventData
+import io.seekankan.github.kanreattribute.helper.PlayerPreAttackCooldownCache
 import io.seekankan.github.kanreattribute.util.KanRandom
 import io.seekankan.github.kanreattribute.util.divAndPow
+import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.entity.HumanEntity
 import org.bukkit.entity.LivingEntity
+import org.bukkit.entity.Player
+import java.util.logging.Logger
 
-class AttackSpeed(private val plugin: KanReAttribute) : ConfigurableSubAttribute(plugin,
+class AttackSpeed(
+    private val plugin: KanReAttribute,
+    private val logger: Logger,
+    private val playerPreAttackCooldownCache: PlayerPreAttackCooldownCache
+) : ConfigurableSubAttribute(plugin,
     AttributeType(plugin.name, "AttackSpeed")) {
     private val uuid = KanRandom.generateUUIDFromSeed(
         "${plugin.name}.living_entity.attribute.generic.attack_speed"
     )
+    private val attributeKey = NamespacedKey(plugin, "subattribute_attack_speed")
 
     val divisor: Double
         get() = configuration.getDouble("divisor", 1.0)
@@ -42,23 +51,26 @@ class AttackSpeed(private val plugin: KanReAttribute) : ConfigurableSubAttribute
         otherAttributes: AttributeMap,
         eventData: EventData
     ) {
+        if(eventData is Player) return
         if(eventData !is EntityDamageEventData) return
         if(eventData.stage != EntityDamageEventData.HandleStage.HANDLE_ATTACKER) return
-        if(eventData.attacker !is HumanEntity) return
-        val attackCooldown = eventData.attacker.attackCooldown
+        if(eventData.attacker !is Player) return
+//        val attackCooldown = eventData.attacker.attackCooldown //TODO 问题代码
+        val attackCooldown = playerPreAttackCooldownCache[eventData.attacker.uniqueId] ?: return
+//        val attackCooldown = eventData.attacker.getCooledAttackStrength(0.0f)
+
         eventData.damage *= attackCooldown
     }
 
     private fun createAttackSpeedModifier(amount: Double): AttributeModifier {
         return AttributeModifier(
-            uuid,
-            "${plugin.name}.subattribute.attackspeed",
+            attributeKey,
             amount,
             AttributeModifier.Operation.ADD_NUMBER
         )
     }
     override fun onUpdate(entity: LivingEntity, attrValue: Double, otherAttributes: AttributeMap) {
-        val attackSpeedAttribute = entity.getAttribute(Attribute.GENERIC_ATTACK_SPEED)?: return
+        val attackSpeedAttribute = entity.getAttribute(Attribute.ATTACK_SPEED)?: return
         val modifierValue = correctValue(attrValue).divAndPow(divisor, exponent)
         val modifier = createAttackSpeedModifier(modifierValue)
         attackSpeedAttribute.removeModifier(modifier)

@@ -1,15 +1,17 @@
 package io.seekankan.github.kanreattribute.message
 
-import net.kyori.adventure.platform.bukkit.BukkitAudiences
+import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.ComponentLike
 import net.kyori.adventure.text.minimessage.MiniMessage
+import net.kyori.adventure.text.minimessage.tag.Tag
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.command.CommandSender
 
 class MessageService(
-    private val audiences: BukkitAudiences,
+//    private val audiences: BukkitAudiences,
     private val miniMessage: MiniMessage,
     private val messageManager: MessageManager
 ) {
@@ -29,8 +31,9 @@ class MessageService(
         val placeholders = args.toPlaceholderArray()
         return miniMessage.deserialize(message, *placeholders)
     }
-    fun sendComponent(sender: CommandSender, component: Component) {
-        audiences.sender(sender).sendMessage(component)
+    fun sendComponent(sender: Audience, component: ComponentLike) {
+//        audiences.sender(sender).sendMessage(component)
+        sender.sendMessage(component)
     }
 
     fun sendParsed(sender: CommandSender, messageFunction: MessageConfig.() -> String) {
@@ -56,6 +59,7 @@ class MessageService(
         val component = miniMessage.deserialize(text, *args.toPlaceholderArray())
         return LegacyComponentSerializer.legacySection().serialize(component)
     }
+    @Deprecated("使用toComponentList")
     fun toGsonStringList(textList: List<String>, vararg args: Pair<String, Any>): List<String> {
 //        val mutableList = ArrayList<String?>(textList.size)
 //        return textList.flatMap {
@@ -69,6 +73,7 @@ class MessageService(
 //        }
         return toGsonStringList(textList, *args.toPlaceholderArray())
     }
+    @Deprecated("使用toComponentList")
     fun toGsonStringList(textList: List<String>, vararg tagResolvers: TagResolver): List<String> {
         return textList.flatMap {
             val component = miniMessage.deserialize(it, *tagResolvers)
@@ -81,5 +86,26 @@ class MessageService(
             GsonComponentSerializer.gson().serialize(it)
         }
 
+    }
+    fun toComponentList(textList: List<String>, vararg tagResolvers: TagResolver): List<Component> {
+        return textList.flatMap {
+            val component = miniMessage.deserialize(it, *tagResolvers)
+            val splitComponents = component.splitByNewLine()
+            splitComponents
+        }
+    }
+
+    fun buildTagResolver(rootResolver: TagResolver, vararg args: Pair<String, Any>): TagResolver {
+        val itemResolver = TagResolver.builder()
+            .resolver(rootResolver)
+            .apply {
+                args.forEach { (key, value) ->
+                    resolver(TagResolver.resolver(key) { _, context ->
+                        val insertComponent = value as? Component ?: context.deserialize(value.toString())
+                        Tag.inserting(insertComponent)
+                    })
+                }
+            }.build()
+        return itemResolver
     }
 }

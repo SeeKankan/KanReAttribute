@@ -4,6 +4,7 @@ import io.seekankan.github.kanreattribute.di.AttributeModule
 import io.seekankan.github.kanreattribute.di.BaseConfigModule
 import io.seekankan.github.kanreattribute.di.CommandModule
 import io.seekankan.github.kanreattribute.di.CoroutineModule
+import io.seekankan.github.kanreattribute.di.EntityHelperModule
 import io.seekankan.github.kanreattribute.di.EventDataHandleModule
 import io.seekankan.github.kanreattribute.di.GUIModule
 import io.seekankan.github.kanreattribute.di.HologramModule
@@ -25,6 +26,8 @@ class PluginModuleManager(
     private val pluginModules: List<PluginModule> = listOf(
         BaseConfigModule(plugin),
         CoroutineModule(plugin),
+
+        EntityHelperModule(plugin),
 
         PermissionModule(plugin),
 

@@ -1,18 +1,39 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+import java.nio.charset.StandardCharsets
+
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '2.2.20'
-    id("com.gradleup.shadow") version "8.3.0"
+    id 'org.jetbrains.kotlin.jvm' version '2.4.0'
+    id("com.gradleup.shadow") version "9.5.1"
 
-//    id("io.papermc.paperweight.userdev") version "2.0.0-beta.21"
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.21"
+//    id("xyz.jpenilla.run-paper") version "3.0.2"
+//    id("xyz.jpenilla.resource-factory-bukkit-convention") version "1.3.1"
 }
 
 group 'io.seekankan.github'
-version '1.0-SNAPSHOT'
+version '2.0-SNAPSHOT'
 
-def jvmVersion = "1.8"
+//def paperweightDevelopmentBundle = configurations.create("paperweightDevelopmentBundle")
+def javaVersion = 25
+
+//paperweight
+//paperweight {
+//    reobfArtifactConfiguration = io.papermc.paperweight.userdev.ReobfArtifactConfiguration.MOJANG_PRODUCTION
+//    javaLauncher = javaToolchains.launcherFor {
+//        languageVersion = JavaLanguageVersion.of(21)
+//    }
+//}
+paperweight {
+    javaLauncher = javaToolchains.launcherFor {
+        // Example scenario:
+        // Paper 1.17.1 was originally built with JDK 16 and the bundle
+        // has not been updated to work with 21+ (but we want to compile with a 25 toolchain)
+        languageVersion = JavaLanguageVersion.of(24)
+    }
+}
 
 build {
     dependsOn(shadowJar)
@@ -47,28 +68,10 @@ shadowJar {
 
 
     //Adventure api
-    relocate 'net.kyori', 'io.seekankan.github.kanreattribute.shaded.kyori'
-//    relocate 'net.kyori.adventure.text.minimessage', 'io.seekankan.github.kanreattribute.shaded.kyori.adventure.text.minimessage'
-//    relocate 'net.kyori.adventure.text.serializer.gson', 'io.seekankan.github.kanreattribute.shaded.kyori.adventure.text.serializer.gson'
+//    relocate 'net.kyori', 'io.seekankan.github.kanreattribute.shaded.kyori'
 
-    relocate 'io.papermc.lib', 'io.seekankan.github.kanreattribute.shaded.paperlib'
+//    relocate 'io.papermc.lib', 'io.seekankan.github.kanreattribute.shaded.paperlib'
 
-//    filesMatching('kotlin/**') {
-//        it.path = "io/seekankan/github/kanreattribute/shaded/kotlin/${it.name}"
-//    }
-//    transform(PropertiesFileTransformer) {
-//        paths = ['META-INF/*.kotlin_module']
-//
-//        mergeStrategy = {entries ->
-//            "META-INF/io.seekankan.github.kanreattribute.shaded.kotlin.kotlin_module"
-//        }
-//        keyTransformer = { key ->
-//            key.replaceAll('kotlin\\.', 'io.seekankan.github.kanreattribute.shaded.kotlin.')
-//        }
-//    }
-//    from {
-//        configurations.compileClasspath.
-//    }
     def toShade = [
             'org.yaml.snakeyaml'
     ]
@@ -82,7 +85,14 @@ tasks.register('copyPlugin', Copy) {
     from file("${rootDir}/build/libs/kanreattribute-" + version + "-all.jar")
     into file("${rootDir}/testserver/plugins")
 }
-
+tasks.register('copyPlugin1.21.11', Copy) {
+    from file("${rootDir}/build/libs/kanreattribute-" + version + "-all.jar")
+    into file("${rootDir}/testserver1.21.11/plugins")
+}
+tasks.register('copyPlugin26.1.2', Copy) {
+    from file("${rootDir}/build/libs/kanreattribute-" + version + "-all.jar")
+    into file("${rootDir}/testserver26.1.2/plugins")
+}
 
 repositories {
     maven { url 'https://maven.aliyun.com/repository/public' }
@@ -90,7 +100,7 @@ repositories {
     maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
     maven { url 'https://mvn.lumine.io/repository/maven-public/' }
     maven { url 'https://repo.papermc.io/repository/maven-public/' }
-//    maven { url 'https://papermc.io/repo/repository/maven-public/'}
+    maven { url 'https://papermc.io/repo/repository/maven-public/'}
     maven {
         name = "CodeMC"
         url = uri("https://repo.codemc.io/repository/maven-public/")
@@ -101,39 +111,39 @@ repositories {
     maven { //kspigot
         url = 'https://jitpack.io'
     }
+    maven {
+        url = 'https://repo.papermc.io/repository/maven-public/'
+    }
 
     mavenCentral()
 }
 
 dependencies {
     implementation 'org.jetbrains:annotations:20.1.0'
-//    implementation 'org.jetbrains.kotlin:kotlin-stdlib:2.2.20'
     implementation 'org.jetbrains.kotlin:kotlin-reflect:2.2.20'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0'
     implementation 'io.insert-koin:koin-core:4.2.1'
 
 //    implementation project(':KanUtil')
 
-    compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
-//    compileOnly 'io.papermc.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
-//    compileOnly 'com.github.PaperMC:Paper:1.16.5/1.16.5:paper-api:1.16.5-R0.1-SNAPSHOT'
-//    implementation("de.tr7zw:item-nbt-api:2.14.1")
+//    compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+//    paperweightDevelopmentBundle "io.papermc.paper:dev-bundle:1.21.1-R0.1-SNAPSHOT"
+//    paperweight.paperDevBundle("1.21.1-R0.1-SNAPSHOT.build.+")
+//    paperweight.paperDevBundle("26.1.2.build.+")
+    paperweight.paperDevBundle("26.1.2.build.+")
+
     compileOnly 'me.clip:placeholderapi:2.11.6'
-//    compileOnly 'io.lumine:Mythic-Dist:4.13.0'
+
     implementation 'net.axay:kspigot:1.16.29'
-//    implementation 'com.github.shynixn.kspigot:kspigot-extensions:19.0.0'
+
 
     //New Adventure API(MiniMessage)
-    def adventureVersion = "4.15.0"
-//    implementation("net.kyori:adventure-api:$adventureVersion")
-    implementation("net.kyori:adventure-text-minimessage:$adventureVersion")
-//    implementation("net.kyori:adventure-serializer-gson:$adventureVersion")
+//    def adventureVersion = "4.15.0"
+//    implementation("net.kyori:adventure-text-minimessage:$adventureVersion")
     //AdventureAPI Platform
-    implementation("net.kyori:adventure-platform-bukkit:4.3.1") {
-//        exclude([group: "net.kyori", module: "adventure-api"])
-//        exclude([group: "net.kyori", module: "adventure-serializer-gson"])
-    }
-    implementation("io.papermc:paperlib:1.0.8")
+//    implementation("net.kyori:adventure-platform-bukkit:4.3.1") {
+//    }
+//    implementation("io.papermc:paperlib:1.0.8")
 
 //    compileOnly fileTree(dir: 'lib/compileOnly', includes: ['*.jar'])
 //    implementation fileTree(dir: 'lib/implementation', includes: ['*.jar'])
@@ -157,7 +167,9 @@ dependencies {
     compileOnly("de.tr7zw:item-nbt-api-plugin:2.15.7")
 
     //vault
-    compileOnly("com.github.MilkBowl:VaultAPI:1.7")
+    compileOnly("com.github.MilkBowl:VaultAPI:1.7") {
+        exclude group: 'org.bukkit', module: "bukkit"
+    }
 
     //test dependencies
     //junit
@@ -166,18 +178,17 @@ dependencies {
     testImplementation('org.junit.jupiter:junit-jupiter')
     testRuntimeOnly('org.junit.platform:junit-platform-launcher')
 
-
-//    testRuntimeOnly('org.junit.jupiter:junit-jupiter:5.14.4')
-    //junit 5 core
-//    testImplementation 'org.junit.jupiter:junit-platform-launcher:5.14.4'
-    //junit 4
-//    testImplementation('junit:junit:4.13')
     //mock bukkit
-    testImplementation("com.github.seeseemelk:MockBukkit-v1.16:1.5.2")
+//    testImplementation("com.github.seeseemelk:MockBukkit-v1.16:1.5.2")
+//    testImplementation 'com.github.MockBukkit:MockBukkit:v26.1.2-SNAPSHOT'
+//    testImplementation 'org.mockbukkit.mockbukkit:mockbukkit-v26.1.2:1.21-R0.1-SNAPSHOT'
+//    testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v26.1.2:4.114.0")
+    testImplementation("org.mockbukkit.mockbukkit:mockbukkit-v1.21:4.110.0")
 
     //mockk
 
 }
+
 //test
 
 
@@ -217,12 +228,22 @@ test {
 }
 
 java {
-//    toolchain {
-//        languageVersion.set(JavaLanguageVersion.of(17))
-//    }
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(javaVersion))
+    }
+//    sourceCompatibility = JavaVersion.VERSION_1_8
+//    targetCompatibility = JavaVersion.VERSION_1_8
 }
+
+tasks {
+    compileJava {
+        options.release = javaVersion
+    }
+    javadoc {
+        options.encoding = StandardCharsets.UTF_8.name()
+    }
+}
+
 //kotlin {
 //    jvmToolchain(17)
 //}
@@ -237,7 +258,7 @@ tasks.withType(KotlinCompile).configureEach {
     }
 }
 tasks.withType(JavaCompile).configureEach() {
-    sourceCompatibility = jvmVersion
-    targetCompatibility = jvmVersion
+//    sourceCompatibility = jvmVersion
+//    targetCompatibility = jvmVersion
     options.encoding = "UTF-8"
 }

@@ -53,19 +53,27 @@ class ItemLoreParser(
         return Component.join(JoinConfiguration.separator(separator), parsedLines)
     }
 
+    @Deprecated("使用parseComponentLore")
     fun parseGsonLore(textList: List<String>, vararg args: Pair<String, Any>): List<String> {
-        val itemResolver = TagResolver.builder()
-            .resolver(rootResolver)
-            .apply {
-                args.forEach { (key, value) ->
-                    resolver(TagResolver.resolver(key) { _, context ->
-                        val insertComponent = value as? Component ?: context.deserialize(value.toString())
-                        Tag.inserting(insertComponent)
-                    })
-                }
-            }.build()
+//        val itemResolver = TagResolver.builder()
+//            .resolver(rootResolver)
+//            .apply {
+//                args.forEach { (key, value) ->
+//                    resolver(TagResolver.resolver(key) { _, context ->
+//                        val insertComponent = value as? Component ?: context.deserialize(value.toString())
+//                        Tag.inserting(insertComponent)
+//                    })
+//                }
+//            }.build()
+        val itemResolver = messageManager.buildTagResolver(rootResolver, *args)
 
         return messageManager.toGsonStringList(textList, itemResolver)
+    }
+
+    fun parseComponentLore(textList: List<String>, vararg args: Pair<String, Any>): List<Component> {
+        val itemResolver = messageManager.buildTagResolver(rootResolver, *args)
+
+        return messageManager.toComponentList(textList, itemResolver)
     }
 
 }

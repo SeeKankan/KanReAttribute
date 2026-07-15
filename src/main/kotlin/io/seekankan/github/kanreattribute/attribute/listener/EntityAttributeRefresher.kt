@@ -1,5 +1,6 @@
 package io.seekankan.github.kanreattribute.attribute.listener
 
+import io.papermc.paper.event.entity.EntityEquipmentChangedEvent
 import io.seekankan.github.kanreattribute.attribute.AttributeManager
 import net.axay.kspigot.event.listen
 import org.bukkit.entity.LivingEntity
@@ -25,67 +26,65 @@ class EntityAttributeRefresher(
         attributeManager.scheduleRefreshLivingEntityAttribute(entity)
     }
 
-    @EventHandler
-    fun onInventoryClick(event: InventoryClickEvent) {
-        val entity = event.whoClicked
-        scheduleRefresh(entity)
-    }
-    @EventHandler
-    fun onInventoryDrag(event: InventoryDragEvent) {
-        val entity = event.whoClicked
-        scheduleRefresh(entity)
-    }
 //    @EventHandler
-//    fun onInventoryTradeSelect(event: TradeSelectEvent) {
+//    fun onInventoryClick(event: InventoryClickEvent) {
 //        val entity = event.whoClicked
-//        attributeManager.deleteLivingEntityAttributeCache(entity)
+//        scheduleRefresh(entity)
+//    }
+//    @EventHandler
+//    fun onInventoryDrag(event: InventoryDragEvent) {
+//        val entity = event.whoClicked
+//        scheduleRefresh(entity)
+//    }
+//
+//    @EventHandler(ignoreCancelled = true)
+//    fun onEntityInteract(event: EntityInteractEvent) {
+//        val entity = event.entity as? LivingEntity ?: return
+//        scheduleRefresh(entity)
+//    }
+//
+//    @EventHandler(ignoreCancelled = true)
+//    fun onPlayerInteract(event: PlayerInteractEvent) {
+//        val entity = event.player
+//        if(event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) {
+//            scheduleRefresh(entity)
+//        }
+//    }
+//
+//    @EventHandler(ignoreCancelled = true)
+//    fun onEntityPickupItem(event: EntityPickupItemEvent) {
+//        val entity = event.entity
+//        scheduleRefresh(entity)
+//    }
+//
+//    @EventHandler(ignoreCancelled = true)
+//    fun onPlayerDropItem(event: PlayerDropItemEvent) {
+//        val entity = event.player
+//        scheduleRefresh(entity)
+//    }
+//    @EventHandler(ignoreCancelled = true)
+//    fun onPlayerHeldItem(event: PlayerItemHeldEvent) {
+//        val entity = event.player
+//        scheduleRefresh(entity)
+//    }
+//    @EventHandler(ignoreCancelled = true)
+//    fun onPlayerSwapItem(event: PlayerSwapHandItemsEvent) {
+//        val entity = event.player
+//        scheduleRefresh(entity)
+//    }
+//    @EventHandler(ignoreCancelled = true)
+//    fun onPlayerBrokeItem(event: PlayerItemBreakEvent) {
+//        val entity = event.player
+//        scheduleRefresh(entity)
+//    }
+//    @EventHandler(ignoreCancelled = true)
+//    fun onPlayerConsumeItem(event: PlayerItemConsumeEvent) {
+//        val entity = event.player
+//        scheduleRefresh(entity)
 //    }
 
-    @EventHandler(ignoreCancelled = true)
-    fun onEntityInteract(event: EntityInteractEvent) {
-        val entity = event.entity as? LivingEntity ?: return
-//        if(event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) {
-        scheduleRefresh(entity)
-//        }
-    }
-
-    @EventHandler(ignoreCancelled = true)
-    fun onPlayerInteract(event: PlayerInteractEvent) {
-        val entity = event.player
-        if(event.action == Action.RIGHT_CLICK_BLOCK || event.action == Action.RIGHT_CLICK_AIR) {
-            scheduleRefresh(entity)
-        }
-    }
-
-    @EventHandler(ignoreCancelled = true)
-    fun onEntityPickupItem(event: EntityPickupItemEvent) {
-        val entity = event.entity
-        scheduleRefresh(entity)
-    }
-
-    @EventHandler(ignoreCancelled = true)
-    fun onPlayerDropItem(event: PlayerDropItemEvent) {
-        val entity = event.player
-        scheduleRefresh(entity)
-    }
-    @EventHandler(ignoreCancelled = true)
-    fun onPlayerHeldItem(event: PlayerItemHeldEvent) {
-        val entity = event.player
-        scheduleRefresh(entity)
-    }
-    @EventHandler(ignoreCancelled = true)
-    fun onPlayerSwapItem(event: PlayerSwapHandItemsEvent) {
-        val entity = event.player
-        scheduleRefresh(entity)
-    }
-    @EventHandler(ignoreCancelled = true)
-    fun onPlayerBrokeItem(event: PlayerItemBreakEvent) {
-        val entity = event.player
-        scheduleRefresh(entity)
-    }
-    @EventHandler(ignoreCancelled = true)
-    fun onPlayerConsumeItem(event: PlayerItemConsumeEvent) {
-        val entity = event.player
-        scheduleRefresh(entity)
+    @EventHandler
+    fun onEntityEquipmentChanged(event: EntityEquipmentChangedEvent) {
+        scheduleRefresh(event.entity)
     }
 }

@@ -5,7 +5,7 @@ import java.util.EnumSet
 
 data class FlagContext(
     private val enumFlagMap: MutableMap<Class<out Enum<*>>, MutableSet<Any>> = mutableMapOf(),
-    private val objectFlagMap: MutableMap<Class<*>, MutableSet<*>> = mutableMapOf()
+    private val objectFlagMap: MutableMap<Class<*>, Any> = mutableMapOf()
 ) {
     inline fun <reified T: Enum<T>> addEnumFlag(flag: T) {
         addEnumFlag(T::class.java, flag)
@@ -27,5 +27,24 @@ data class FlagContext(
     }
     fun <T: Enum<T>> hasEnumFlag(type: Class<T>, flag: T): Boolean {
         return enumFlagMap[type]?.contains(flag) ?: false
+    }
+
+    inline fun <reified T: Any> addObjectFlag(flag: T) {
+        addObjectFlag(T::class.java, flag)
+    }
+    fun <T: Any> addObjectFlag(type: Class<T>, flag: T) {
+        objectFlagMap[type] = flag
+    }
+    inline fun <reified T: Any> removeObjectFlag() {
+        removeObjectFlag(T::class.java)
+    }
+    fun <T: Any> removeObjectFlag(type: Class<T>) {
+        objectFlagMap.remove(type)
+    }
+    inline fun <reified T: Any> getObjectFlag(): T? {
+        return getObjectFlag(T::class.java)
+    }
+    fun <T: Any> getObjectFlag(type: Class<T>): T? {
+        return objectFlagMap[type] as T?
     }
 }

@@ -22,6 +22,7 @@ import org.bukkit.plugin.Plugin
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 
+@Deprecated("listener太不好了，应该使用TransientEntityDataCache")
 class EntityDataCache<T: Entity, E: Any> {
     private class CacheListener( //只是用来清理残留的Data
         private val cache: EntityDataCache<out Entity, out Any>

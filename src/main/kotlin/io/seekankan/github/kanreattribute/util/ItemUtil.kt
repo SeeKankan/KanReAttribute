@@ -6,11 +6,12 @@ import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 
-inline fun <reified T, P>
-        ItemStack.getItemData(key: NamespacedKey, pdcType: PersistentDataType<P,T>): T? {
+inline fun <reified P : Any, C : Any>
+        ItemStack.getItemData(key: NamespacedKey, pdcType: PersistentDataType<P, C>): C? {
     val meta = this.itemMeta ?: return null
     val pdc = meta.persistentDataContainer
-    return pdc.get(key, pdcType)
+    val result = pdc.get(key, pdcType)
+    return result
 }
 inline fun <reified T, P>
         ItemStack.setItemData(key: NamespacedKey, pdcType: PersistentDataType<P,T>, value: T) {

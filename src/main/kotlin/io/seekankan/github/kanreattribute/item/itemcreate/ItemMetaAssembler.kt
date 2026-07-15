@@ -7,6 +7,7 @@ import io.seekankan.github.kanreattribute.item.message.ItemDefinitions
 import io.seekankan.github.kanreattribute.message.ItemLoreParser
 import io.seekankan.github.kanreattribute.message.ItemStyleKey
 import io.seekankan.github.kanreattribute.message.wrapTag
+import net.kyori.adventure.text.Component
 
 class ItemMetaAssembler(
     private val itemLoreParser: ItemLoreParser,
@@ -16,14 +17,22 @@ class ItemMetaAssembler(
 
     private val itemDefinitions: ItemDefinitions
 ) {
-    fun assembleGsonLore(itemType: ItemType): List<String> {
 
+    fun computeRawLore(itemType: ItemType): List<String> {
         val itemCategoryConfig = itemDefinitions.getCategoryConfig(itemType.category)
-        val itemCategory = itemCategoryConfig.displayName
         val usedLoreTemplate = itemCategoryConfig.loreTemplate
         val itemRawLore = itemType.lore.ifEmpty {
             listOf(usedLoreTemplate)
         }
+        return itemRawLore
+    }
+
+    fun computeInjectArgs(itemType: ItemType): Array<Pair<String, Any>> {
+
+        val itemCategoryConfig = itemDefinitions.getCategoryConfig(itemType.category)
+        val itemCategory = itemCategoryConfig.displayName
+
+
 
         val itemSlotsList = itemType.slots
         val itemSlotsString = itemDefinitions.getSlotListDisplayName(itemSlotsList).joinToString(separator = ItemStyleKey.EACH_ITEM_SLOT_DELIMITER.wrapTag())
@@ -42,12 +51,21 @@ class ItemMetaAssembler(
             ItemStyleKey.ITEM_INTRODUCTION to itemTypeIntro,
             ItemStyleKey.ITEM_ATTRIBUTES to itemAttribute
         )
+        return injectArgs
+    }
+
+    @Deprecated("使用assembleComponentLore")
+    fun assembleGsonLore(itemType: ItemType): List<String> {
+        val itemRawLore = computeRawLore(itemType)
+        val injectArgs = computeInjectArgs(itemType)
+
         val itemLore = itemLoreParser.parseGsonLore(
             itemRawLore,
             *injectArgs
         )
         return itemLore
     }
+    @Deprecated("使用assembleDisplayName")
     fun assembleGsonDisplayName(itemType: ItemType): String {
         val injectArgs = arrayOf(
             ItemStyleKey.ITEM_DISPLAY_NAME to itemType.displayName
@@ -58,4 +76,26 @@ class ItemMetaAssembler(
         )
         return itemDisplayName.first()
     }
+
+    fun assembleComponentLore(itemType: ItemType): List<Component> {
+        val itemRawLore = computeRawLore(itemType)
+        val injectArgs = computeInjectArgs(itemType)
+
+        val itemLore = itemLoreParser.parseComponentLore(
+            itemRawLore,
+            *injectArgs
+        )
+        return itemLore
+    }
+    fun assembleDisplayName(itemType: ItemType): Component {
+        val injectArgs = arrayOf(
+            ItemStyleKey.ITEM_DISPLAY_NAME to itemType.displayName
+        )
+        val itemDisplayName = itemLoreParser.parseComponentLore(
+            listOf(itemType.displayName),
+            *injectArgs
+        )
+        return itemDisplayName.first()
+    }
+
 }

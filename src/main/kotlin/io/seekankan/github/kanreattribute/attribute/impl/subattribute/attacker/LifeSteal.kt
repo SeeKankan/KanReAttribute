@@ -11,6 +11,7 @@ import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
 import io.seekankan.github.kanreattribute.attribute.data.AttributeType
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
 import io.seekankan.github.kanreattribute.attribute.data.KanAttributeFlag
+import io.seekankan.github.kanreattribute.attribute.data.LifeStealResult
 import io.seekankan.github.kanreattribute.util.divAndPow
 
 class LifeSteal(
@@ -36,8 +37,18 @@ class LifeSteal(
 
         val divisor = currentConfig.numeric.divisor
         val exponent = currentConfig.numeric.exponent
+
         val lifeStealMultiply = correctedAttrValue.divAndPow(divisor, exponent)
-        eventData.damage *= lifeStealMultiply
+        val lifeStealAmount = eventData.damage * lifeStealMultiply
+
+        val lifeStealResult = LifeStealResult(
+            lifeStealMultiply,
+            lifeStealAmount
+        )
+
+        eventData.attackerFlagContext.addObjectFlag(lifeStealResult)
+//        eventData.damage *= lifeStealMultiply
+
     }
 }
 

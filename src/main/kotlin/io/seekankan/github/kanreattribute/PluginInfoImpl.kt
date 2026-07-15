@@ -11,7 +11,7 @@ class PluginInfoImpl(
     private val plugin: Plugin
 ): PluginInfo() {
     override val name: String = plugin.name
-    override val version: String = plugin.description.version
+    override val version: String = plugin.pluginMeta.version
     override val dataFolder: File = plugin.dataFolder
 
     override val logger: Logger = plugin.logger
