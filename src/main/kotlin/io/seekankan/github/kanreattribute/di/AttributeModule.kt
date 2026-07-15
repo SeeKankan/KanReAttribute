@@ -15,7 +15,7 @@ import io.seekankan.github.kanreattribute.attribute.impl.attributecalculator.Bas
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.Damage
 import io.seekankan.github.kanreattribute.attribute.impl.attributecalculator.ItemAttributeCalculator
 import io.seekankan.github.kanreattribute.attribute.impl.effectapplier.FinalDamageHologramSpawner
-//import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.AttackSpeed
+import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.AttackSpeed
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.CritChance
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.CritDamage
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.LifeSteal
@@ -73,9 +73,9 @@ class AttributeModule(
         singleOf(::Strength) bind SubAttribute::class
         singleOf(::CritChance) bind SubAttribute::class
         singleOf(::CritDamage) bind SubAttribute::class
-//        singleOf(::LifeStealChance) bind SubAttribute::class
-//        singleOf(::LifeSteal) bind SubAttribute::class
-//        singleOf(::AttackSpeed) bind SubAttribute::class //TODO
+        singleOf(::LifeStealChance) bind SubAttribute::class
+        singleOf(::LifeSteal) bind SubAttribute::class
+        singleOf(::AttackSpeed) bind SubAttribute::class
 
         singleOf(::ExtraHealth) bind SubAttribute::class
         singleOf(::Defense) bind SubAttribute::class

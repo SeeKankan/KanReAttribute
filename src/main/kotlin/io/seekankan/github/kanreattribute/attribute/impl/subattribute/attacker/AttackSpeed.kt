@@ -55,9 +55,7 @@ class AttackSpeed(
         if(eventData !is EntityDamageEventData) return
         if(eventData.stage != EntityDamageEventData.HandleStage.HANDLE_ATTACKER) return
         if(eventData.attacker !is Player) return
-//        val attackCooldown = eventData.attacker.attackCooldown //TODO 问题代码
         val attackCooldown = playerPreAttackCooldownCache[eventData.attacker.uniqueId] ?: return
-//        val attackCooldown = eventData.attacker.getCooledAttackStrength(0.0f)
 
         eventData.damage *= attackCooldown
     }
