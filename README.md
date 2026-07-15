@@ -8,7 +8,7 @@
 <a href="#tips">提示</a>
 <a href="#warning">警告</a>
 </h5>
-<h4 align="center">v 1.1.0</h4>
+<h4 align="center">v 2.0.0</h4>
 
 <a name="introduction"></a>
 ## 插件简介
@@ -53,4 +53,4 @@
 <a name="warning"></a>
 ## 警告
 * 该插件目前还在测试中(WIP),内部api随时会更改,仅供娱乐,bug数量未知,请勿在生产环境中使用
-* 该插件很多功能都没有完成，比如命令的权限校验，一定不要放在生产环境中使用
+* 该插件很多功能都没有完成
