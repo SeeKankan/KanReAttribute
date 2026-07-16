@@ -1,9 +1,9 @@
-package io.seekankan.github.kanreattribute.command.admin
+package io.seekankan.github.kanreattribute.command.legacy.admin
 
 import io.seekankan.github.kanreattribute.KanReAttribute
-import io.seekankan.github.kanreattribute.command.ArgumentList
-import io.seekankan.github.kanreattribute.command.SubCommand
-import io.seekankan.github.kanreattribute.command.retainByPrefix
+import io.seekankan.github.kanreattribute.command.legacy.ArgumentList
+import io.seekankan.github.kanreattribute.command.legacy.SubCommand
+import io.seekankan.github.kanreattribute.command.legacy.retainByPrefix
 import io.seekankan.github.kanreattribute.common.ItemTypeTag
 import io.seekankan.github.kanreattribute.common.NamespacedKeyOf
 import io.seekankan.github.kanreattribute.common.itemInstConfigKey
@@ -13,7 +13,6 @@ import io.seekankan.github.kanreattribute.item.itemcreate.ItemInstanceConfig
 import io.seekankan.github.kanreattribute.item.itemtype.ItemType
 import io.seekankan.github.kanreattribute.item.manager.ItemTypeManager
 import io.seekankan.github.kanreattribute.permission.PermissionNode
-import net.axay.kspigot.extensions.bukkit.give
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack

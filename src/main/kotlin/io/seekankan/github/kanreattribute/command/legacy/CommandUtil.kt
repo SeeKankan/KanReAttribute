@@ -1,4 +1,4 @@
-package io.seekankan.github.kanreattribute.command
+package io.seekankan.github.kanreattribute.command.legacy
 
 import java.util.*
 

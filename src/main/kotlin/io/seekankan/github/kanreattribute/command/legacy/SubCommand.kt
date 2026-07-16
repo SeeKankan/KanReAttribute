@@ -1,4 +1,4 @@
-package io.seekankan.github.kanreattribute.command
+package io.seekankan.github.kanreattribute.command.legacy
 
 import io.seekankan.github.kanreattribute.extensions.isInstanceOf
 import io.seekankan.github.kanreattribute.message.MessageManager

@@ -4,6 +4,7 @@ import io.seekankan.github.kanreattribute.ConfigHolder
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.PluginModule
 import io.seekankan.github.kanreattribute.message.ItemLoreParser
+import io.seekankan.github.kanreattribute.message.MessageConfigHolder
 import io.seekankan.github.kanreattribute.message.MessageManager
 import io.seekankan.github.kanreattribute.message.MessageService
 import net.kyori.adventure.text.minimessage.MiniMessage
@@ -33,6 +34,7 @@ class BaseConfigModule(
         single {
             MiniMessage.miniMessage()
         }
+        singleOf(::MessageConfigHolder)
         singleOf(::MessageManager)
         singleOf(::MessageService)
         singleOf(::ItemLoreParser)
@@ -55,7 +57,9 @@ class BaseConfigModule(
 
     override fun onEnable() {
         val configHolder = getKoin().get<ConfigHolder>()
+        val messageConfigHolder = getKoin().get<MessageConfigHolder>()
 
+        messageConfigHolder.loadConfig()
         messageManager.loadMessage()
         itemLoreParser.loadConfig()
 
@@ -67,7 +71,9 @@ class BaseConfigModule(
 
     override fun onReload() {
         val configHolder = getKoin().get<ConfigHolder>()
+        val messageConfigHolder = getKoin().get<MessageConfigHolder>()
 
+        messageConfigHolder.loadConfig()
         messageManager.loadMessage()
         itemLoreParser.loadConfig()
         configHolder.loadConfig()

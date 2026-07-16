@@ -1,9 +1,8 @@
-package io.seekankan.github.kanreattribute.command.admin
+package io.seekankan.github.kanreattribute.command.legacy.admin
 
 import io.seekankan.github.kanreattribute.KanReAttribute
-import io.seekankan.github.kanreattribute.command.SubCommand
-import io.seekankan.github.kanreattribute.command.commandMapOf
-import io.seekankan.github.kanreattribute.permission.PermissionNode
+import io.seekankan.github.kanreattribute.command.legacy.SubCommand
+import io.seekankan.github.kanreattribute.command.legacy.commandMapOf
 import org.bukkit.command.CommandSender
 
 class SubAdminCommand(

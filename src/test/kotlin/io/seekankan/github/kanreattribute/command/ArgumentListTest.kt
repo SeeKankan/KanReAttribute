@@ -1,5 +1,6 @@
 package io.seekankan.github.kanreattribute.command
 
+import io.seekankan.github.kanreattribute.command.legacy.ArgumentList
 import io.seekankan.github.kanreattribute.common.arrayShouldBe
 import io.seekankan.github.kanreattribute.common.assertPairEquals
 import io.seekankan.github.kanreattribute.common.shouldBe
@@ -12,12 +13,14 @@ class ArgumentListTest {
 
     @BeforeEach
     fun initArgumentList() {
-        args = ArgumentList(arrayOf(
-            "1",
-            "2",
-            "3",
-            "4"
-        ))
+        args = ArgumentList(
+            arrayOf(
+                "1",
+                "2",
+                "3",
+                "4"
+            )
+        )
     }
     @AfterEach
     fun clearArgumentList() {
@@ -96,12 +99,14 @@ class ArgumentListTest {
 
     @Test
     fun iterator() {
-        val args2 = ArgumentList(arrayOf(
-            "1",
-            "2",
-            "3",
-            "4"
-        ))
+        val args2 = ArgumentList(
+            arrayOf(
+                "1",
+                "2",
+                "3",
+                "4"
+            )
+        )
         args2.pop()
         args2.pop()
         val iter2 = args2.iterator()

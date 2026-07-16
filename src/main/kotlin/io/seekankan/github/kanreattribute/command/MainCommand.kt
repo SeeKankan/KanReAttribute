@@ -1,113 +1,35 @@
 package io.seekankan.github.kanreattribute.command
 
-import io.seekankan.github.kanreattribute.KanReAttribute
-import io.seekankan.github.kanreattribute.command.admin.SubAdminCommand
-import org.bukkit.command.Command
-import org.bukkit.command.CommandExecutor
-import org.bukkit.command.CommandSender
-import org.bukkit.command.TabCompleter
-import org.bukkit.plugin.java.JavaPlugin
+import com.mojang.brigadier.Command
+import com.mojang.brigadier.builder.LiteralArgumentBuilder
+import com.mojang.brigadier.context.CommandContext
+import io.papermc.paper.command.brigadier.Commands
+import io.seekankan.github.kanreattribute.permission.PermissionNode
+import io.papermc.paper.command.brigadier.CommandSourceStack as PaperCommandSourceStack
 
+class MainCommand: BrigadierRootCommand() {
+    override val command: String = "kra"
+    override val subCommands: List<BrigadierCommand<*>> = listOf(
+        ReloadCommand()
+    )
+    override val requirePermissions: List<PermissionNode> = listOf(
+        PermissionNode.User
+    )
 
-class MainCommand(
-    val plugin: KanReAttribute
-): CommandExecutor, TabCompleter, SubCommand<CommandSender>(
-    "kanreattribute",
-    subCommands = commandMapOf(
-        SubReloadCommand(plugin),
-        SubAdminCommand(plugin),
-        SubStateCommand(plugin)
-    ),
-    usage = "/kra [reload|admin|state] [...]"
-
-) {
-
-//    private val messageManager: MessageService by inject()
-//
-//    val subCommands = arrayOf(
-//        SubReloadCommand(plugin),
-//        SubAdminCommand(plugin),
-//        SubStateCommand(plugin)
-//    )
-//    val subCommandNames: Array<String>
-//
-//    init {
-//        val temp = arrayOfNulls<String>(subCommands.size)
-//        subCommands.forEachIndexed { index, s ->
-//            temp[index] = s.command
-//        }
-//        subCommandNames = temp.requireNoNulls()
-//    }
-//
-//    override fun onCommand(
-//        sender: CommandSender,
-//        command: Command,
-//        label: String,
-//        args: Array<String>
-//    ): Boolean {
-//        if (args.isEmpty()) {
-//
-//            return true
-//        } else {
-//            subCommands.forEach { subCommand ->
-//                if (args[0].equals(subCommand.command, ignoreCase = true)) {
-//                    return subCommand.onCommandBody(sender, command, label, args.copyOfRange(1, args.size))
-//                }
-//            }
-//            messageManager.sendTo(sender,Message.COMMAND__NO_COMMAND)
-//            return true
-//        }
-//    }
-//
-//    override fun onTabComplete(
-//        sender: CommandSender,
-//        command: Command,
-//        alias: String,
-//        args: Array<String>
-//    ): List<String>? {
-//        if (args.size == 1) {
-//            val list: MutableList<String> = arrayListOf(*subCommandNames)
-//            val latest = args[0]
-//            CommandUtil.filter(list, latest)
-//            return list
-//        }
-//        val subCommandName = args[0]
-//        val subCommand: SubCommand = subCommands.firstOrNull {
-//            it.command.equals(subCommandName, ignoreCase = true)
-//        } ?: return null
-//        val subArgs = args.copyOfRange(1, args.size)
-//        return subCommand.onTabComplete(sender, command, alias, subArgs)
-//    }
-
-
-    fun setupCommand() {
-        val command = (plugin as JavaPlugin).getCommand("kanreattribute") ?: throw IllegalStateException("Cannot find /kanreattribute command")
-        command.setExecutor(this)
-        command.tabCompleter = this
+    override fun buildNode(): LiteralArgumentBuilder<PaperCommandSourceStack> {
+        return Commands.literal(command)
     }
 
-    override fun onCommand(
-        sender: CommandSender,
-        command: Command,
-        label: String,
-        args: Array<String>
-    ): Boolean {
-        return onCommandBody(sender, ArgumentList(args))
+    override fun isValidExecutor(sourceStack: PaperCommandSourceStack): Boolean {
+        return sourceStack.executor != null
     }
 
-    override fun handleCommand(sender: CommandSender, args: ArgumentList): Boolean {
-        messageService.sendParsedMessages(sender) {
+    override fun handleCommand(ctx: CommandContext<PaperCommandSourceStack>): Int {
+        val executor = ctx.source.executor ?: return 0
+
+        messageService.sendParsedMessages(executor) {
             this.command.mainCommand.introduction
         }
-        return true
-    }
-
-    override fun onTabComplete(
-        sender: CommandSender,
-        command: Command,
-        alias: String,
-        args: Array<String>
-    ): List<String>? {
-        return onTabComplete(sender, args)
+        return Command.SINGLE_SUCCESS
     }
 }

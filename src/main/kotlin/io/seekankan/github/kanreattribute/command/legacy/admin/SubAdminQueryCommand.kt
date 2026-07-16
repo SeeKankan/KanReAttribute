@@ -1,12 +1,11 @@
-package io.seekankan.github.kanreattribute.command.admin
+package io.seekankan.github.kanreattribute.command.legacy.admin
 
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.attribute.AttributeCalculatorRegistry
-import io.seekankan.github.kanreattribute.attribute.AttributeManager
 import io.seekankan.github.kanreattribute.attribute.SubAttributeRegistry
-import io.seekankan.github.kanreattribute.command.ArgumentList
-import io.seekankan.github.kanreattribute.command.SubCommand
-import io.seekankan.github.kanreattribute.command.commandMapOf
+import io.seekankan.github.kanreattribute.command.legacy.ArgumentList
+import io.seekankan.github.kanreattribute.command.legacy.SubCommand
+import io.seekankan.github.kanreattribute.command.legacy.commandMapOf
 import io.seekankan.github.kanreattribute.item.manager.ItemConditionManager
 import io.seekankan.github.kanreattribute.item.manager.ItemFinderManager
 import io.seekankan.github.kanreattribute.item.manager.ItemTypeManager

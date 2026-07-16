@@ -48,7 +48,7 @@ class MessageService(
             sendComponent(sender, component)
         }
     }
-    fun sendParsed(sender: CommandSender, vararg args: Pair<String, *>, messageFunction: MessageConfig.() -> String) {
+    fun sendParsed(sender: Audience, vararg args: Pair<String, *>, messageFunction: MessageConfig.() -> String) {
         val message = messageManager.config.messageFunction()
         val component = getComponent(message, *args)
         sendComponent(sender, component)

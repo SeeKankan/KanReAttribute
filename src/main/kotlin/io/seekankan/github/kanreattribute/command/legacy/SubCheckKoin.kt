@@ -1,8 +1,4 @@
-package io.seekankan.github.kanreattribute.command
-
-import io.seekankan.github.kanreattribute.KanReAttribute
-import io.seekankan.github.kanreattribute.permission.PermissionNode
-import org.bukkit.entity.Player
+package io.seekankan.github.kanreattribute.command.legacy
 
 //class SubCheckKoin(
 //    val plugin: KanReAttribute

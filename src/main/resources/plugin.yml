@@ -9,8 +9,8 @@ depend: [NBTAPI]
 softdepend: [MythicMobs, PlaceholderAPI, Vault]
 
 commands:
-  kanreattribute:
-    aliases: [ ka, kanattr, kra ]
+  kanreattributelegacy:
+    aliases: [ kalegacy, kanattrlegacy, kralegacy ]
 
 permissions:
   kra.user:

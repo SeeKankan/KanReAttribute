@@ -44,6 +44,8 @@ class PluginModuleManager(
     )
 
     fun enable() {
+        val totalStart = System.currentTimeMillis()
+
         val moduleList = pluginModules.map { pluginModule ->
             pluginModule.koinModule
         }
@@ -70,27 +72,47 @@ class PluginModuleManager(
         }
         pluginModules.forEach { module ->
             plugin.logger.info("Loading plugin module: ${module.name}")
+
+            val start = System.currentTimeMillis()
             module.onEnable()
-            plugin.logger.info("Loading plugin module successful: ${module.name}")
+            val cost = System.currentTimeMillis() - start
+
+            plugin.logger.info("Loading plugin module successful: ${module.name} (cost ${cost}ms)")
         }
+
+        val totalCost = System.currentTimeMillis() - totalStart
+        plugin.logger.info("Start all plugin module success and cost ${totalCost}ms")
     }
 
     fun reload() {
+        val totalStart = System.currentTimeMillis()
+
         pluginModules.forEach { module ->
             plugin.logger.info("Reloading plugin module: ${module.name}")
+
+            val start = System.currentTimeMillis()
             module.onReload()
-            plugin.logger.info("Reload plugin module successful: ${module.name}")
+            val cost = System.currentTimeMillis() - start
+
+            plugin.logger.info("Reload plugin module successful: ${module.name} (cost ${cost}ms)")
         }
+
+        val totalCost = System.currentTimeMillis() - totalStart
+        plugin.logger.info("Reload all plugin module success and cost ${totalCost}ms")
     }
     fun shutdown() {
 //        pluginModules.asReversed().forEach { module ->
 //            module.onDisable()
 //            plugin.logger.info("Disable plugin module: ${module.name}")
 //        }
+        val start = System.currentTimeMillis()
+
         stopKoin()
         HandlerList.unregisterAll(plugin)
         assertShutdown()
-        plugin.logger.info("Shutting down plugin koin.")
+
+        val cost = System.currentTimeMillis() - start
+        plugin.logger.info("Shutting down plugin koin. (cost ${cost}ms)")
     }
     private fun assertShutdown() {
 
