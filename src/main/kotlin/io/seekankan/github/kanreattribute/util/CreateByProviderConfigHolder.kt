@@ -1,6 +1,7 @@
 package io.seekankan.github.kanreattribute.util
 
 import io.seekankan.github.kanreattribute.PluginInfo
+import io.seekankan.github.kanreattribute.jackson.JacksonUtil
 import java.io.File
 
 abstract class CreateByProviderConfigHolder<T>: Configurable<T> {

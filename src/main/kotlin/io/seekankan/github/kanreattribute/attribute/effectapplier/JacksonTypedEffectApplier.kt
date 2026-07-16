@@ -4,7 +4,7 @@ import io.seekankan.github.kanreattribute.PluginInfo
 import io.seekankan.github.kanreattribute.attribute.effectapplier.config.TypedEffectApplierConfig
 import io.seekankan.github.kanreattribute.common.EffectApplierKey
 import io.seekankan.github.kanreattribute.data.EventData
-import io.seekankan.github.kanreattribute.util.JacksonUtil
+import io.seekankan.github.kanreattribute.jackson.JacksonUtil
 
 abstract class JacksonTypedEffectApplier<T: EventData, E: TypedEffectApplierConfig>(
     pluginInfo: PluginInfo,

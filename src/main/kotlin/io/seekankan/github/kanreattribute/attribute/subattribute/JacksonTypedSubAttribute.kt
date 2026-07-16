@@ -4,7 +4,7 @@ import io.seekankan.github.kanreattribute.PluginInfo
 import io.seekankan.github.kanreattribute.attribute.subattribute.config.TypedAttributeConfig
 import io.seekankan.github.kanreattribute.attribute.data.AttributeType
 import io.seekankan.github.kanreattribute.data.EventData
-import io.seekankan.github.kanreattribute.util.JacksonUtil
+import io.seekankan.github.kanreattribute.jackson.JacksonUtil
 
 abstract class JacksonTypedSubAttribute<T: EventData, E: TypedAttributeConfig>(
     pluginInfo: PluginInfo,

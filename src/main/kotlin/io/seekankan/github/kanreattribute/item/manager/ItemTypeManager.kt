@@ -6,7 +6,7 @@ import io.seekankan.github.kanreattribute.common.ItemTypeKey
 import io.seekankan.github.kanreattribute.item.data.ItemTypePDCType
 import io.seekankan.github.kanreattribute.item.itemtype.ItemType
 import io.seekankan.github.kanreattribute.item.registry.ItemTypeRegistry
-import io.seekankan.github.kanreattribute.util.JacksonUtil
+import io.seekankan.github.kanreattribute.jackson.JacksonUtil
 import io.seekankan.github.kanreattribute.util.getItemData
 import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack

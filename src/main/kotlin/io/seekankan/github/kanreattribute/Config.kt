@@ -1,17 +1,9 @@
 package io.seekankan.github.kanreattribute
 
-import io.seekankan.github.kanreattribute.common.key
-import io.seekankan.github.kanreattribute.common.namespace
 import io.seekankan.github.kanreattribute.coroutines.time.Ticks
 import io.seekankan.github.kanreattribute.coroutines.time.ticks
-import io.seekankan.github.kanreattribute.util.ConfigFileHolder
 import io.seekankan.github.kanreattribute.util.CreateByProviderConfigHolder
-import io.seekankan.github.kanreattribute.util.JacksonUtil
-import org.bukkit.configuration.file.FileConfiguration
-import org.bukkit.configuration.file.YamlConfiguration
 import java.io.File
-import java.lang.reflect.Field
-import java.lang.reflect.ParameterizedType
 
 //@Target(AnnotationTarget.FIELD)
 //@Retention(AnnotationRetention.RUNTIME)

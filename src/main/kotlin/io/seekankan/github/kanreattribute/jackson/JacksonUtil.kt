@@ -1,4 +1,4 @@
-package io.seekankan.github.kanreattribute.util
+package io.seekankan.github.kanreattribute.jackson
 
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.DeserializationFeature
@@ -8,11 +8,9 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.module.kotlin.KotlinFeature
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule
 import io.seekankan.github.kanreattribute.PluginInfo
-import io.seekankan.github.kanreattribute.util.JacksonUtil.yamlMapper
-import org.bukkit.plugin.Plugin
+import io.seekankan.github.kanreattribute.jackson.JacksonUtil.yamlMapper
 import java.io.File
 
 object JacksonUtil {
@@ -39,6 +37,10 @@ private fun ObjectMapper.applyModule(): ObjectMapper {
     )
     registerModule(ParameterNamesModule())
     configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+
+    val keyedModule = KeyedModule()
+    this.registerModule(keyedModule)
+
 //    addMixIn(GUIType::class.java, GUITypeMixin::class.java)
     return this
 }

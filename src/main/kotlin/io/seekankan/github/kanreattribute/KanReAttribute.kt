@@ -1,9 +1,11 @@
 package io.seekankan.github.kanreattribute
 
-import io.seekankan.github.kanreattribute.util.JacksonUtil
+import io.seekankan.github.kanreattribute.jackson.JacksonUtil
+import io.seekankan.github.kanreattribute.logging.BukkitSLF4JProvider
 import net.axay.kspigot.main.KSpigot
 import org.bukkit.plugin.Plugin
 import org.koin.mp.KoinPlatformTools
+import org.slf4j.LoggerFactory
 
 interface KanReAttribute: Plugin {
 
@@ -17,6 +19,10 @@ class KanReAttributePlugin: KSpigot(), KanReAttribute {
 
 
     override fun load() {
+        BukkitSLF4JProvider.plugin = this
+        val logger = LoggerFactory.getLogger(javaClass)
+        logger.info("SLF4J successfully bridged to plugin.getLogger()!")
+
         pluginModuleManager = PluginModuleManager(this)
         prepare()
     }

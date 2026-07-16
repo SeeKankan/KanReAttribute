@@ -16,7 +16,7 @@ abstract class AbstractPluginFunctionRegistry<K,V>(
             value.onEnable()
             result
         } catch (e: Exception) {
-            logger.severe("Register $typeStr $functionTypeName >>> [${value.uniqueName} failed! ${e.message}")
+            logger.severe("Register $typeStr $functionTypeName >>> [${value.uniqueName}] failed! ${e.message}")
             e.printStackTrace()
 
             logger.severe("Trying to unregister this $typeStr")

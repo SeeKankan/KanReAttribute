@@ -2,7 +2,7 @@ package io.seekankan.github.kanreattribute
 
 import com.fasterxml.jackson.core.type.TypeReference
 import io.seekankan.github.kanreattribute.util.Configurable
-import io.seekankan.github.kanreattribute.util.saveFileAndReadYAML
+import io.seekankan.github.kanreattribute.jackson.saveFileAndReadYAML
 import org.bukkit.plugin.Plugin
 import java.io.File
 import java.util.logging.Logger

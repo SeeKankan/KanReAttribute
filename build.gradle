@@ -73,7 +73,8 @@ shadowJar {
 //    relocate 'io.papermc.lib', 'io.seekankan.github.kanreattribute.shaded.paperlib'
 
     def toShade = [
-            'org.yaml.snakeyaml'
+            'org.yaml.snakeyaml',
+            'org.slf4j'
     ]
     toShade.forEach {
         relocate(it, "io.seekankan.github.kanreattribute.shaded.$it")
@@ -170,6 +171,9 @@ dependencies {
     compileOnly("com.github.MilkBowl:VaultAPI:1.7") {
         exclude group: 'org.bukkit', module: "bukkit"
     }
+
+    //logger
+    implementation("org.slf4j:slf4j-api:2.0.18")
 
     //test dependencies
     //junit
