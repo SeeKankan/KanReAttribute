@@ -13,9 +13,10 @@ abstract class PluginInfo {
 
     abstract val logger: Logger
 
-    val snakeCaseName: String by lazy {
-        PropertyNamingStrategies.SnakeCaseStrategy.INSTANCE.translate(name)
-    }
+//    val snakeCaseName: String by lazy {
+//        PropertyNamingStrategies.SnakeCaseStrategy.INSTANCE.translate(name)
+//    }
+    abstract val snakeCaseName: String
 
     abstract fun saveResource(resourcePath: String, replace: Boolean)
 

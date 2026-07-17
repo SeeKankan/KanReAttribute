@@ -16,6 +16,8 @@ class PluginInfoImpl(
 
     override val logger: Logger = plugin.logger
 
+    override val snakeCaseName: String = "kanreattribute"
+
     override fun saveResource(resourcePath: String, replace: Boolean) {
         plugin.saveResource(resourcePath, replace)
     }

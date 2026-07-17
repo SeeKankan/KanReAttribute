@@ -55,6 +55,7 @@ class MessageService(
     }
 
 
+    @Deprecated("不需要Legacy Text了")
     fun toLegacyText(text: String, vararg args: Pair<String, *>): String {
         val component = miniMessage.deserialize(text, *args.toPlaceholderArray())
         return LegacyComponentSerializer.legacySection().serialize(component)

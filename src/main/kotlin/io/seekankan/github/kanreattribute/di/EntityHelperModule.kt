@@ -2,6 +2,7 @@ package io.seekankan.github.kanreattribute.di
 
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.PluginModule
+import io.seekankan.github.kanreattribute.attribute.LivingEntityAttributeCache
 import io.seekankan.github.kanreattribute.helper.PlayerPreAttackCooldownCache
 import io.seekankan.github.kanreattribute.util.TransientEntityDataCache
 import io.seekankan.github.kanreattribute.util.TransientEntityDataCacheManager
@@ -20,6 +21,8 @@ class EntityHelperModule(
 
         singleOf(::TransientEntityDataCacheManager)
         singleOf(::PlayerPreAttackCooldownCache) bind TransientEntityDataCache::class
+
+        singleOf(::LivingEntityAttributeCache) bind TransientEntityDataCache::class
 
     }
 

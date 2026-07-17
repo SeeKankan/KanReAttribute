@@ -1,8 +1,12 @@
-package io.seekankan.github.kanreattribute.registry
+package io.seekankan.github.kanreattribute.registry.legacy
 
+import io.seekankan.github.kanreattribute.registry.Named
+import io.seekankan.github.kanreattribute.registry.RegisterResult
+import io.seekankan.github.kanreattribute.registry.UnregisterResult
 import java.util.Collections
 import java.util.SortedSet
 
+@Deprecated("应该使用CopyOnWriteRegistry")
 abstract class AbstractFunctionRegistry<K,V: Named<K>>(
     protected val pipeLineSet: SortedSet<V> = sortedSetOf(),
 ) {

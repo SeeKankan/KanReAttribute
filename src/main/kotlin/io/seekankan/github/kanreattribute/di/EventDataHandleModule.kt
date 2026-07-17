@@ -3,7 +3,7 @@ package io.seekankan.github.kanreattribute.di
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.PluginModule
 import io.seekankan.github.kanreattribute.eventhandle.EventHandleBehavior
-import io.seekankan.github.kanreattribute.eventhandle.EventHandleRegistry
+import io.seekankan.github.kanreattribute.registry.impl.EventHandleRegistry
 import io.seekankan.github.kanreattribute.eventhandle.EventHandleSystem
 import io.seekankan.github.kanreattribute.eventhandle.impl.DamageEventHandleBehavior
 import org.koin.core.component.KoinComponent
@@ -18,7 +18,6 @@ class EventDataHandleModule(
     override val name: String = "EventDataHandleModule"
 
     override val koinModule: Module = module {
-        singleOf(::EventHandleRegistry)
 
         singleOf(::EventHandleSystem)
 
@@ -39,9 +38,10 @@ class EventDataHandleModule(
 
         val eventHandleBehaviors = getKoin().getAll<EventHandleBehavior<*>>()
 
-        eventHandleBehaviors.forEach { behavior ->
-            eventHandleRegistry.registerPersistent(behavior)
-        }
+//        eventHandleBehaviors.forEach { behavior ->
+//            eventHandleRegistry.registerPersistent(behavior)
+//        }
+        eventHandleRegistry.registerAll(eventHandleBehaviors)
 
     }
 }

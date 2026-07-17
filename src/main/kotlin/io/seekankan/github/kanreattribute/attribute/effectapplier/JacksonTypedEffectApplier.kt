@@ -15,6 +15,8 @@ abstract class JacksonTypedEffectApplier<T: EventData, E: TypedEffectApplierConf
     pluginInfo, uniqueName, eventDataType
 ) {
 
+    override val isPersistent: Boolean = true
+
     override fun writeConfig(config: E) {
         JacksonUtil.yamlMapper.writeValue(configFile, config)
     }

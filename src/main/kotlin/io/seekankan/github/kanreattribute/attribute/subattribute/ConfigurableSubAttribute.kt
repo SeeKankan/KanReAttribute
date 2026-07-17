@@ -1,7 +1,10 @@
 package io.seekankan.github.kanreattribute.attribute.subattribute
 
 import io.seekankan.github.kanreattribute.KanReAttribute
-import io.seekankan.github.kanreattribute.attribute.data.AttributeType
+import io.seekankan.github.kanreattribute.common.AttributeType
+import io.seekankan.github.kanreattribute.common.SubAttributeKey
+import io.seekankan.github.kanreattribute.common.key
+import io.seekankan.github.kanreattribute.common.namespace
 import org.bukkit.configuration.file.YamlConfiguration
 import java.io.File
 import java.io.IOException
@@ -9,7 +12,7 @@ import java.text.DecimalFormat
 
 abstract class ConfigurableSubAttribute(
     private val plugin: KanReAttribute,
-    override val uniqueName: AttributeType
+    override val uniqueName: SubAttributeKey
 ): SubAttribute, Displayable {
 
     open val configFile: File = plugin.dataFolder

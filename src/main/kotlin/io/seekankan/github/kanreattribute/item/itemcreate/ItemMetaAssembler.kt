@@ -1,7 +1,7 @@
 package io.seekankan.github.kanreattribute.item.itemcreate
 
 import io.seekankan.github.kanreattribute.attribute.AttributeManager
-import io.seekankan.github.kanreattribute.attribute.SubAttributeRegistry
+import io.seekankan.github.kanreattribute.registry.impl.SubAttributeRegistry
 import io.seekankan.github.kanreattribute.item.itemtype.ItemType
 import io.seekankan.github.kanreattribute.item.message.ItemDefinitions
 import io.seekankan.github.kanreattribute.message.ItemLoreParser

@@ -1,12 +1,14 @@
 package io.seekankan.github.kanreattribute.attribute.subattribute
 
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
-import io.seekankan.github.kanreattribute.attribute.data.AttributeType
+import io.seekankan.github.kanreattribute.common.SubAttributeTag
+import io.seekankan.github.kanreattribute.common.key
+import io.seekankan.github.kanreattribute.common.namespace
 import io.seekankan.github.kanreattribute.data.EventData
-import io.seekankan.github.kanreattribute.registry.Named
+import io.seekankan.github.kanreattribute.registry.Registerable
 import org.bukkit.entity.LivingEntity
 
-interface SubAttribute: Named<AttributeType>, Comparable<SubAttribute> {
+interface SubAttribute: Registerable<SubAttributeTag, SubAttribute> {
 
     override fun compareTo(other: SubAttribute): Int {
         val num1 = priority.compareTo(other.priority)
@@ -22,9 +24,6 @@ interface SubAttribute: Named<AttributeType>, Comparable<SubAttribute> {
 
     }
 
-    val isPersistent: Boolean
-    val priority: Int
-
     val minValue: Double
         get() = Double.MIN_VALUE
     val maxValue: Double
@@ -36,8 +35,8 @@ interface SubAttribute: Named<AttributeType>, Comparable<SubAttribute> {
         return attrValue.coerceIn(minValue, maxValue)
     }
 
-    fun onBeforeRegister() {}
-    fun onEnable() {}
-    fun onReload() {}
-    fun onDisable() {}
+//    fun onBeforeRegister() {}
+//    fun onEnable() {}
+//    fun onReload() {}
+//    fun onDisable() {}
 }

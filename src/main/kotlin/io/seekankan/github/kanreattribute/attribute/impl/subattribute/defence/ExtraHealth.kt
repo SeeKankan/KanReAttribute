@@ -1,12 +1,13 @@
 package io.seekankan.github.kanreattribute.attribute.impl.subattribute.defence
 
 import io.seekankan.github.kanreattribute.KanReAttribute
+import io.seekankan.github.kanreattribute.PluginInfo
 import io.seekankan.github.kanreattribute.attribute.subattribute.AttributeKeys
 import io.seekankan.github.kanreattribute.attribute.subattribute.ConfigurableSubAttribute
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
-import io.seekankan.github.kanreattribute.attribute.data.AttributeType
+import io.seekankan.github.kanreattribute.common.AttributeType
 import io.seekankan.github.kanreattribute.attribute.util.attributeConfig
-import io.seekankan.github.kanreattribute.common.keyOf
+import io.seekankan.github.kanreattribute.common.subAttributeKeyOf
 import io.seekankan.github.kanreattribute.data.EventData
 import io.seekankan.github.kanreattribute.util.KanRandom
 import io.seekankan.github.kanreattribute.util.divAndPow
@@ -21,9 +22,11 @@ import java.util.logging.Logger
 
 class ExtraHealth(
     private val plugin: KanReAttribute,
+    private val pluginInfo: PluginInfo,
     private val logger: Logger,
 ) : ConfigurableSubAttribute(plugin,
-    AttributeType(plugin.name, "ExtraHealth")) {
+    subAttributeKeyOf(plugin.name, "extra_health")
+) {
     private val uuid = KanRandom.generateUUIDFromSeed(
         "${plugin.name}.living_entity.attribute.generic.max_health"
     )

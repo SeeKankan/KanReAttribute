@@ -1,27 +1,18 @@
 package io.seekankan.github.kanreattribute.util
 
-import org.bukkit.Bukkit
 import org.bukkit.entity.Entity
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
-import org.bukkit.event.entity.EntityChangeBlockEvent
-import org.bukkit.event.entity.EntityDeathEvent
-import org.bukkit.event.entity.EntityDropItemEvent
-import org.bukkit.event.entity.EntityEnterBlockEvent
-import org.bukkit.event.entity.EntityExplodeEvent
-import org.bukkit.event.entity.EntityPickupItemEvent
-import org.bukkit.event.entity.EntityTransformEvent
-import org.bukkit.event.entity.ItemDespawnEvent
-import org.bukkit.event.entity.ItemMergeEvent
-import org.bukkit.event.entity.ProjectileHitEvent
+import org.bukkit.event.entity.*
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.event.world.ChunkUnloadEvent
 import org.bukkit.plugin.Plugin
-import java.util.UUID
+import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
+/*
 @Deprecated("listener太不好了，应该使用TransientEntityDataCache")
 class EntityDataCache<T: Entity, E: Any> {
     private class CacheListener( //只是用来清理残留的Data
@@ -135,3 +126,4 @@ class EntityDataCache<T: Entity, E: Any> {
         }
     }
 }
+ */

@@ -1,8 +1,8 @@
 package io.seekankan.github.kanreattribute.command.legacy.admin
 
 import io.seekankan.github.kanreattribute.KanReAttribute
-import io.seekankan.github.kanreattribute.attribute.AttributeCalculatorRegistry
-import io.seekankan.github.kanreattribute.attribute.SubAttributeRegistry
+import io.seekankan.github.kanreattribute.registry.impl.AttributeCalculatorRegistry
+import io.seekankan.github.kanreattribute.registry.impl.SubAttributeRegistry
 import io.seekankan.github.kanreattribute.command.legacy.ArgumentList
 import io.seekankan.github.kanreattribute.command.legacy.SubCommand
 import io.seekankan.github.kanreattribute.command.legacy.commandMapOf

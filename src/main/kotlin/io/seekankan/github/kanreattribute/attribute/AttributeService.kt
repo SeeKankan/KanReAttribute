@@ -1,9 +1,9 @@
-package io.seekankan.github.kanreattribute
+package io.seekankan.github.kanreattribute.attribute
 
-import io.seekankan.github.kanreattribute.attribute.EffectApplierRegistry
-import io.seekankan.github.kanreattribute.attribute.SubAttributeRegistry
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
 import io.seekankan.github.kanreattribute.data.EventData
+import io.seekankan.github.kanreattribute.registry.impl.EffectApplierRegistry
+import io.seekankan.github.kanreattribute.registry.impl.SubAttributeRegistry
 
 class AttributeService(
     private val subAttributeRegistry: SubAttributeRegistry,

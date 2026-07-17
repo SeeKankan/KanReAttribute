@@ -3,13 +3,13 @@ package io.seekankan.github.kanreattribute.attribute
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
 import io.seekankan.github.kanreattribute.coroutines.BukkitDispatcher
-import io.seekankan.github.kanreattribute.coroutines.CoroutineManager
 import io.seekankan.github.kanreattribute.coroutines.annotation.LaunchesCoroutine
-import io.seekankan.github.kanreattribute.util.EntityDataCache
+import io.seekankan.github.kanreattribute.registry.impl.AttributeCalculatorRegistry
+import io.seekankan.github.kanreattribute.registry.impl.EffectApplierRegistry
+import io.seekankan.github.kanreattribute.registry.impl.SubAttributeRegistry
 import org.bukkit.entity.LivingEntity
-import org.bukkit.event.HandlerList
 
-class AttributeManager constructor(
+class AttributeManager(
     private val plugin: KanReAttribute,
     private val bukkitDispatcher: BukkitDispatcher,
 
@@ -18,36 +18,28 @@ class AttributeManager constructor(
     private val attributeCalculatorRegistry: AttributeCalculatorRegistry,
     private val subAttributeRegistry: SubAttributeRegistry,
     private val effectApplierRegistry: EffectApplierRegistry,
+
+    private val attributeCache: LivingEntityAttributeCache
 ) {
 
-    private val cache = EntityDataCache<LivingEntity, AttributeMap>()
+//    private val cache = EntityDataCache<LivingEntity, AttributeMap>()
 
-//    val attributeCalculatorRegistry = AttributeCalculatorRegistry(plugin)
-
-
-
-//    val livingEntityAttributeCache = hashMapOf<UUID, AttributeMap>()
     fun registerListener() {
-//        cacheListener = EntityDataCache.CacheListener(cache)
-//        plugin.server.pluginManager.registerEvents(cacheListener, plugin)
-        cache.registerListener(plugin)
+//        cache.registerListener(plugin)
     }
     fun unregisterListener() {
-//        if(::cacheListener.isInitialized) {
-//            HandlerList.unregisterAll(cacheListener)
-//        }
-        cache.unregisterListener()
+//        cache.unregisterListener()
     }
 
     fun computeLivingEntityAttribute(entity: LivingEntity): AttributeMap {
         val entityAttributeMap = AttributeMap()
-        attributeCalculatorRegistry.pipeLineView.forEach { calculator ->
+        attributeCalculatorRegistry.snapshot.pipeline.forEach { calculator ->
             calculator.calculate(entity, entityAttributeMap)
         }
         return entityAttributeMap
     }
     fun triggerAttributeUpdate(entity: LivingEntity, attributeMap: AttributeMap) {
-        subAttributeRegistry.pipeLineView.forEach { subAttribute ->
+        subAttributeRegistry.snapshot.pipeline.forEach { subAttribute ->
             subAttribute.onUpdate(entity, attributeMap.getOrDefault(subAttribute.uniqueName, 0.0), attributeMap)
         }
     }
@@ -58,7 +50,7 @@ class AttributeManager constructor(
 //            return attrMap
 //        }
 //        return entity.getMetadata(ATTRIBUTE_CACHE_KEY)[0].value() as AttributeMap
-        return cache.getOrCompute(entity) {
+        return attributeCache.computeIfAbsent(entity) {
             val attrMap = computeLivingEntityAttribute(entity)
             triggerAttributeUpdate(entity, attrMap)
             attrMap
@@ -72,30 +64,23 @@ class AttributeManager constructor(
         }
     }
     fun refreshLivingEntityAttribute(entity: LivingEntity): AttributeMap {
-//        cache.invalid(entity)
-//        return computeLivingEntityAttribute(entity)
         val newAttribute = computeLivingEntityAttribute(entity)
-        cache[entity] = newAttribute
+        attributeCache[entity] = newAttribute
         triggerAttributeUpdate(entity, newAttribute)
         return newAttribute
     }
     fun deleteLivingEntityAttributeCache(entity: LivingEntity) { //Make cache invalid
-//        entity.removeMetadata(ATTRIBUTE_CACHE_KEY, plugin)
-        cache.invalid(entity)
+        attributeCache.remove(entity)
     }
 
-    fun reloadAttributes() {
-        attributeCalculatorRegistry.pipeLineView.forEach { calculator -> //TODO 该改正了
-            calculator.onReload()
-        }
-        subAttributeRegistry.pipeLineView.forEach { subAttribute ->
-            subAttribute.onReload()
-        }
-        effectApplierRegistry.reloadAndClearTransient()
-    }
-//    fun calcValue(attrType: AttributeType, attrMap: Map<String, Double>, baseValue: Double): Double {
-//        val valueCalculator = valueCalculatorMap[attrType] ?: return baseValue
-//        return valueCalculator.calcValue(attrMap, baseValue)
+//    fun reloadAttributes() {
+//        attributeCalculatorRegistry.snapshot.pipeline.forEach { calculator ->
+//            calculator.onReload()
+//        }
+//        subAttributeRegistry.snapshot.pipeline.forEach { subAttribute ->
+//            subAttribute.onReload()
+//        }
+//        effectApplierRegistry.reloadAll()
 //    }
 
 }

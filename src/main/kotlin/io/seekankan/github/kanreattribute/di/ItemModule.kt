@@ -17,6 +17,9 @@ import io.seekankan.github.kanreattribute.item.manager.ItemConditionManager
 import io.seekankan.github.kanreattribute.item.manager.ItemFinderManager
 import io.seekankan.github.kanreattribute.item.manager.ItemTypeManager
 import io.seekankan.github.kanreattribute.item.message.ItemDefinitions
+import io.seekankan.github.kanreattribute.registry.impl.ItemConditionRegistry
+import io.seekankan.github.kanreattribute.registry.impl.ItemCreateHandlerRegistry
+import io.seekankan.github.kanreattribute.registry.impl.ItemFinderRegistry
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.module.Module
@@ -59,6 +62,11 @@ class ItemModule(
     }
 
     override fun onEnable() {
+        val koin = getKoin()
+        val itemFinderRegistry = koin.get<ItemFinderRegistry>()
+        val itemConditionRegistry = koin.get<ItemConditionRegistry>()
+        val itemCreateHandlerRegistry = koin.get<ItemCreateHandlerRegistry>()
+
         val itemTypes = arrayOf<ItemType>(
 
         )
@@ -66,15 +74,19 @@ class ItemModule(
         val itemConditions = getKoin().getAll<ItemCondition>()
         val itemCreateHandlers = getKoin().getAll<ItemCreateHandler>()
 
-        itemFinders.forEach {
-            itemFinderManager.itemFinderRegistry.registerPersistent(it)
-        }
-        itemConditions.forEach {
-            itemConditionManager.itemConditionRegistry.registerPersistent(it)
-        }
-        itemCreateHandlers.forEach {
-            itemFactory.itemCreateHandlerRegistry.registerPersistent(it)
-        }
+//        itemFinders.forEach {
+//            itemFinderManager.itemFinderRegistry.registerPersistent(it)
+//        }
+//        itemConditions.forEach {
+//            itemConditionManager.itemConditionRegistry.registerPersistent(it)
+//        }
+//        itemCreateHandlers.forEach {
+//            itemFactory.itemCreateHandlerRegistry.registerPersistent(it)
+//        }
+        itemFinderRegistry.registerAll(itemFinders)
+        itemConditionRegistry.registerAll(itemConditions)
+        itemCreateHandlerRegistry.registerAll(itemCreateHandlers)
+
 
 
         loadReloadable()
@@ -84,7 +96,6 @@ class ItemModule(
     }
 
     private fun loadReloadable() {
-        itemTypeManager.itemTypeRegistry.clearTransient()
         itemTypeManager.loadAllYMLItemTypes()
         itemDefinitions.loadConfig()
     }

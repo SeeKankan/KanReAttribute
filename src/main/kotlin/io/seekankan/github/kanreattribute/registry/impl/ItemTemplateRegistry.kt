@@ -1,4 +1,4 @@
-package io.seekankan.github.kanreattribute.item.registry
+package io.seekankan.github.kanreattribute.registry.impl
 
 
 //class ItemTemplateRegistry(

@@ -11,6 +11,7 @@ import io.seekankan.github.kanreattribute.di.HologramModule
 import io.seekankan.github.kanreattribute.di.ItemModule
 import io.seekankan.github.kanreattribute.di.ListenerModule
 import io.seekankan.github.kanreattribute.di.PermissionModule
+import io.seekankan.github.kanreattribute.di.RegistryModule
 import org.bukkit.event.HandlerList
 import org.bukkit.plugin.Plugin
 import org.koin.core.context.startKoin
@@ -24,6 +25,8 @@ class PluginModuleManager(
 ) {
 
     private val pluginModules: List<PluginModule> = listOf(
+        RegistryModule(plugin),
+
         BaseConfigModule(plugin),
         CoroutineModule(plugin),
 

@@ -5,7 +5,7 @@ import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.common.ItemTypeKey
 import io.seekankan.github.kanreattribute.item.data.ItemTypePDCType
 import io.seekankan.github.kanreattribute.item.itemtype.ItemType
-import io.seekankan.github.kanreattribute.item.registry.ItemTypeRegistry
+import io.seekankan.github.kanreattribute.registry.impl.ItemTypeRegistry
 import io.seekankan.github.kanreattribute.jackson.JacksonUtil
 import io.seekankan.github.kanreattribute.util.getItemData
 import org.bukkit.NamespacedKey
@@ -16,13 +16,12 @@ import java.util.logging.Logger
 
 class ItemTypeManager(
     private val plugin: KanReAttribute,
-    private val logger: Logger
+    private val logger: Logger,
+    private val itemTypeRegistry: ItemTypeRegistry
 ): KoinComponent {
 //    val itemTypePDCNamespaceKey = NamespacedKey(plugin, "itemTypeNamespace")
 //    val itemTypePDCNameKey = NamespacedKey(plugin, "itemTypeName")
     val itemTypePDCKey = NamespacedKey(plugin, "itemType")
-
-    val itemTypeRegistry = ItemTypeRegistry(logger)
 
     fun loadYMLItemTypes(file: File) {
 //        val yaml = YamlConfiguration.loadConfiguration(file)

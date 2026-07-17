@@ -1,18 +1,24 @@
 package io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker
 
 import io.seekankan.github.kanreattribute.KanReAttribute
+import io.seekankan.github.kanreattribute.PluginInfo
 import io.seekankan.github.kanreattribute.attribute.subattribute.ConfigurableSubAttribute
 import io.seekankan.github.kanreattribute.attribute.subattribute.Displayable
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
-import io.seekankan.github.kanreattribute.attribute.data.AttributeType
+import io.seekankan.github.kanreattribute.common.AttributeType
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
 import io.seekankan.github.kanreattribute.attribute.data.KanAttributeFlag
 import io.seekankan.github.kanreattribute.attribute.util.attributeConfig
+import io.seekankan.github.kanreattribute.common.subAttributeKeyOf
 import io.seekankan.github.kanreattribute.data.EventData
 import io.seekankan.github.kanreattribute.util.KanRandom
 
-class CritChance(private val plugin: KanReAttribute) : ConfigurableSubAttribute(plugin,
-    AttributeType(plugin.name, "CritChance")) {
+class CritChance(
+    private val plugin: KanReAttribute,
+    private val pluginInfo: PluginInfo,
+) : ConfigurableSubAttribute(plugin,
+    subAttributeKeyOf(pluginInfo, "crit_chance")
+) {
 
 //    private val defaultsMap = AttributeKeys.run {
 //        hashMapOf(

@@ -1,11 +1,13 @@
 package io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker
 
 import io.seekankan.github.kanreattribute.KanReAttribute
+import io.seekankan.github.kanreattribute.PluginInfo
 import io.seekankan.github.kanreattribute.attribute.subattribute.ConfigurableSubAttribute
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
-import io.seekankan.github.kanreattribute.attribute.data.AttributeType
+import io.seekankan.github.kanreattribute.common.AttributeType
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
 import io.seekankan.github.kanreattribute.attribute.util.attributeConfig
+import io.seekankan.github.kanreattribute.common.subAttributeKeyOf
 import io.seekankan.github.kanreattribute.data.EventData
 import io.seekankan.github.kanreattribute.helper.PlayerPreAttackCooldownCache
 import io.seekankan.github.kanreattribute.util.KanRandom
@@ -13,17 +15,19 @@ import io.seekankan.github.kanreattribute.util.divAndPow
 import org.bukkit.NamespacedKey
 import org.bukkit.attribute.Attribute
 import org.bukkit.attribute.AttributeModifier
-import org.bukkit.entity.HumanEntity
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
+import org.bukkit.plugin.Plugin
 import java.util.logging.Logger
 
 class AttackSpeed(
     private val plugin: KanReAttribute,
+    private val pluginInfo: PluginInfo,
     private val logger: Logger,
     private val playerPreAttackCooldownCache: PlayerPreAttackCooldownCache
 ) : ConfigurableSubAttribute(plugin,
-    AttributeType(plugin.name, "AttackSpeed")) {
+    subAttributeKeyOf(pluginInfo, "attack_speed")
+) {
     private val uuid = KanRandom.generateUUIDFromSeed(
         "${plugin.name}.living_entity.attribute.generic.attack_speed"
     )

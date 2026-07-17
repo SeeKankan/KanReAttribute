@@ -1,6 +1,6 @@
 package io.seekankan.github.kanreattribute.eventhandle.impl
 
-import io.seekankan.github.kanreattribute.AttributeService
+import io.seekankan.github.kanreattribute.attribute.AttributeService
 import io.seekankan.github.kanreattribute.PluginInfo
 import io.seekankan.github.kanreattribute.attribute.AttributeManager
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData

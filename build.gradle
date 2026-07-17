@@ -135,7 +135,7 @@ dependencies {
 
     compileOnly 'me.clip:placeholderapi:2.11.6'
 
-    implementation 'net.axay:kspigot:1.16.29'
+    implementation 'net.axay:kspigot:1.21.0'
 
 
     //New Adventure API(MiniMessage)

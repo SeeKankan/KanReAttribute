@@ -23,9 +23,9 @@ data class StateGUIConfig(
         " "
     ),
     @field:JsonProperty("groups-start")
-    val groupStart: Int,
+    val groupStart: Int = 10,
     @field:JsonProperty("groups-end")
-    val groupEnd: Int,
+    val groupEnd: Int = 16,
     @field:JsonProperty("attribute-groups")
     val attributeGroupMap: Map<String, AttributeGroupConfig> = emptyMap()
 ) {

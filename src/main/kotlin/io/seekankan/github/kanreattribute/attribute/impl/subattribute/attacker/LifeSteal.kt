@@ -8,17 +8,19 @@ import io.seekankan.github.kanreattribute.attribute.subattribute.config.DisplayA
 import io.seekankan.github.kanreattribute.attribute.subattribute.config.NumericConfig
 import io.seekankan.github.kanreattribute.attribute.subattribute.config.TypedAttributeConfig
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
-import io.seekankan.github.kanreattribute.attribute.data.AttributeType
+import io.seekankan.github.kanreattribute.common.AttributeType
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
 import io.seekankan.github.kanreattribute.attribute.data.KanAttributeFlag
 import io.seekankan.github.kanreattribute.attribute.data.LifeStealResult
+import io.seekankan.github.kanreattribute.common.subAttributeKeyOf
 import io.seekankan.github.kanreattribute.util.divAndPow
+import org.bukkit.plugin.Plugin
 
 class LifeSteal(
     pluginInfo: PluginInfo
 ): JacksonTypedSubAttribute<EntityDamageEventData, LifeStealConfig>(
     pluginInfo,
-    AttributeType(pluginInfo.name, "LifeSteal"),
+    subAttributeKeyOf(pluginInfo, "life_steal"),
     EntityDamageEventData::class.java,
     LifeStealConfig::class.java
 

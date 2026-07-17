@@ -1,14 +1,14 @@
 package io.seekankan.github.kanreattribute.di
 
-import io.seekankan.github.kanreattribute.AttributeService
+import io.seekankan.github.kanreattribute.attribute.AttributeService
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.PluginModule
-import io.seekankan.github.kanreattribute.attribute.AttributeCalculatorRegistry
+import io.seekankan.github.kanreattribute.registry.impl.AttributeCalculatorRegistry
 import io.seekankan.github.kanreattribute.attribute.attributecalculator.AttributeCalculator
 import io.seekankan.github.kanreattribute.attribute.AttributeManager
 import io.seekankan.github.kanreattribute.attribute.AttributeRefreshDebounceHandle
-import io.seekankan.github.kanreattribute.attribute.EffectApplierRegistry
-import io.seekankan.github.kanreattribute.attribute.SubAttributeRegistry
+import io.seekankan.github.kanreattribute.registry.impl.EffectApplierRegistry
+import io.seekankan.github.kanreattribute.registry.impl.SubAttributeRegistry
 import io.seekankan.github.kanreattribute.attribute.effectapplier.EffectApplier
 import io.seekankan.github.kanreattribute.attribute.subattribute.SubAttribute
 import io.seekankan.github.kanreattribute.attribute.impl.attributecalculator.BaseAttributeCalculator
@@ -42,9 +42,7 @@ class AttributeModule(
     private val attributeRefresher: EntityAttributeRefresher by inject()
 
     override val koinModule: Module = module {
-        singleOf(::AttributeCalculatorRegistry)
-        singleOf(::SubAttributeRegistry)
-        singleOf(::EffectApplierRegistry)
+
 
 //        single<AttributeManager> {
 //            AttributeManager(plugin)
@@ -90,7 +88,7 @@ class AttributeModule(
     }
 
     override fun onReload() {
-        attributeManager.reloadAttributes()
+
     }
 
 
@@ -104,21 +102,21 @@ class AttributeModule(
         val effectApplierRegistry = getKoin().get<EffectApplierRegistry>()
 
         val attributeCalculators = getKoin().getAll<AttributeCalculator>()
-//        val subAttributes = arrayOf(
-//            Damage(plugin)
-//        )
         val subAttributes = getKoin().getAll<SubAttribute>()
         val effectAppliers = getKoin().getAll<EffectApplier>()
 
-        attributeCalculators.forEach {
-            attributeCalculatorRegistry.register(it)
-        }
-        subAttributes.forEach {
-            subAttributeRegistry.register(it)
-        }
-        effectAppliers.forEach {
-            effectApplierRegistry.registerPersistent(it)
-        }
+//        attributeCalculators.forEach {
+//            attributeCalculatorRegistry.register(it)
+//        }
+//        subAttributes.forEach {
+//            subAttributeRegistry.register(it)
+//        }
+//        effectAppliers.forEach {
+//            effectApplierRegistry.registerPersistent(it)
+//        }
+        attributeCalculatorRegistry.registerAll(attributeCalculators)
+        subAttributeRegistry.registerAll(subAttributes)
+        effectApplierRegistry.registerAll(effectAppliers)
 
     }
 }

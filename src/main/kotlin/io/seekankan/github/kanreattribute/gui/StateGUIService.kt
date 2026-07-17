@@ -2,7 +2,7 @@ package io.seekankan.github.kanreattribute.gui
 
 import io.seekankan.github.kanreattribute.message.MessageService
 import io.seekankan.github.kanreattribute.attribute.AttributeManager
-import io.seekankan.github.kanreattribute.attribute.SubAttributeRegistry
+import io.seekankan.github.kanreattribute.registry.impl.SubAttributeRegistry
 import io.seekankan.github.kanreattribute.attribute.subattribute.Displayable
 import io.seekankan.github.kanreattribute.gui.data.AttributeGroupConfig
 import net.axay.kspigot.gui.ForEveryInventory
@@ -22,7 +22,7 @@ import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
 class StateGUIService(
-    private val messageManager: MessageService,
+    private val messageService: MessageService,
     private val subAttributeRegistry: SubAttributeRegistry,
     private val attributeManager: AttributeManager,
     private val guiProtectService: GUIProtectService,
@@ -32,7 +32,7 @@ class StateGUIService(
         val config = config.stateGUIConfig
         val type = config.guiType() as GUIType<ForEveryInventory>
         val gui = kSpigotGUI(type) {
-            title = messageManager.toLegacyText(config.title, "player_name" to player.name)
+            title = messageService.getComponent(config.title, "player_name" to player.name)
 //            page(1) {
 //                val compound = createRectCompound<Material>(
 //                    Slots.RowOneSlotOne, Slots.RowSixSlotEight,
@@ -71,7 +71,7 @@ class StateGUIService(
         val icon = config.stateGUIConfig.placeholderItemIcon
         val fillerStack = itemStack(icon.material) {
             this.itemMeta = this.itemMeta?.apply {
-                name = icon.name
+                name = messageService.getComponent(icon.name)
             }
         }
         placeholder(Slots.All as InventorySlotCompound<T>, fillerStack)
@@ -81,7 +81,7 @@ class StateGUIService(
         val icon = config.stateGUIConfig.borderItemIcon
         val fillerStack = itemStack(icon.material) {
             this.itemMeta = this.itemMeta?.apply {
-                name = icon.name
+                name = messageService.getComponent(icon.name)
             }
         }
 
@@ -92,14 +92,14 @@ class StateGUIService(
 //            val playerAttributeData = attributeManager.getLivingEntityAttribute(player)
 //            val attributeIcon = itemStack(groupConfig.material) {
 //                this.itemMeta = this.itemMeta?.apply {
-//                    name = messageManager.toLegacyText(groupConfig.name)
+//                    name = messageService.toLegacyText(groupConfig.name)
 //                    val lore = groupConfig.showAttributes.map {
 //                        it to attributeManager.subAttributeRegistry.get(it)
 //                    }.filter {
 //                        it.component2() is Displayable
 //                    }.map {
 //                        val (attrType, attr) = it
-//                        val displayName = messageManager.toLegacyText((attr as Displayable).displayName)
+//                        val displayName = messageService.toLegacyText((attr as Displayable).displayName)
 //                        val formatAttributeValue = playerAttributeData.getOrDefault(attrType, attr.baseValue)
 //                        "$displayName: $formatAttributeValue"
 //                    }
@@ -125,14 +125,14 @@ class StateGUIService(
         val playerAttributeData = attributeManager.getLivingEntityAttribute(player)
         val attributeIcon = itemStack(groupConfig.material) {
             this.itemMeta = this.itemMeta?.apply {
-                name = messageManager.toLegacyText(groupConfig.name)
+                name = messageService.getComponent(groupConfig.name)
                 val lore = groupConfig.showAttributes.map {
                     it to subAttributeRegistry.get(it)
                 }.filter {
                     it.component2() is Displayable
                 }.map {
                     val (attrType, attr) = it
-                    val displayName = messageManager.toLegacyText((attr as Displayable).displayName)
+                    val displayName = messageService.toLegacyText((attr as Displayable).displayName)
                     val formatAttributeValue = playerAttributeData.getOrDefault(attrType, attr.baseValue)
                     "$displayName: $formatAttributeValue"
                 }

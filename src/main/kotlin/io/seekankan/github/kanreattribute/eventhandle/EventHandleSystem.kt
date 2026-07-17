@@ -1,6 +1,7 @@
 package io.seekankan.github.kanreattribute.eventhandle
 
 import io.seekankan.github.kanreattribute.data.EventData
+import io.seekankan.github.kanreattribute.registry.impl.EventHandleRegistry
 import java.util.logging.Logger
 
 class EventHandleSystem(

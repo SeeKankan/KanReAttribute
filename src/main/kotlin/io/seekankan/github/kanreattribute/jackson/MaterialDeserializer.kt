@@ -12,7 +12,7 @@ class MaterialDeserializer: KanDeserializer<Material>(Material::class.java) {
         context: DeserializationContext
     ): Material? {
         val keyString = parser.valueAsString ?: return null
-        val key = NamespacedKey.fromString(keyString) ?: return null
-        return Registry.MATERIAL.get(key) ?: Material.matchMaterial(keyString)
+        val key = NamespacedKey.fromString(keyString)
+        return key?.let { Registry.MATERIAL.get(it) } ?: Material.matchMaterial(keyString) ?: Material.valueOf(keyString)
     }
 }

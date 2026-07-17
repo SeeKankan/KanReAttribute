@@ -2,16 +2,15 @@ package io.seekankan.github.kanreattribute.eventhandle
 
 import io.seekankan.github.kanreattribute.attribute.effectapplier.EffectApplier
 import io.seekankan.github.kanreattribute.common.EventHandleBehaviorKey
+import io.seekankan.github.kanreattribute.common.EventHandleBehaviorTag
 import io.seekankan.github.kanreattribute.data.EventData
 import io.seekankan.github.kanreattribute.extensions.isSuperOrSelfOf
 import io.seekankan.github.kanreattribute.registry.LifeCycle
 import io.seekankan.github.kanreattribute.registry.Named
+import io.seekankan.github.kanreattribute.registry.Registerable
 import io.seekankan.github.kanreattribute.util.MathUtil
 
-interface EventHandleBehavior<in T>: Named<EventHandleBehaviorKey>,
-    Comparable<EventHandleBehavior<*>>,
-    LifeCycle {
-    val priority: Int
+interface EventHandleBehavior<in T>: Registerable<EventHandleBehaviorTag, EventHandleBehavior<*>> {
     val targetEventDataClass: Class<in T>
 
     fun handleEventData(eventData: T)
@@ -24,11 +23,6 @@ interface EventHandleBehavior<in T>: Named<EventHandleBehaviorKey>,
             other.priority
         )
     }
-
-    override fun onBeforeRegister() {}
-    override fun onEnable() {}
-    override fun onReload() {}
-    override fun onDisable() {}
 
 
     fun <T2> castUnchecked(anotherTargetClass: Class<T2>): EventHandleBehavior<T2> {

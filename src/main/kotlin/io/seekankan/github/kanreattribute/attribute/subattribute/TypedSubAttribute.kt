@@ -3,7 +3,10 @@ package io.seekankan.github.kanreattribute.attribute.subattribute
 import io.seekankan.github.kanreattribute.PluginInfo
 import io.seekankan.github.kanreattribute.attribute.subattribute.config.TypedAttributeConfig
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
-import io.seekankan.github.kanreattribute.attribute.data.AttributeType
+import io.seekankan.github.kanreattribute.common.AttributeType
+import io.seekankan.github.kanreattribute.common.SubAttributeKey
+import io.seekankan.github.kanreattribute.common.key
+import io.seekankan.github.kanreattribute.common.namespace
 import io.seekankan.github.kanreattribute.data.EventData
 import io.seekankan.github.kanreattribute.extensions.isInstanceOf
 import java.io.File
@@ -11,7 +14,7 @@ import java.text.DecimalFormat
 
 abstract class TypedSubAttribute<T: EventData, E: TypedAttributeConfig>(
     protected val pluginInfo: PluginInfo,
-    override val uniqueName: AttributeType,
+    override val uniqueName: SubAttributeKey,
     val eventDataType: Class<T>
 ): SubAttribute, Displayable {
 

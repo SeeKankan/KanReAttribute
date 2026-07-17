@@ -3,6 +3,7 @@ package io.seekankan.github.kanreattribute
 import io.seekankan.github.kanreattribute.jackson.JacksonUtil
 import io.seekankan.github.kanreattribute.logging.BukkitSLF4JProvider
 import net.axay.kspigot.main.KSpigot
+import org.bukkit.NamespacedKey
 import org.bukkit.plugin.Plugin
 import org.koin.mp.KoinPlatformTools
 import org.slf4j.LoggerFactory
@@ -22,12 +23,13 @@ class KanReAttributePlugin: KSpigot(), KanReAttribute {
         BukkitSLF4JProvider.plugin = this
         val logger = LoggerFactory.getLogger(javaClass)
         logger.info("SLF4J successfully bridged to plugin.getLogger()!")
-
         pluginModuleManager = PluginModuleManager(this)
         prepare()
     }
 
     override fun startup() {
+        logger.info(NamespacedKey(this, "a").toString())
+
         pluginModuleManager.enable()
 
         if(DO_PRINT_MODULE_DEPEND_TREE) {

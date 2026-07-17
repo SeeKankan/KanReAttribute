@@ -1,11 +1,12 @@
 package io.seekankan.github.kanreattribute.registry
 
 import io.seekankan.github.kanreattribute.common.NamespacedKeyOf
+import io.seekankan.github.kanreattribute.common.RegistryTag
 import io.seekankan.github.kanreattribute.extensions.findLogger
 import kotlin.math.log
 
-//TODO Logger
-abstract class CopyOnWriteRegistry<R: Registerable<E, R>, E> {
+
+abstract class CopyOnWriteRegistry<R: Registerable<E, R>, E>: Registerable<RegistryTag, CopyOnWriteRegistry<*, *>> {
 
     protected val log = findLogger()
 
@@ -16,6 +17,9 @@ abstract class CopyOnWriteRegistry<R: Registerable<E, R>, E> {
     private set
 
     protected abstract val registerableTypeName: String
+
+    override val priority: Int = 0
+    override val isPersistent: Boolean = true
 
     fun registerAll(values: List<R>): BatchRegisterResult{
         return synchronized(writeLock) {

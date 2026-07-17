@@ -1,8 +1,10 @@
-package io.seekankan.github.kanreattribute.registry
+package io.seekankan.github.kanreattribute.registry.legacy
 
+import io.seekankan.github.kanreattribute.registry.Named
 import java.util.Collections
 import java.util.SortedSet
 
+@Deprecated("应该使用CopyOnWriteRegistry")
 open class RegistryPipeLine<K,V: Named<K>>( //TODO 这个该废除了，应该使用AbstractFunctionRegistry
     val registerMap: MutableMap<K,V> = hashMapOf(),
     private val pipeLineSet: SortedSet<V> = sortedSetOf(),

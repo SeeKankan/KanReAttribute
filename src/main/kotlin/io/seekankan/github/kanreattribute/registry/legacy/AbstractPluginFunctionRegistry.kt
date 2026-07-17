@@ -1,7 +1,12 @@
-package io.seekankan.github.kanreattribute.registry
+package io.seekankan.github.kanreattribute.registry.legacy
 
+import io.seekankan.github.kanreattribute.registry.LifeCycle
+import io.seekankan.github.kanreattribute.registry.Named
+import io.seekankan.github.kanreattribute.registry.RegisterResult
+import io.seekankan.github.kanreattribute.registry.UnregisterResult
 import java.util.logging.Logger
 
+@Deprecated("应该使用CopyOnWriteRegistry")
 abstract class AbstractPluginFunctionRegistry<K,V>(
     val functionTypeName: String,
     val logger: Logger,
