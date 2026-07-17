@@ -1,12 +1,7 @@
 package io.seekankan.github.kanreattribute.eventhandle
 
-import io.seekankan.github.kanreattribute.attribute.effectapplier.EffectApplier
-import io.seekankan.github.kanreattribute.common.EventHandleBehaviorKey
 import io.seekankan.github.kanreattribute.common.EventHandleBehaviorTag
-import io.seekankan.github.kanreattribute.data.EventData
 import io.seekankan.github.kanreattribute.extensions.isSuperOrSelfOf
-import io.seekankan.github.kanreattribute.registry.LifeCycle
-import io.seekankan.github.kanreattribute.registry.Named
 import io.seekankan.github.kanreattribute.registry.Registerable
 import io.seekankan.github.kanreattribute.util.MathUtil
 

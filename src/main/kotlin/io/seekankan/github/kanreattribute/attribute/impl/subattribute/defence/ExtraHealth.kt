@@ -25,7 +25,7 @@ class ExtraHealth(
     private val pluginInfo: PluginInfo,
     private val logger: Logger,
 ) : ConfigurableSubAttribute(plugin,
-    subAttributeKeyOf(plugin.name, "extra_health")
+    subAttributeKeyOf(pluginInfo, "extra_health")
 ) {
     private val uuid = KanRandom.generateUUIDFromSeed(
         "${plugin.name}.living_entity.attribute.generic.max_health"

@@ -49,8 +49,11 @@ class RegistryModule(
     override fun onReload() {
         val koin = getKoin()
         val registryRegistry = koin.get<RegistryRegistry>()
+        val registers = koin.getAll<CopyOnWriteRegistry<*, *>>()
 
-        registryRegistry.reloadAll()
+        registers.forEach { registry ->
+            registry.reloadAll()
+        }
     }
 
 

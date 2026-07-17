@@ -4,11 +4,11 @@ import io.seekankan.github.kanreattribute.PluginInfo
 
 interface EventHandleBehaviorTag
 
-typealias EventHandleBehaviorKey = NamespacedKeyOf<EffectApplierTag>
+typealias EventHandleBehaviorKey = NamespacedKeyOf<EventHandleBehaviorTag>
 
-fun eventHandleBehaviorKeyOf(pluginInfo: PluginInfo, key: String): EffectApplierKey {
-    return effectApplierKeyOf(pluginInfo.snakeCaseName, key)
+fun eventHandleBehaviorKeyOf(pluginInfo: PluginInfo, key: String): EventHandleBehaviorKey {
+    return eventHandleBehaviorKeyOf(pluginInfo.snakeCaseName, key)
 }
-fun eventHandleBehaviorKeyOf(namespace: String, key: String): EffectApplierKey {
+fun eventHandleBehaviorKeyOf(namespace: String, key: String): EventHandleBehaviorKey {
     return keyOf(namespace, key)
 }

@@ -14,6 +14,7 @@ class DamageEventHandleBehavior(
     private val attributeService: AttributeService
 ): EventHandleBehavior<EntityDamageEventData> {
     override val priority: Int = 10
+    override val isPersistent: Boolean = true
     override val targetEventDataClass: Class<in EntityDamageEventData> = EntityDamageEventData::class.java
 
     override fun handleEventData(eventData: EntityDamageEventData) {

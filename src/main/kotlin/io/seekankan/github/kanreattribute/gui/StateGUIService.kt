@@ -123,11 +123,12 @@ class StateGUIService(
     private fun genIcon(pair: Pair<Player, AttributeGroupConfig>): ItemStack {
         val (player, groupConfig) = pair
         val playerAttributeData = attributeManager.getLivingEntityAttribute(player)
+        val subAttributeRegistrySnapshot = subAttributeRegistry.snapshot
         val attributeIcon = itemStack(groupConfig.material) {
             this.itemMeta = this.itemMeta?.apply {
                 name = messageService.getComponent(groupConfig.name)
                 val lore = groupConfig.showAttributes.map {
-                    it to subAttributeRegistry.get(it)
+                    it to subAttributeRegistrySnapshot.registerableMap[it]
                 }.filter {
                     it.component2() is Displayable
                 }.map {

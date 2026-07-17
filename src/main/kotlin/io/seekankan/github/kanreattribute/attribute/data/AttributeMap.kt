@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize
 import io.seekankan.github.kanreattribute.registry.impl.SubAttributeRegistry
 import io.seekankan.github.kanreattribute.attribute.subattribute.Displayable
 import io.seekankan.github.kanreattribute.common.SubAttributeKey
-import io.seekankan.github.kanreattribute.common.SubAttributeKeyDeserializer
+import io.seekankan.github.kanreattribute.jackson.NamespacedKeyOfKeyDeserializer
 import io.seekankan.github.kanreattribute.message.ItemStyleKey
 
 class AttributeMap(
@@ -28,7 +28,7 @@ class AttributeMap(
         fun create(
 //            @JsonProperty("attributes")
             @JsonDeserialize(
-                keyUsing = SubAttributeKeyDeserializer::class,
+                keyUsing = NamespacedKeyOfKeyDeserializer::class,
                 contentAs = Double::class
             )
             attributes: Map<SubAttributeKey, Double>

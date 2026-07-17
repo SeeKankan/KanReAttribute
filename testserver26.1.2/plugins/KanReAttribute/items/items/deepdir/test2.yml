@@ -9,8 +9,8 @@ dragon_sword:
     - MAIN_HAND
     - OFF_HAND
   attributes:
-    KanReAttribute:Damage: 100
-    KanReAttribute:Strength: 100
+    kanreattribute:damage: 100
+    kanreattribute:strength: 100
 #    KanReAttribute:CritDamage: 10.0
   introduction: "<yellow>这是一把龙剑！</yellow>"
 #  lore:
@@ -48,10 +48,10 @@ dragon_chestplate:
   slots:
     - CHEST
   attributes:
-    KanReAttribute:Damage: 20
-    KanReAttribute:Strength: 20
+    kanreattribute:damage: 20
+    kanreattribute:strength: 20
 
-    KanReAttribute:ExtraHealth: 40
+    kanreattribute:extra_health: 40
   #    KanReAttribute:CritDamage: 10.0
   introduction: "<yellow>这是一件龙盔甲！</yellow>"
   #  lore:

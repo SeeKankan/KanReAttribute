@@ -39,7 +39,10 @@ private fun ObjectMapper.applyModule(): ObjectMapper {
     configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 
     val keyedModule = KeyedModule()
+    val keyOfModule = KeyOfModule()
+
     this.registerModule(keyedModule)
+    this.registerModule(keyOfModule)
 
 //    addMixIn(GUIType::class.java, GUITypeMixin::class.java)
     return this

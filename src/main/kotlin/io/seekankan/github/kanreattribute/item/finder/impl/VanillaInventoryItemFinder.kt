@@ -17,6 +17,7 @@ class VanillaInventoryItemFinder(
     private val itemManager: ItemTypeManager,
 ): ItemFinder {
     override val priority: Int = 0
+    override val isPersistent: Boolean = true
 
     override fun findItem(
         livingEntity: LivingEntity,

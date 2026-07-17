@@ -1,17 +1,5 @@
 package io.seekankan.github.kanreattribute.util
 
-import org.bukkit.entity.Entity
-import org.bukkit.entity.Player
-import org.bukkit.event.EventHandler
-import org.bukkit.event.HandlerList
-import org.bukkit.event.Listener
-import org.bukkit.event.entity.*
-import org.bukkit.event.player.PlayerQuitEvent
-import org.bukkit.event.world.ChunkUnloadEvent
-import org.bukkit.plugin.Plugin
-import java.util.*
-import java.util.concurrent.ConcurrentHashMap
-
 /*
 @Deprecated("listener太不好了，应该使用TransientEntityDataCache")
 class EntityDataCache<T: Entity, E: Any> {

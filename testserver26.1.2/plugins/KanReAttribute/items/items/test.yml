@@ -9,9 +9,9 @@ my_iron_sword:
     - MAIN_HAND
     - OFF_HAND
   attributes:
-    KanReAttribute:Damage: 100
-    KanReAttribute:Strength: 100
-    KanReAttribute:CritDamage: 10.0
+    kanreattribute:damage: 100
+    kanreattribute:strength: 100
+    kanreattribute:crit_damage: 10.0
   introduction: "<blue>这是我的铁剑！</blue>"
   custom-config:
     foo: 114514

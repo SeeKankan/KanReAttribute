@@ -13,6 +13,7 @@ class ItemSlotCondition(
     private val itemTypeManager: ItemTypeManager,
 ): ItemCondition {
     override val priority: Int = 0
+    override val isPersistent: Boolean = true
 
     override fun filterInvalidItems(
         livingEntity: LivingEntity,

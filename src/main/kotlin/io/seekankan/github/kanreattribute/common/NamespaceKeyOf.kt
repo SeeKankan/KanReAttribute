@@ -2,6 +2,7 @@ package io.seekankan.github.kanreattribute.common
 
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import io.seekankan.github.kanreattribute.jackson.StringOfKeyDeserializer
 import org.bukkit.NamespacedKey
 import org.bukkit.plugin.Plugin
 

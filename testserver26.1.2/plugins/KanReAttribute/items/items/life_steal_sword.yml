@@ -1,0 +1,17 @@
+life_steal_sword:
+  ==: ConfigurationItemType
+  unique-name: "custom:life_steal_sword"
+  display-name: "<red>吸血之剑</red>"
+  priority: 1
+  material: "minecraft:golden_sword"
+  category: GEAR
+  slots:
+    - MAIN_HAND
+    - OFF_HAND
+  attributes:
+    kanreattribute:damage: 20
+    kanreattribute:strength: 20
+    kanreattribute:crit_damage: 10.0
+    kanreattribute:life_steal: 20
+    kanreattribute:life_steal_chance: 0.3
+  introduction: "<red>这只剑能吸血！</red>"

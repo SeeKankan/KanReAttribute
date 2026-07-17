@@ -12,8 +12,8 @@ class EventHandleSystem(
         val eventDataClass = eventData.javaClass
 
         var isHandledEventData = false
-        eventHandleRegistry.pipeLineView.forEach { behavior ->
-            val castedBehavior = behavior?.castOrNull(eventDataClass) ?: return@forEach
+        eventHandleRegistry.snapshot.pipeline.forEach { behavior ->
+            val castedBehavior = behavior.castOrNull(eventDataClass) ?: return@forEach
             castedBehavior.handleEventData(eventData)
             isHandledEventData = true
         }

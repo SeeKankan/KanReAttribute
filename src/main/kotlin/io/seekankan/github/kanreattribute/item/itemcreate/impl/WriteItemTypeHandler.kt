@@ -15,6 +15,7 @@ class WriteItemTypeHandler(
     private val itemTypeManager: ItemTypeManager
 ): ItemCreateHandler {
     override val priority: Int = 0
+    override val isPersistent: Boolean = true
 
     override fun handleItemStack(
         itemStack: ItemStack,

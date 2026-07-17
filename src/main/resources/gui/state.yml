@@ -18,18 +18,18 @@ attribute-groups:
     material: "DIAMOND_SWORD"
     name: "<red>攻击属性: </red>"
     show-attributes:
-      - "KanReAttribute:Damage"
-      - "KanReAttribute:Strength"
-      - "KanReAttribute:CritChance"
-      - "KanReAttribute:CritDamage"
-      - "KanReAttribute:LifeStealChance"
-      - "KanReAttribute:LifeSteal"
-      - "KanReAttribute:AttackSpeed"
+      - "kanreattribute:damage"
+      - "kanreattribute:strength"
+      - "kanreattribute:crit_chance"
+      - "kanreattribute:crit_damage"
+      - "kanreattribute:life_steal_chance"
+      - "kanreattribute:life_steal"
+      - "kanreattribute:attack_speed"
   defense:
     priority: 1
     material: "DIAMOND_CHESTPLATE"
     name: "<blue>防御属性: </blue>"
     show-attributes:
-      - "KanReAttribute:ExtraHealth"
-      - "KanReAttribute:Defense"
+      - "kanreattribute:extra_health"
+      - "kanreattribute:defense"
 

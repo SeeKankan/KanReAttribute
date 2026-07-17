@@ -10,7 +10,7 @@ class SubAdminCommand(
 ): SubCommand<CommandSender>(
     command = "admin",
     subCommands = commandMapOf(
-        SubAdminQueryCommand(plugin),
+//        SubAdminQueryCommand(plugin),
         SubAdminGiveItemCommand(plugin)
     ),
 //    requirePermissions = listOf(

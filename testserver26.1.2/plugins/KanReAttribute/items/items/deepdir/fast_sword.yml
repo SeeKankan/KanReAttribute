@@ -1,0 +1,16 @@
+fast_sword:
+  ==: ConfigurationItemType
+  unique-name: "custom:fast_sword"
+  display-name: "<gold>快速之剑</gold>"
+  priority: 1
+  material: "minecraft:golden_sword"
+  category: GEAR
+  slots:
+    - MAIN_HAND
+    - OFF_HAND
+  attributes:
+    kanreattribute:damage: 30
+    kanreattribute:strength: 10
+    kanreattribute:crit_damage: 5.0
+    kanreattribute:attack_speed: 10
+  introduction: "<aqua>这只剑能吸血！</aqua>"

@@ -10,13 +10,15 @@ class AttributeService(
     private val effectApplierRegistry: EffectApplierRegistry
 ) {
     fun processEventWithAttribute(attrMap: AttributeMap, eventData: EventData) {
-        subAttributeRegistry.forEachMap(attrMap) { attrType, subAttribute, attrValue ->
+        subAttributeRegistry.snapshot.pipeline.forEach { subAttribute ->
+            val uniqueName = subAttribute.uniqueName
+            val attrValue = attrMap[uniqueName]
             if(attrValue != null) subAttribute.calculateEventNumber(attrValue, attrMap, eventData)
         }
     }
 
     fun applyEffect(attrMap: AttributeMap, eventData: EventData) {
-        effectApplierRegistry.forEach { effectApplier ->
+        effectApplierRegistry.snapshot.pipeline.forEach { effectApplier ->
             effectApplier.applyEffect(attrMap, eventData)
         }
     }

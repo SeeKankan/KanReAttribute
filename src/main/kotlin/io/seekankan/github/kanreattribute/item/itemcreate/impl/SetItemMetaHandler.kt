@@ -17,6 +17,7 @@ class SetItemMetaHandler(
     private val itemMetaAssembler: ItemMetaAssembler
 ): ItemCreateHandler {
     override val priority: Int = 0
+    override val isPersistent: Boolean = true
 
     override fun handleItemStack(
         itemStack: ItemStack,

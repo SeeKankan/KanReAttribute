@@ -1,10 +1,11 @@
-package io.seekankan.github.kanreattribute.common
+package io.seekankan.github.kanreattribute.jackson
 
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.KeyDeserializer
-import com.fasterxml.jackson.databind.deser.std.StdKeyDeserializer
+import io.seekankan.github.kanreattribute.common.NamespacedKeyOf
+import io.seekankan.github.kanreattribute.common.SubAttributeKey
 
-class SubAttributeKeyDeserializer: KeyDeserializer() {
+class NamespacedKeyOfKeyDeserializer: KeyDeserializer() {
     override fun deserializeKey(
         key: String,
         ctxt: DeserializationContext

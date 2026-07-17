@@ -29,13 +29,17 @@ class ItemTypeManager(
 //            val itemType = yaml.get(key) as ItemType
 //            itemTypeRegistry.registerTransient(itemType)
 //        }
-        val items = JacksonUtil.yamlMapper.readValue(
+        val itemMap = JacksonUtil.yamlMapper.readValue(
             file,
             object: TypeReference<Map<String, ItemType>>(){}
             )
-        items.forEach { (_, item) ->
-            itemTypeRegistry.registerTransient(item)
+        val items = itemMap.map { (_, item) ->
+            item
         }
+//        items.forEach { (_, item) ->
+//            itemTypeRegistry.registerTransient(item)
+//        }
+        itemTypeRegistry.registerAll(items)
     }
 
     fun loadAllYMLItemTypes() {
@@ -62,11 +66,11 @@ class ItemTypeManager(
 //        val namespace = itemStack.getItemData(itemTypePDCNamespaceKey, PersistentDataType.STRING) ?: return null
 //        val name = itemStack.getItemData(itemTypePDCNameKey, PersistentDataType.STRING) ?: return null
         val itemTypeKey = itemStack.getItemData(itemTypePDCKey, ItemTypePDCType) ?: return null
-        return itemTypeRegistry[itemTypeKey]
+        return itemTypeRegistry.snapshot.registerableMap[itemTypeKey]
     }
     fun getItemType(itemTypeKey: ItemTypeKey?): ItemType? {
         if(itemTypeKey == null) return null
-        return itemTypeRegistry[itemTypeKey]
+        return itemTypeRegistry.snapshot.registerableMap[itemTypeKey]
     }
 
     /**
@@ -77,7 +81,7 @@ class ItemTypeManager(
      * @return 所有的 ItemType和ItemInstance实例类型字符串，格式为 "item_type_namespace:item_type_key:item_instance"
      */
     fun getAllItemTypeInstanceString(): List<String> {
-        return itemTypeRegistry.itemSetView.flatMap { itemType ->
+        return itemTypeRegistry.snapshot.pipeline.flatMap { itemType ->
             itemType.instanceConfig.map { (instanceTypeKey, _) ->
                 "${itemType.uniqueName}:${instanceTypeKey}"
             }
