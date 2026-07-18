@@ -15,6 +15,7 @@ import io.seekankan.github.kanreattribute.attribute.impl.attributecalculator.Bas
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.Damage
 import io.seekankan.github.kanreattribute.attribute.impl.attributecalculator.ItemAttributeCalculator
 import io.seekankan.github.kanreattribute.attribute.impl.effectapplier.FinalDamageHologramSpawner
+import io.seekankan.github.kanreattribute.attribute.impl.effectapplier.LifeStealEffectApplier
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.AttackSpeed
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.CritChance
 import io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker.CritDamage
@@ -79,6 +80,7 @@ class AttributeModule(
         singleOf(::Defense) bind SubAttribute::class
 
         singleOf(::FinalDamageHologramSpawner) bind EffectApplier::class
+        singleOf(::LifeStealEffectApplier) bind EffectApplier::class
     }
 
     override fun onEnable() {

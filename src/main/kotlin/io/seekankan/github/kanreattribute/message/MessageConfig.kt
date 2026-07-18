@@ -14,7 +14,17 @@ data class MessageConfig(
         HumanEntity::class.java.simpleName to "玩家或者NPC",
         Player::class.java.simpleName to "玩家",
     ),
+    val registry: RegistryFormat = RegistryFormat(),
     val command: CommandConfig = CommandConfig()
+)
+data class RegistryFormat(
+    val keyList: RegistryKeyListFormat = RegistryKeyListFormat(),
+)
+data class RegistryKeyListFormat(
+    val separator: String = "<white>, </white>",
+    val persistentRegisterable: String = "<hover:show_text:\"<green>持久化注册</green>\"><green><namespaced_key></green></hover>",
+    val transientRegisterable: String = "<hover:show_text:\"<red>非持久化注册</red>\"><aqua><namespaced_key></aqua></hover>",
+    val format: String = "<white>[<register_list>]</white>"
 )
 data class CommandConfig(
     val common: CommandCommonConfig = CommandCommonConfig(),
@@ -36,9 +46,10 @@ data class CommandCommonConfig(
 data class CommandMainCommandConfig(
     val introduction: List<String> = listOf(
         "--- <green>KanReAttribute</green> ---",
-        "/kra reload - <click:suggest_command:'/kra reload'><red>重载插件</red></click>",
+        "/kra reload - <click:run_command:'/kra reload'><red>重载插件</red></click>",
         "<gray>/kra admin - <click:suggest_command:'/kra admin'><red>管理员相关指令</red></click></gray>",
-        "/kra state - <click:run_command:'/kra state'><red>查看自身属性</red></click>"
+        "/kra query - <click:suggest_command:'/kra query'><red>查询本插件注册的东西</red></click>",
+        "<gray>/kra state - <click:run_command:'/kra state'><red>查看自身属性</red></click></gray>"
     )
 )
 data class CommandPluginConfig(
@@ -47,11 +58,13 @@ data class CommandPluginConfig(
     val reloadSuccess: String = "<green>插件重新加载成功!</green>",
     val reloadFail: String = "<red>插件重新加载失败!</red>",
 
-    val queryRegistered: String = "<white>注册的 <register_type>: [</white><green><register_list><green><white>]</white>"
+    val queryRegistered: String = "<white>注册的 <register_type>: <registerable_list>"
 )
+
 data class CommandItemConfig(
     val invalidItemAmount: String = "<red>无效的物品数量: <amount></red>",
     val itemTypeMissing: String = "<red>缺失物品id.</red>",
     val itemTypeNotFound: String = "<red>未找到物品类型: <item_type></red>",
-    val itemInstanceNotFound: String = "<red>未找到属性实例化配置: <item_instance></red>"
+    val itemInstanceNotFound: String = "<red>未找到属性实例化配置: <item_instance></red>",
+    val itemDropBecauseInventoryFull: String = "<red>你的背包满了, 部分物品已经掉落在地板上了.</red>"
 )

@@ -25,5 +25,5 @@ class WriteItemTypeHandler(
         itemStack.setItemData(itemTypeManager.itemTypePDCKey, ItemTypePDCType, itemType.uniqueName)
     }
 
-    override val uniqueName: ItemCreateHandlerKey = itemCreateHandlerKey(plugin, "WriteItemTypeHandler")
+    override val uniqueName: ItemCreateHandlerKey = itemCreateHandlerKey(plugin, "write_item_type_handler")
 }

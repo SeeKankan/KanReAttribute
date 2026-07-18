@@ -2,9 +2,11 @@ package io.seekankan.github.kanreattribute.coroutines
 
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.async
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import org.bukkit.plugin.Plugin
@@ -31,6 +33,13 @@ class CoroutineManager(
     }
     fun launchIn(context: CoroutineContext, block: suspend CoroutineScope.() -> Unit): Job {
         return scope.launch(context, block = block)
+    }
+
+    fun <T> asyncBukkit(block: suspend CoroutineScope.() -> T): Deferred<T> {
+        return scope.async(bukkitDispatcher, block = block)
+    }
+    fun <T> asyncIn(context: CoroutineContext, block: suspend CoroutineScope.() -> T): Deferred<T> {
+        return scope.async(context, block = block)
     }
 
     fun shutdown() {

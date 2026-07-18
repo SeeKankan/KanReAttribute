@@ -147,7 +147,9 @@ dependencies {
 //    implementation("io.papermc:paperlib:1.0.8")
 
 //    compileOnly fileTree(dir: 'lib/compileOnly', includes: ['*.jar'])
-//    implementation fileTree(dir: 'lib/implementation', includes: ['*.jar'])
+    implementation fileTree(dir: 'lib/implementation', includes: [
+            'kspigot-1.21.0.jar'
+    ])
 
 //    //json
     implementation("com.fasterxml.jackson.core:jackson-core:2.18.3")

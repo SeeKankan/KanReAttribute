@@ -1,7 +1,10 @@
 package io.seekankan.github.kanreattribute.extensions
 
 import org.bukkit.Location
+import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
+import org.bukkit.inventory.ItemStack
+import kotlin.collections.forEach
 
 /**
  * 获取实体的垂直中心点（胸腔位置）。
@@ -18,4 +21,12 @@ fun LivingEntity.midpoint(): Location {
         (base.y + eye.y) * 0.5,
         (base.z + eye.z) * 0.5
     )
+}
+
+fun Entity.spawnItemStacksOnFeet(items: List<ItemStack>) {
+    items.forEach { itemStack ->
+        location.world.dropItem(location, itemStack) { item ->
+            item.setOwnerAndThrower(uniqueId)
+        }
+    }
 }

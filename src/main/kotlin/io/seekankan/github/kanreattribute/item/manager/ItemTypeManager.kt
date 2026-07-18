@@ -23,7 +23,7 @@ class ItemTypeManager(
 //    val itemTypePDCNameKey = NamespacedKey(plugin, "itemTypeName")
     val itemTypePDCKey = NamespacedKey(plugin, "itemType")
 
-    fun loadYMLItemTypes(file: File) {
+    fun fetchYMLItemTypes(file: File): List<ItemType> {
 //        val yaml = YamlConfiguration.loadConfiguration(file)
 //        yaml.getKeys(false).forEach { key ->
 //            val itemType = yaml.get(key) as ItemType
@@ -36,10 +36,8 @@ class ItemTypeManager(
         val items = itemMap.map { (_, item) ->
             item
         }
-//        items.forEach { (_, item) ->
-//            itemTypeRegistry.registerTransient(item)
-//        }
-        itemTypeRegistry.registerAll(items)
+//        itemTypeRegistry.registerAll(items)
+        return items
     }
 
     fun loadAllYMLItemTypes() {
@@ -48,18 +46,30 @@ class ItemTypeManager(
             itemDataFolder.mkdirs()
             return
         }
-        itemDataFolder.walk()
+        val items = itemDataFolder.walk()
             .filter { it.isFile }
             .filter { it.extension == "yml" }
-            .forEach { file ->
+//            .forEach { file ->
+//                try {
+//                    plugin.logger.info("Loading ItemType file ${file.absolutePath}")
+//                    fetchYMLItemTypes(file)
+//                } catch(e: Exception) {
+//                    plugin.logger.warning("Failed to load ItemType file ${file.absolutePath}")
+//                    e.printStackTrace()
+//                }
+//            }
+            .flatMap { file ->
                 try {
                     plugin.logger.info("Loading ItemType file ${file.absolutePath}")
-                    loadYMLItemTypes(file)
+                    fetchYMLItemTypes(file)
                 } catch(e: Exception) {
                     plugin.logger.warning("Failed to load ItemType file ${file.absolutePath}")
                     e.printStackTrace()
+                    emptyList()
                 }
-            }
+            }.toList()
+
+        itemTypeRegistry.registerAll(items)
     }
 
     fun getItemType(itemStack: ItemStack): ItemType? {

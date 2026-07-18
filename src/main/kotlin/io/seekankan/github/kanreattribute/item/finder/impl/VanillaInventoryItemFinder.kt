@@ -41,5 +41,5 @@ class VanillaInventoryItemFinder(
         }
     }
 
-    override val uniqueName: ItemFinderKey = itemFinderKey(plugin, "VanillaInventoryItemFinder")
+    override val uniqueName: ItemFinderKey = itemFinderKey(plugin, "vanilla_inventory_item_finder")
 }

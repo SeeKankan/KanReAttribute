@@ -10,7 +10,10 @@ import io.papermc.paper.command.brigadier.CommandSourceStack as PaperCommandSour
 class MainCommand: BrigadierRootCommand() {
     override val command: String = "kra"
     override val subCommands: List<BrigadierCommand<*>> = listOf(
-        ReloadCommand()
+        ReloadCommand(),
+        QueryCommand(),
+        AdminCommand(),
+        StateCommand()
     )
     override val requirePermissions: List<PermissionNode> = listOf(
         PermissionNode.User
@@ -21,7 +24,8 @@ class MainCommand: BrigadierRootCommand() {
     }
 
     override fun isValidExecutor(sourceStack: PaperCommandSourceStack): Boolean {
-        return sourceStack.executor != null
+//        return sourceStack.executor != null\
+        return true
     }
 
     override fun handleCommand(ctx: CommandContext<PaperCommandSourceStack>): Int {

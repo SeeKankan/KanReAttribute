@@ -45,5 +45,5 @@ class SetItemMetaHandler(
         }
     }
 
-    override val uniqueName: ItemCreateHandlerKey = itemCreateHandlerKey(plugin, "ItemLoreHandler")
+    override val uniqueName: ItemCreateHandlerKey = itemCreateHandlerKey(plugin, "item_lore_handler")
 }

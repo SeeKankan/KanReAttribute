@@ -27,5 +27,5 @@ class ItemSlotCondition(
         }
     }
 
-    override val uniqueName: ItemConditionKey = itemConditionKey(plugin, "ItemSlotCondition")
+    override val uniqueName: ItemConditionKey = itemConditionKey(plugin, "item_slot_condition")
 }

@@ -5,13 +5,14 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import io.papermc.paper.command.brigadier.Commands
+import io.seekankan.github.kanreattribute.ExecutableBrigadierCommand
 import io.seekankan.github.kanreattribute.PluginReloader
 import io.seekankan.github.kanreattribute.permission.PermissionNode
 import org.bukkit.Bukkit
 import org.koin.core.component.inject
 import java.util.logging.Logger
 
-class ReloadCommand: BrigadierCommand<LiteralArgumentBuilder<CommandSourceStack>>() {
+class ReloadCommand: ExecutableBrigadierCommand<LiteralArgumentBuilder<CommandSourceStack>>() {
     private val logger: Logger by inject()
     private val reloader: PluginReloader by inject()
 
@@ -54,5 +55,17 @@ class ReloadCommand: BrigadierCommand<LiteralArgumentBuilder<CommandSourceStack>
         }
 
         return Command.SINGLE_SUCCESS
+    }
+
+    override fun init(): LiteralArgumentBuilder<CommandSourceStack> {
+        return buildNode().requires(
+            Commands.restricted { ctx ->
+                checkRequires(ctx)
+            }
+        ).executes { ctx ->
+            handleCommand(ctx)
+        }.apply {
+            applyChildren(this)
+        }
     }
 }

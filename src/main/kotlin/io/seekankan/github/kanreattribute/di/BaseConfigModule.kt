@@ -7,6 +7,7 @@ import io.seekankan.github.kanreattribute.message.ItemLoreParser
 import io.seekankan.github.kanreattribute.message.MessageConfigHolder
 import io.seekankan.github.kanreattribute.message.MessageManager
 import io.seekankan.github.kanreattribute.message.MessageService
+import io.seekankan.github.kanreattribute.message.RegistryMessageService
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -37,6 +38,8 @@ class BaseConfigModule(
         singleOf(::MessageConfigHolder)
         singleOf(::MessageManager)
         singleOf(::MessageService)
+
+        singleOf(::RegistryMessageService)
         singleOf(::ItemLoreParser)
         singleOf(::ConfigHolder)
     }
