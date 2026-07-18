@@ -1,7 +1,6 @@
 package io.seekankan.github.kanreattribute.gui.data
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import io.seekankan.github.kanreattribute.common.AttributeType
 import io.seekankan.github.kanreattribute.common.SubAttributeKey
 import org.bukkit.Material
 

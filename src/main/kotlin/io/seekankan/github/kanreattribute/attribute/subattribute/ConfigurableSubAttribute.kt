@@ -1,7 +1,6 @@
 package io.seekankan.github.kanreattribute.attribute.subattribute
 
 import io.seekankan.github.kanreattribute.KanReAttribute
-import io.seekankan.github.kanreattribute.common.AttributeType
 import io.seekankan.github.kanreattribute.common.SubAttributeKey
 import io.seekankan.github.kanreattribute.common.key
 import io.seekankan.github.kanreattribute.common.namespace
