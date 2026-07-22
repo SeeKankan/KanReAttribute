@@ -16,7 +16,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class ListenerDamage(private val plugin: KanReAttribute): Listener, AutoRegistrable, KoinComponent {
+class DamageListener(private val plugin: KanReAttribute): Listener, AutoRegistrable, KoinComponent {
     private val attributeManager: AttributeManager by inject()
     private val eventHandleSystem: EventHandleSystem by inject()
 

@@ -2,10 +2,10 @@ package io.seekankan.github.kanreattribute.di
 
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.PluginModule
-import io.seekankan.github.kanreattribute.listener.ListenerBanShield
-import io.seekankan.github.kanreattribute.listener.ListenerCacheCleaner
-import io.seekankan.github.kanreattribute.listener.ListenerCachePlayerAttackCooldown
-import io.seekankan.github.kanreattribute.listener.ListenerDamage
+import io.seekankan.github.kanreattribute.listener.BanShieldListener
+import io.seekankan.github.kanreattribute.listener.CacheCleanerListener
+import io.seekankan.github.kanreattribute.listener.CachePlayerAttackCooldownListener
+import io.seekankan.github.kanreattribute.listener.DamageListener
 import org.bukkit.Bukkit
 import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
@@ -23,11 +23,11 @@ class ListenerModule(
     override val name: String = "ListenerModule"
 
     override val koinModule: Module  = module {
-        single { ListenerBanShield(get()) }.bindAutoReg().unregisterOnClose()
-        single { ListenerDamage(plugin) }.bindAutoReg().unregisterOnClose()
+        single { BanShieldListener(get()) }.bindAutoReg().unregisterOnClose()
+        single { DamageListener(plugin) }.bindAutoReg().unregisterOnClose()
 
-        singleOf(::ListenerCacheCleaner).bindAutoReg().unregisterOnClose()
-        singleOf(::ListenerCachePlayerAttackCooldown).bindAutoReg().unregisterOnClose()
+        singleOf(::CacheCleanerListener).bindAutoReg().unregisterOnClose()
+        singleOf(::CachePlayerAttackCooldownListener).bindAutoReg().unregisterOnClose()
     }
 
 

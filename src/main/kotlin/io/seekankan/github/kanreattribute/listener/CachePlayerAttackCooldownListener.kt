@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 
-class ListenerCachePlayerAttackCooldown(
+class CachePlayerAttackCooldownListener(
     private val playerPreAttackCooldownCache: PlayerPreAttackCooldownCache
 ): Listener, AutoRegistrable {
 
