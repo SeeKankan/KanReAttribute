@@ -11,6 +11,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule
 import io.seekankan.github.kanreattribute.PluginInfo
 import io.seekankan.github.kanreattribute.jackson.JacksonUtil.yamlMapper
+import org.checkerframework.checker.units.qual.C
 import java.io.File
 
 object JacksonUtil {
@@ -39,9 +40,13 @@ private fun ObjectMapper.applyModule(): ObjectMapper {
     configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 
     val keyedModule = KeyedModule()
+    val configurationSerializableModule = ConfigurationSerializableModule()
+
     val keyOfModule = KeyOfModule()
 
     this.registerModule(keyedModule)
+    this.registerModule(configurationSerializableModule)
+
     this.registerModule(keyOfModule)
 
 //    addMixIn(GUIType::class.java, GUITypeMixin::class.java)
