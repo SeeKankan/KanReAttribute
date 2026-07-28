@@ -4,11 +4,13 @@ import org.bukkit.NamespacedKey
 import org.bukkit.plugin.Plugin
 
 interface ItemTypeTag
+interface ItemKindDataTag
 interface ItemConditionTag
 interface ItemFinderTag
 interface ItemCreateHandlerTag
 
 typealias ItemTypeKey = NamespacedKeyOf<ItemTypeTag>
+typealias ItemKindDataKey = NamespacedKeyOf<ItemKindDataTag>
 typealias ItemConditionKey = NamespacedKeyOf<ItemConditionTag>
 typealias ItemFinderKey = NamespacedKeyOf<ItemFinderTag>
 typealias ItemCreateHandlerKey = NamespacedKeyOf<ItemCreateHandlerTag>
@@ -22,6 +24,15 @@ fun itemTypeKey(namespace: String, key: String): ItemTypeKey {
 }
 
 fun itemTypeKey(plugin: Plugin, key: String): ItemTypeKey {
+    return keyOf(plugin, key)
+}
+
+fun itemKindDataKey(namespace: String, key: String): ItemKindDataKey {
+//    return NamespacedKeyOf(NamespacedKey(namespace, key))
+    return NamespacedKeyOf(NamespacedKey(namespace, key))
+}
+
+fun itemKindDataKey(plugin: Plugin, key: String): ItemKindDataKey {
     return keyOf(plugin, key)
 }
 

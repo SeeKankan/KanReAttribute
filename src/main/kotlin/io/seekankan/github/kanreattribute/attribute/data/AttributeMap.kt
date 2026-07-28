@@ -11,7 +11,7 @@ import io.seekankan.github.kanreattribute.message.ItemStyleKey
 
 class AttributeMap(
     val map: Map<SubAttributeKey, Double> = emptyMap()
-): MutableMap<SubAttributeKey, Double> by map.toMutableMap() {
+): AttributeView, MutableMap<SubAttributeKey, Double> by map.toMutableMap() {
 
 //    constructor(map: Map<AttributeType, Double> = mapOf()): this(map.toMutableMap())
 
@@ -61,25 +61,7 @@ class AttributeMap(
 //            if(attrValue != null) subAttribute.calculateEventNumber(attrValue, this, eventData)
 //        }
 //    }
-    fun toMiniMessageLoreData(subAttributeRegistry: SubAttributeRegistry): List<Map<String, String>> {
-        return this.mapNotNull { (key, value) ->
-            val subAttribute = subAttributeRegistry.snapshot.registerableMap[key]
-            if(subAttribute == null || subAttribute !is Displayable) { //ignore non-displayable attribute
-//                mapOf(
-//                    ItemStyleKey.ATTRIBUTE_DISPLAY_NAME to key,
-//                    ItemStyleKey.ATTRIBUTE_VALUE to value.toString()
-//                )
-                null
-            } else {
-                mapOf(
-                    ItemStyleKey.ATTRIBUTE_DISPLAY_NAME to subAttribute.displayName,
-                    ItemStyleKey.ATTRIBUTE_VALUE to subAttribute.formatValue(value)
-                )
-            }
 
-        }
-
-    }
     @JsonValue
     fun toMap(): Map<SubAttributeKey, Double> {
         return map

@@ -6,3 +6,6 @@ infix fun Any?.isInstanceOf(clazz: Class<*>): Boolean {
 infix fun Class<*>.isSuperOrSelfOf(clazz: Class<*>): Boolean {
     return this.isAssignableFrom(clazz)
 }
+infix fun Class<*>.isSubOrSelfOf(clazz: Class<*>): Boolean {
+    return clazz.isAssignableFrom(this)
+}
