@@ -1,9 +1,7 @@
 package io.seekankan.github.kanreattribute.attribute.effectapplier
 
 import io.seekankan.github.kanreattribute.PluginInfo
-import io.seekankan.github.kanreattribute.attribute.subattribute.Displayable
-import io.seekankan.github.kanreattribute.attribute.subattribute.config.TypedAttributeConfig
-import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
+import io.seekankan.github.kanreattribute.attribute.data.AttributeView
 import io.seekankan.github.kanreattribute.attribute.effectapplier.config.TypedEffectApplierConfig
 import io.seekankan.github.kanreattribute.common.EffectApplierKey
 import io.seekankan.github.kanreattribute.common.key
@@ -11,7 +9,6 @@ import io.seekankan.github.kanreattribute.common.namespace
 import io.seekankan.github.kanreattribute.data.EventData
 import io.seekankan.github.kanreattribute.extensions.isInstanceOf
 import java.io.File
-import java.text.DecimalFormat
 
 abstract class TypedEffectApplier<T: EventData, E: TypedEffectApplierConfig>(
     protected val pluginInfo: PluginInfo,
@@ -68,11 +65,11 @@ abstract class TypedEffectApplier<T: EventData, E: TypedEffectApplierConfig>(
         loadConfig()
     }
 
-    final override fun applyEffect(attributes: AttributeMap, eventData: EventData) {
+    final override fun applyEffect(attributes: AttributeView, eventData: EventData) {
         if(!(eventData isInstanceOf eventDataType)) return
         eventData as T
 
         applyEffectTyped(attributes, eventData)
     }
-    abstract fun applyEffectTyped(attributes: AttributeMap, eventData: T)
+    abstract fun applyEffectTyped(attributes: AttributeView, eventData: T)
 }

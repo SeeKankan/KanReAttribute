@@ -2,9 +2,9 @@ package io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker
 
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.PluginInfo
-import io.seekankan.github.kanreattribute.attribute.subattribute.ConfigurableSubAttribute
-import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
+import io.seekankan.github.kanreattribute.attribute.data.AttributeView
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
+import io.seekankan.github.kanreattribute.attribute.subattribute.ConfigurableSubAttribute
 import io.seekankan.github.kanreattribute.attribute.util.attributeConfig
 import io.seekankan.github.kanreattribute.common.subAttributeKeyOf
 import io.seekankan.github.kanreattribute.data.EventData
@@ -28,7 +28,7 @@ class Damage(
 
     override fun calculateEventNumber(
         attrValue: Double,
-        otherAttributes: AttributeMap,
+        otherAttributes: AttributeView,
         eventData: EventData
     ) {
         if(eventData is EntityDamageEventData) {

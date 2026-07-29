@@ -7,11 +7,12 @@ data class DataCacheValue<T>(
     val complexType = type.complexType
     fun <T2> castOrNull(anotherComplexType: Class<T2>): DataCacheValue<T2>? {
         if(complexType != anotherComplexType) return null
-        val newType = type as DataType<T2>
-        val newValue = value as T2
-        return DataCacheValue(
-            newType,
-            newValue
-        )
+        return this as DataCacheValue<T2>
+//        val newType = type as DataType<T2>
+//        val newValue = value as T2
+//        return DataCacheValue(
+//            newType,
+//            newValue
+//        )
     }
 }

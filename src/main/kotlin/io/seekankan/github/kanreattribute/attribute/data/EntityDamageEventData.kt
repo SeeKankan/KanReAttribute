@@ -11,8 +11,8 @@ data class EntityDamageEventData(
     val attacker: LivingEntity,
     val defender: LivingEntity,
 
-    val attackerAttributeMap: AttributeMap,
-    val defenderAttributeMap: AttributeMap,
+    val attackerAttributeMap: AttributeView,
+    val defenderAttributeMap: AttributeView,
 
     val attackerFlagContext: FlagContext = FlagContext(),
     val defenderFlagContext: FlagContext = FlagContext()

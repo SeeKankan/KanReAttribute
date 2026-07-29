@@ -1,5 +1,6 @@
 package io.seekankan.github.kanreattribute.common
 
+import io.seekankan.github.kanreattribute.PluginInfo
 import org.bukkit.NamespacedKey
 import org.bukkit.plugin.Plugin
 
@@ -27,13 +28,13 @@ fun itemTypeKey(plugin: Plugin, key: String): ItemTypeKey {
     return keyOf(plugin, key)
 }
 
+fun itemKindDataKey(pluginInfo: PluginInfo, key: String): ItemKindDataKey {
+    return itemKindDataKey(pluginInfo.snakeCaseName, key)
+}
+
 fun itemKindDataKey(namespace: String, key: String): ItemKindDataKey {
 //    return NamespacedKeyOf(NamespacedKey(namespace, key))
     return NamespacedKeyOf(NamespacedKey(namespace, key))
-}
-
-fun itemKindDataKey(plugin: Plugin, key: String): ItemKindDataKey {
-    return keyOf(plugin, key)
 }
 
 fun itemConditionKey(plugin: Plugin, key: String): ItemConditionKey {

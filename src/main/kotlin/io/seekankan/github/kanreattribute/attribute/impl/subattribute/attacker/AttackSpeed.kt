@@ -2,7 +2,7 @@ package io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker
 
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.PluginInfo
-import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
+import io.seekankan.github.kanreattribute.attribute.data.AttributeView
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
 import io.seekankan.github.kanreattribute.attribute.subattribute.ConfigurableSubAttribute
 import io.seekankan.github.kanreattribute.attribute.util.attributeConfig
@@ -50,7 +50,7 @@ class AttackSpeed(
 
     override fun calculateEventNumber(
         attrValue: Double,
-        otherAttributes: AttributeMap,
+        otherAttributes: AttributeView,
         eventData: EventData
     ) {
         if(eventData is Player) return
@@ -69,7 +69,7 @@ class AttackSpeed(
             AttributeModifier.Operation.ADD_NUMBER
         )
     }
-    override fun onUpdate(entity: LivingEntity, attrValue: Double, otherAttributes: AttributeMap) {
+    override fun onUpdate(entity: LivingEntity, attrValue: Double, otherAttributes: AttributeView) {
         val attackSpeedAttribute = entity.getAttribute(Attribute.ATTACK_SPEED)?: return
         val modifierValue = correctValue(attrValue).divAndPow(divisor, exponent)
         val modifier = createAttackSpeedModifier(modifierValue)

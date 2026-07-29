@@ -2,7 +2,7 @@ package io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker
 
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.PluginInfo
-import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
+import io.seekankan.github.kanreattribute.attribute.data.AttributeView
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
 import io.seekankan.github.kanreattribute.attribute.data.KanAttributeFlag
 import io.seekankan.github.kanreattribute.attribute.subattribute.ConfigurableSubAttribute
@@ -25,7 +25,7 @@ class CritChance(
 //            MIN_VALUE to 0.0,
 //            MAX_VALUE to 1.0,
 //            BASE_VALUE to 0.3,
-//            DISPLAY_NAME to "<blue>暴击概率</blue>",
+//            displayName to "<blue>暴击概率</blue>",
 //            FORMATTER to Displayable.DEFAULT_PERCENT_FORMAT_CONFIG
 //        )
 //    }
@@ -45,7 +45,7 @@ class CritChance(
 
     override fun calculateEventNumber(
         attrValue: Double,
-        otherAttributes: AttributeMap,
+        otherAttributes: AttributeView,
         eventData: EventData
     ) {
         if(eventData is EntityDamageEventData) {

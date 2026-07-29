@@ -1,6 +1,6 @@
 package io.seekankan.github.kanreattribute.attribute.subattribute
 
-import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
+import io.seekankan.github.kanreattribute.attribute.data.AttributeView
 import io.seekankan.github.kanreattribute.common.SubAttributeTag
 import io.seekankan.github.kanreattribute.common.key
 import io.seekankan.github.kanreattribute.common.namespace
@@ -18,9 +18,9 @@ interface SubAttribute: Registerable<SubAttributeTag, SubAttribute> {
         }
     }
 
-    fun calculateEventNumber(attrValue: Double, otherAttributes: AttributeMap, eventData: EventData)
+    fun calculateEventNumber(attrValue: Double, otherAttributes: AttributeView, eventData: EventData)
 
-    fun onUpdate(entity: LivingEntity, attrValue: Double, otherAttributes: AttributeMap) {
+    fun onUpdate(entity: LivingEntity, attrValue: Double, otherAttributes: AttributeView) {
 
     }
 

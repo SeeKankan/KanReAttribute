@@ -31,10 +31,13 @@ inline fun <reified T> keyOf(plugin: Plugin, key: String): NamespacedKeyOf<T> {
 }
 
 inline fun <reified T> keyOf(namespace: String, key: String): NamespacedKeyOf<T> {
+//    return NamespacedKeyOf(
+//        NamespacedKey.fromString("$namespace:$key") ?: throw IllegalArgumentException(
+//            "Invalid namespaceKey: '$namespace:$key'"
+//        ))
     return NamespacedKeyOf(
-        NamespacedKey.fromString("$namespace:$key") ?: throw IllegalArgumentException(
-            "Invalid namespaceKey: '$namespace:$key'"
-        ))
+        NamespacedKey(namespace, key)
+    )
 }
 
 

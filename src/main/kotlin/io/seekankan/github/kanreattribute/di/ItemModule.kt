@@ -12,6 +12,7 @@ import io.seekankan.github.kanreattribute.item.itemcreate.ItemFactory
 import io.seekankan.github.kanreattribute.item.itemcreate.ItemMetaAssembler
 import io.seekankan.github.kanreattribute.item.itemcreate.impl.SetItemMetaHandler
 import io.seekankan.github.kanreattribute.item.itemcreate.impl.WriteItemTypeHandler
+import io.seekankan.github.kanreattribute.item.itemtype.ItemKindDataTypes
 import io.seekankan.github.kanreattribute.item.itemtype.ItemType
 import io.seekankan.github.kanreattribute.item.manager.ItemConditionManager
 import io.seekankan.github.kanreattribute.item.manager.ItemFinderManager
@@ -44,6 +45,8 @@ class ItemModule(
     private val itemFactory: ItemFactory by inject()
 
     override val koinModule: Module = module {
+        singleOf(::ItemKindDataTypes)
+
         singleOf(::ItemTypeManager)
         singleOf(::ItemFinderManager)
         singleOf(::ItemConditionManager)

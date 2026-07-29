@@ -1,11 +1,10 @@
 package io.seekankan.github.kanreattribute.attribute.impl.effectapplier
 
 import io.seekankan.github.kanreattribute.PluginInfo
-import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
+import io.seekankan.github.kanreattribute.attribute.data.AttributeView
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
 import io.seekankan.github.kanreattribute.attribute.data.KanAttributeFlag
 import io.seekankan.github.kanreattribute.attribute.data.LifeStealResult
-import io.seekankan.github.kanreattribute.attribute.effectapplier.EffectApplier
 import io.seekankan.github.kanreattribute.attribute.effectapplier.JacksonTypedEffectApplier
 import io.seekankan.github.kanreattribute.attribute.effectapplier.config.CommonEffectApplierConfig
 import io.seekankan.github.kanreattribute.attribute.effectapplier.config.TypedEffectApplierConfig
@@ -40,7 +39,7 @@ class LifeStealEffectApplier(
     }
 
     override fun applyEffectTyped(
-        attributes: AttributeMap,
+        attributes: AttributeView,
         eventData: EntityDamageEventData
     ) {
         if(eventData.stage != EntityDamageEventData.HandleStage.HANDLE_ATTACKER) return

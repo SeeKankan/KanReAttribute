@@ -1,7 +1,7 @@
 package io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker
 
 import io.seekankan.github.kanreattribute.PluginInfo
-import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
+import io.seekankan.github.kanreattribute.attribute.data.AttributeView
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
 import io.seekankan.github.kanreattribute.attribute.data.KanAttributeFlag
 import io.seekankan.github.kanreattribute.attribute.data.LifeStealResult
@@ -29,7 +29,7 @@ class LifeSteal(
 
     override fun calculateEventCorrected(
         correctedAttrValue: Double,
-        otherAttributes: AttributeMap,
+        otherAttributes: AttributeView,
         eventData: EntityDamageEventData
     ) {
         if(eventData.stage != EntityDamageEventData.HandleStage.HANDLE_ATTACKER) return

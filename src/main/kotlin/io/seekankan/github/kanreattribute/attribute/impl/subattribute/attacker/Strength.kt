@@ -2,7 +2,7 @@ package io.seekankan.github.kanreattribute.attribute.impl.subattribute.attacker
 
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.PluginInfo
-import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
+import io.seekankan.github.kanreattribute.attribute.data.AttributeView
 import io.seekankan.github.kanreattribute.attribute.data.EntityDamageEventData
 import io.seekankan.github.kanreattribute.attribute.subattribute.AttributeKeys.DIVISOR
 import io.seekankan.github.kanreattribute.attribute.subattribute.AttributeKeys.EXPONENT
@@ -39,7 +39,7 @@ class Strength(
 //            BASE_VALUE to 1.0,
 //            DIVISOR to 100.0,
 //            EXPONENT to 1.0,
-//            DISPLAY_NAME to "<red>力量倍率</red>",
+//            displayName to "<red>力量倍率</red>",
 //            FORMATTER to Displayable.DEFAULT_NUMBER_FORMAT_CONFIG,
 //        )
 //    }
@@ -58,7 +58,7 @@ class Strength(
 
     override fun calculateEventNumber(
         attrValue: Double,
-        otherAttributes: AttributeMap,
+        otherAttributes: AttributeView,
         eventData: EventData
     ) {
         if(eventData is EntityDamageEventData) {

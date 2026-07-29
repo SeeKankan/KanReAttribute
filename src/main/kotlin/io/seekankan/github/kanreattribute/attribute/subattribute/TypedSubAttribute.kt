@@ -1,7 +1,7 @@
 package io.seekankan.github.kanreattribute.attribute.subattribute
 
 import io.seekankan.github.kanreattribute.PluginInfo
-import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
+import io.seekankan.github.kanreattribute.attribute.data.AttributeView
 import io.seekankan.github.kanreattribute.attribute.subattribute.config.TypedAttributeConfig
 import io.seekankan.github.kanreattribute.common.SubAttributeKey
 import io.seekankan.github.kanreattribute.common.key
@@ -84,8 +84,8 @@ abstract class TypedSubAttribute<T: EventData, E: TypedAttributeConfig>(
         return formatter.format(value)
     }
 
-    abstract fun calculateEventCorrected(correctedAttrValue: Double, otherAttributes: AttributeMap, eventData: T)
-    override fun calculateEventNumber(attrValue: Double, otherAttributes: AttributeMap, eventData: EventData) {
+    abstract fun calculateEventCorrected(correctedAttrValue: Double, otherAttributes: AttributeView, eventData: T)
+    override fun calculateEventNumber(attrValue: Double, otherAttributes: AttributeView, eventData: EventData) {
         if(!(eventData isInstanceOf eventDataType)) return
         eventData as T
 

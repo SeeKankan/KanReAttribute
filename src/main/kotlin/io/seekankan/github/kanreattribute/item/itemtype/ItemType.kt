@@ -1,7 +1,8 @@
 package io.seekankan.github.kanreattribute.item.itemtype
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
+import io.seekankan.github.kanreattribute.attribute.data.AttributeView
+import io.seekankan.github.kanreattribute.attribute.data.ImmutableAttributeView
 import io.seekankan.github.kanreattribute.common.*
 import io.seekankan.github.kanreattribute.item.data.ItemCategory
 import io.seekankan.github.kanreattribute.item.data.ItemSlot
@@ -17,7 +18,7 @@ data class ItemType(
     @field:JsonProperty("material") val material: Material,
     @field:JsonProperty("category") val category: ItemCategory = ItemCategory.MATERIAL,
     @field:JsonProperty("slots") val slots: List<ItemSlot> = emptyList(),
-    @field:JsonProperty("attributes") val attrMap: AttributeMap = AttributeMap(),
+    @field:JsonProperty("attributes") val attrMap: AttributeView = ImmutableAttributeView(),
     @field:JsonProperty("introduction") val introduction: String? = null,
     @field:JsonProperty("lore") val lore: List<String> = emptyList(),
     @field:JsonProperty("custom-config") val customConfig: Map<String, Any> = mapOf(),

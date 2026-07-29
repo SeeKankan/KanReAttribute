@@ -2,6 +2,7 @@ package io.seekankan.github.kanreattribute.attribute
 
 import io.seekankan.github.kanreattribute.KanReAttribute
 import io.seekankan.github.kanreattribute.attribute.data.AttributeMap
+import io.seekankan.github.kanreattribute.attribute.data.AttributeView
 import io.seekankan.github.kanreattribute.coroutines.BukkitDispatcher
 import io.seekankan.github.kanreattribute.coroutines.annotation.LaunchesCoroutine
 import io.seekankan.github.kanreattribute.registry.impl.AttributeCalculatorRegistry
@@ -31,25 +32,19 @@ class AttributeManager(
 //        cache.unregisterListener()
     }
 
-    fun computeLivingEntityAttribute(entity: LivingEntity): AttributeMap {
+    fun computeLivingEntityAttribute(entity: LivingEntity): AttributeView {
         val entityAttributeMap = AttributeMap()
         attributeCalculatorRegistry.snapshot.pipeline.forEach { calculator ->
             calculator.calculate(entity, entityAttributeMap)
         }
         return entityAttributeMap
     }
-    fun triggerAttributeUpdate(entity: LivingEntity, attributeMap: AttributeMap) {
+    fun triggerAttributeUpdate(entity: LivingEntity, attributeMap: AttributeView) {
         subAttributeRegistry.snapshot.pipeline.forEach { subAttribute ->
             subAttribute.onUpdate(entity, attributeMap.getOrDefault(subAttribute.uniqueName, 0.0), attributeMap)
         }
     }
-    fun getLivingEntityAttribute(entity: LivingEntity): AttributeMap {
-//        if(!entity.hasMetadata(ATTRIBUTE_CACHE_KEY)) {
-//            val attrMap = computeLivingEntityAttribute(entity)
-//            entity.setMetadata(ATTRIBUTE_CACHE_KEY, FixedMetadataValue(plugin, attrMap))
-//            return attrMap
-//        }
-//        return entity.getMetadata(ATTRIBUTE_CACHE_KEY)[0].value() as AttributeMap
+    fun getLivingEntityAttribute(entity: LivingEntity): AttributeView {
         return attributeCache.computeIfAbsent(entity) {
             val attrMap = computeLivingEntityAttribute(entity)
             triggerAttributeUpdate(entity, attrMap)
@@ -63,7 +58,7 @@ class AttributeManager(
             refreshLivingEntityAttribute(entity)
         }
     }
-    fun refreshLivingEntityAttribute(entity: LivingEntity): AttributeMap {
+    fun refreshLivingEntityAttribute(entity: LivingEntity): AttributeView {
         val newAttribute = computeLivingEntityAttribute(entity)
         attributeCache[entity] = newAttribute
         triggerAttributeUpdate(entity, newAttribute)
