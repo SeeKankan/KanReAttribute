@@ -66,6 +66,13 @@ shadowJar {
     relocate 'org.jetbrains', 'io.seekankan.github.kanreattribute.shaded.jetbrains'
     relocate 'com.fasterxml', 'io.seekankan.github.kanreattribute.shaded.com.fasterxml'
 
+    //exposed
+    relocate 'org.jetbrains.exposed', 'io.seekankan.github.kanreattribute.shaded.exposed'
+
+
+    //sqlite
+    relocate 'com.zaxxer.hikari', 'io.seekankan.github.kanreattribute.shaded.hikari'
+    relocate 'org.sqlite', 'io.seekankan.github.kanreattribute.shaded.sqlite'
 
     //Adventure api
 //    relocate 'net.kyori', 'io.seekankan.github.kanreattribute.shaded.kyori'
@@ -176,6 +183,15 @@ dependencies {
 
     //logger
     implementation("org.slf4j:slf4j-api:2.0.18")
+
+    //exposed
+    def exposedVersion = "1.3.1"
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+
+    //sqlite
+    implementation("org.xerial:sqlite-jdbc:3.53.2.0")
 
     //test dependencies
     //junit
